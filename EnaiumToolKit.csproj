@@ -43,8 +43,15 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Gui\TestScreen.cs" />
         <Compile Include="ModEntry.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Screen\Elements\Button.cs" />
+        <Compile Include="Screen\Elements\Element.cs" />
+        <Compile Include="Screen\Elements\Toggle.cs" />
+        <Compile Include="Screen\ScreenGui.cs" />
+        <Compile Include="Utils\FontUtils.cs" />
+        <Compile Include="Utils\Render2DUtils.cs" />
     </ItemGroup>
     <ItemGroup>
       <Content Include=".gitignore" />
