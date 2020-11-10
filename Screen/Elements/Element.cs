@@ -14,6 +14,10 @@ namespace EnaiumToolKit.Screen.Elements
         public int height = 75;
         public String title;
         public String description;
+        
+        public Action onLeftClicked = () => { };
+        public Action onLeftReleased = () => { };
+        public Action onRightClicked = () => { };
 
         public Element(String title, String description)
         {
@@ -28,14 +32,17 @@ namespace EnaiumToolKit.Screen.Elements
 
         public virtual void mouseLeftClicked(int x, int y)
         {
+            onLeftClicked.Invoke();
         }
 
         public virtual void mouseLeftReleased(int x, int y)
         {
+            onLeftReleased.Invoke();
         }
 
         public virtual void mouseRightClicked(int x, int y)
         {
+            onRightClicked.Invoke();
         }
     }
 }

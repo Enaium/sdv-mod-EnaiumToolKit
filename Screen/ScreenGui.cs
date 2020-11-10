@@ -40,8 +40,12 @@ namespace EnaiumToolKit.Screen
                     VARIABLE.render(b, xPositionOnScreen + 15, y + j * 78);
                     if (VARIABLE.hovered)
                     {
-                        drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 396, 15, 15), 0, 0, FontUtils.getWidth(VARIABLE.description), FontUtils.getHeight(VARIABLE.description), Color.Wheat, 4f, false);
-                        FontUtils.draw(b, VARIABLE.description, 0, 0);
+
+                        int descriptionWidth = FontUtils.getWidth(VARIABLE.description) + 50;
+                        int descriptionHeight = FontUtils.getHeight(VARIABLE.description) + 50;
+
+                        drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 396, 15, 15), 0, 0, descriptionWidth, descriptionHeight, Color.Wheat, 4f, false);
+                        FontUtils.drawHVCentered(b, VARIABLE.description, descriptionWidth / 2, descriptionHeight / 2);
                     }
                 }
             }

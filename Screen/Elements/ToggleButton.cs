@@ -6,11 +6,11 @@ using StardewValley;
 
 namespace EnaiumToolKit.Screen.Elements
 {
-    public class Toggle : Element
+    public class ToggleButton : Element
     {
         private Boolean toggled;
 
-        public Toggle(String title, String description, Boolean toggled) : base(title, description)
+        public ToggleButton(String title, String description, Boolean toggled = false) : base(title, description)
         {
             this.toggled = toggled;
         }
@@ -38,32 +38,13 @@ namespace EnaiumToolKit.Screen.Elements
             Render2DUtils.drawRect(b, x, y, width, height, color);
             FontUtils.drawHVCentered(b, title, x + width / 2, y + height / 2);
         }
-
-        public Action onLeftClicked = () => { };
-
+        
         public override void mouseLeftClicked(int x, int y)
         {
             toggled = !toggled;
-            onLeftClicked.Invoke();
             base.mouseLeftClicked(x, y);
         }
-
-        public Action onLeftReleased = () => { };
-
-        public override void mouseLeftReleased(int x, int y)
-        {
-            onLeftReleased.Invoke();
-            base.mouseLeftReleased(x, y);
-        }
-
-        public Action onRightClicked = () => { };
-
-        public override void mouseRightClicked(int x, int y)
-        {
-            onRightClicked.Invoke();
-            base.mouseRightClicked(x, y);
-        }
-
+        
         public Boolean getToggled()
         {
             return toggled;
