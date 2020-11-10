@@ -1,4 +1,4 @@
-﻿using EnaiumToolKit.Gui;
+﻿using EnaiumToolKit.Framework.Gui;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -21,7 +21,7 @@ namespace EnaiumToolKit
 
         private void onButtonPress(object sender, ButtonPressedEventArgs e)
         {
-            if (e.Button == SButton.O)
+            if (e.Button == SButton.F12)
             {
                 Game1.activeClickableMenu = new TestScreen();
             }

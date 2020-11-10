@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
 
-namespace EnaiumToolKit.Utils
+namespace EnaiumToolKit.Framework.Utils
 {
     public class Render2DUtils
     {
