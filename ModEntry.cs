@@ -7,11 +7,11 @@ namespace EnaiumToolKit
 {
     public class ModEntry : Mod
     {
-        private static ModEntry instance;
+        private static ModEntry _instance;
 
         public ModEntry()
         {
-            instance = this;
+            _instance = this;
         }
 
         public override void Entry(IModHelper helper)
@@ -27,9 +27,9 @@ namespace EnaiumToolKit
             }
         }
 
-        public static ModEntry getInstance()
+        public static ModEntry GetInstance()
         {
-            return instance;
+            return _instance;
         }
     }
 }
