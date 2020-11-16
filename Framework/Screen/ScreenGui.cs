@@ -15,8 +15,9 @@ namespace EnaiumToolKit.Framework.Screen
         private List<Element> _elements;
         private int _index;
         private int _maxElement;
-        private B up;
-        private B down;
+        private B _up;
+        private B _down;
+        private B _close;
 
         public ScreenGui()
         {
@@ -28,27 +29,33 @@ namespace EnaiumToolKit.Framework.Screen
             var centeringOnScreen = Utility.getTopLeftPositionForCenteringOnScreen(width, height);
             xPositionOnScreen = (int) centeringOnScreen.X;
             yPositionOnScreen = (int) centeringOnScreen.Y + 32;
-            up = new B(xPositionOnScreen + width + 30, yPositionOnScreen, () =>
+            const int buttonSize = 60;
+            _up = new B("U", xPositionOnScreen + width + buttonSize, yPositionOnScreen, buttonSize, () =>
             {
                 if (_index > 0)
                 {
                     _index--;
                 }
             });
-            down = new B(xPositionOnScreen + width + 30, yPositionOnScreen + height - 30, () =>
-            {
-                if (_index + (_elements.Count >= _maxElement ? _maxElement : _elements.Count) <
-                    _elements.Count)
+            _down = new B("D", xPositionOnScreen + width + buttonSize, yPositionOnScreen + height - buttonSize,
+                buttonSize,
+                () =>
                 {
-                    _index++;
-                }
-            });
+                    if (_index + (_elements.Count >= _maxElement ? _maxElement : _elements.Count) <
+                        _elements.Count)
+                    {
+                        _index++;
+                    }
+                });
+            _close = new B("C", Game1.viewport.Width - buttonSize, 0, buttonSize,
+                () => { Game1.activeClickableMenu = null; });
         }
 
         public override void draw(SpriteBatch b)
         {
-            up.Render(b);
-            down.Render(b);
+            _up.Render(b);
+            _down.Render(b);
+            _close.Render(b);
             drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 373, 18, 18), xPositionOnScreen, yPositionOnScreen,
                 width, height, Color.White, 4f);
             var y = yPositionOnScreen + 20;
@@ -81,8 +88,9 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void receiveLeftClick(int x, int y, bool playSound)
         {
-            up.MouseLeftClicked();
-            down.MouseLeftClicked();
+            _up.MouseLeftClicked();
+            _down.MouseLeftClicked();
+            _close.MouseLeftClicked();
             foreach (var variable in _elements)
             {
                 if (variable.Visibled && variable.Enabled && variable.Hovered)
@@ -149,22 +157,27 @@ namespace EnaiumToolKit.Framework.Screen
 
     public class B
     {
+        private string _title;
         private int _x;
         private int _y;
+        private int _buttonSize;
         private Action _onLeftClicked;
         private bool _hovered;
 
-        public B(int x, int y, Action onLeftClicked)
+        public B(string title, int x, int y, int buttonSize, Action onLeftClicked)
         {
+            _title = title;
             _x = x;
             _y = y;
+            _buttonSize = buttonSize;
             _onLeftClicked = onLeftClicked;
         }
 
         public void Render(SpriteBatch b)
         {
-            _hovered = Render2DUtils.isHovered(Game1.getMouseX(), Game1.getMouseY(), _x, _y, 30, 30);
-            Render2DUtils.drawRect(b, _x, _y, 30, 30, _hovered ? Color.Wheat : Color.White);
+            _hovered = Render2DUtils.isHovered(Game1.getMouseX(), Game1.getMouseY(), _x, _y, _buttonSize, _buttonSize);
+            Render2DUtils.drawRect(b, _x, _y, 60, 60, _hovered ? Color.Wheat : Color.White);
+            FontUtils.DrawHvCentered(b, _title, _x + _buttonSize / 2, _y + _buttonSize / 2);
         }
 
         public void MouseLeftClicked()
