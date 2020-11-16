@@ -51,6 +51,8 @@ namespace EnaiumToolKit.Framework.Screen
                 }
             }
 
+            const string text = "EnaiumToolKit By Enaium";
+            FontUtils.Draw(b, text, 0, Game1.viewport.Height - FontUtils.GetHeight(text));
             drawMouse(b);
             base.draw(b);
         }

@@ -7,16 +7,12 @@ namespace EnaiumToolKit.Framework.Screen.Elements
 {
     public class ValueButton : Element
     {
-        private int _current;
-        private int min;
-        private int max;
+        public int Current;
+        public int Min;
+        public int Max;
 
-        public ValueButton(string title, string description, int current, int min, int max) : base(title,
-            description)
+        public ValueButton(string title, string description) : base(title, description)
         {
-            this._current = current;
-            this.min = min;
-            this.max = max;
         }
 
         public override void Render(SpriteBatch b, int x, int y)
@@ -24,14 +20,14 @@ namespace EnaiumToolKit.Framework.Screen.Elements
             Hovered = Render2DUtils.isHovered(Game1.getMouseX(), Game1.getMouseY(), x, y, Width, Height);
 
             Render2DUtils.drawRect(b, x, y, Width, Height, Hovered ? Color.Wheat : Color.White);
-            FontUtils.DrawHvCentered(b, $"{Title}:({min}-{max}){_current}", x + Width / 2, y + Height / 2);
+            FontUtils.DrawHvCentered(b, $"{Title}:({Min}-{Max}){Current}", x + Width / 2, y + Height / 2);
         }
 
         public override void MouseLeftClicked(int x, int y)
         {
-            if (_current < max)
+            if (Current < Max)
             {
-                _current += 1;
+                Current += 1;
             }
 
             base.MouseLeftClicked(x, y);
@@ -39,9 +35,9 @@ namespace EnaiumToolKit.Framework.Screen.Elements
 
         public override void MouseRightClicked(int x, int y)
         {
-            if (_current > min)
+            if (Current > Min)
             {
-                _current -= 1;
+                Current -= 1;
             }
 
             base.MouseRightClicked(x, y);
