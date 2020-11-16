@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EnaiumToolKit.Framework.Screen.Elements;
 using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -13,6 +15,8 @@ namespace EnaiumToolKit.Framework.Screen
         private List<Element> _elements;
         private int _index;
         private int _maxElement;
+        private B up;
+        private B down;
 
         public ScreenGui()
         {
@@ -24,10 +28,27 @@ namespace EnaiumToolKit.Framework.Screen
             var centeringOnScreen = Utility.getTopLeftPositionForCenteringOnScreen(width, height);
             xPositionOnScreen = (int) centeringOnScreen.X;
             yPositionOnScreen = (int) centeringOnScreen.Y + 32;
+            up = new B(xPositionOnScreen + width + 30, yPositionOnScreen, () =>
+            {
+                if (_index > 0)
+                {
+                    _index--;
+                }
+            });
+            down = new B(xPositionOnScreen + width + 30, yPositionOnScreen + height - 30, () =>
+            {
+                if (_index + (_elements.Count >= _maxElement ? _maxElement : _elements.Count) <
+                    _elements.Count)
+                {
+                    _index++;
+                }
+            });
         }
 
         public override void draw(SpriteBatch b)
         {
+            up.Render(b);
+            down.Render(b);
             drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 373, 18, 18), xPositionOnScreen, yPositionOnScreen,
                 width, height, Color.White, 4f);
             var y = yPositionOnScreen + 20;
@@ -53,12 +74,15 @@ namespace EnaiumToolKit.Framework.Screen
 
             const string text = "EnaiumToolKit By Enaium";
             FontUtils.Draw(b, text, 0, Game1.viewport.Height - FontUtils.GetHeight(text));
+
             drawMouse(b);
             base.draw(b);
         }
 
         public override void receiveLeftClick(int x, int y, bool playSound)
         {
+            up.MouseLeftClicked();
+            down.MouseLeftClicked();
             foreach (var variable in _elements)
             {
                 if (variable.Visibled && variable.Enabled && variable.Hovered)
@@ -120,6 +144,36 @@ namespace EnaiumToolKit.Framework.Screen
         public void AddElementRange(params Element[] element)
         {
             _elements.AddRange(element);
+        }
+    }
+
+    public class B
+    {
+        private int _x;
+        private int _y;
+        private Action _onLeftClicked;
+        private bool _hovered;
+
+        public B(int x, int y, Action onLeftClicked)
+        {
+            _x = x;
+            _y = y;
+            _onLeftClicked = onLeftClicked;
+        }
+
+        public void Render(SpriteBatch b)
+        {
+            _hovered = Render2DUtils.isHovered(Game1.getMouseX(), Game1.getMouseY(), _x, _y, 30, 30);
+            Render2DUtils.drawRect(b, _x, _y, 30, 30, _hovered ? Color.Wheat : Color.White);
+        }
+
+        public void MouseLeftClicked()
+        {
+            if (_hovered)
+            {
+                Game1.playSound("drumkit6");
+                _onLeftClicked.Invoke();
+            }
         }
     }
 }
