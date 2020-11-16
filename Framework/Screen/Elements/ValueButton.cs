@@ -29,6 +29,10 @@ namespace EnaiumToolKit.Framework.Screen.Elements
             {
                 Current += 1;
             }
+            else
+            {
+                Current = Min;
+            }
 
             base.MouseLeftClicked(x, y);
         }
@@ -38,6 +42,10 @@ namespace EnaiumToolKit.Framework.Screen.Elements
             if (Current > Min)
             {
                 Current -= 1;
+            }
+            else
+            {
+                Current = Max;
             }
 
             base.MouseRightClicked(x, y);
