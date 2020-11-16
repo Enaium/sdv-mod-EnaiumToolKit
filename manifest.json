@@ -1,10 +1,10 @@
 ﻿{
   "Name": "EnaiumToolKit",
   "Author": "Enaium",
-  "Version": "1.0.0",
+  "Version": "1.1.0",
   "Description": "Enaium's Toolkit",
   "UniqueID": "Enaium.EnaiumToolKit",
   "EntryDll": "EnaiumToolKit.dll",
-  "MinimumApiVersion": "3.7.5",
+  "MinimumApiVersion": "3.7.0",
   "UpdateKeys": ["GitHub:Enaium-StardewValleyMods/EnaiumToolKit"]
 }

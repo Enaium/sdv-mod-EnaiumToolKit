@@ -8,11 +8,10 @@ namespace EnaiumToolKit.Framework.Screen.Elements
 {
     public class ToggleButton : Element
     {
-        private bool _toggled;
+        public bool Toggled;
 
-        public ToggleButton(string title, string description, bool toggled = false) : base(title, description)
+        public ToggleButton(string title, string description) : base(title, description)
         {
-            _toggled = toggled;
         }
 
         public override void Render(SpriteBatch b, int x, int y)
@@ -21,7 +20,7 @@ namespace EnaiumToolKit.Framework.Screen.Elements
 
             Color color;
 
-            if (_toggled)
+            if (Toggled)
             {
                 color = Color.Green;
             }
@@ -41,13 +40,8 @@ namespace EnaiumToolKit.Framework.Screen.Elements
 
         public override void MouseLeftClicked(int x, int y)
         {
-            _toggled = !_toggled;
+            Toggled = !Toggled;
             base.MouseLeftClicked(x, y);
-        }
-
-        public bool GetToggled()
-        {
-            return _toggled;
         }
     }
 }
