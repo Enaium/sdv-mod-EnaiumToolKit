@@ -33,6 +33,13 @@ namespace EnaiumToolKit.Framework.Gui
             {
                 Current = 1, Min = 1, Max = 10
             });
+            ColorSelect colorSelect = new ColorSelect("ColorSelect", "ColorSelect");
+            colorSelect.OnLeftClicked = () =>
+            {
+                ModEntry.GetInstance().Monitor
+                    .Log(colorSelect.GetColorFromSelection(colorSelect.Color) + "", LogLevel.Debug);
+            };
+            AddElement(colorSelect);
         }
     }
 }
