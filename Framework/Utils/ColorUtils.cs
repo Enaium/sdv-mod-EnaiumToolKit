@@ -20,31 +20,31 @@ namespace EnaiumToolKit.Framework.Utils
         private ColorUtils()
         {
             Colors.Add(new ColorUtils(NameType.Gainsboro, new Color(220, 220, 220)));
-            Colors.Add(new ColorUtils(NameType.Lightgray, new Color(211, 211, 211)));
+            Colors.Add(new ColorUtils(NameType.LightGray, new Color(211, 211, 211)));
             Colors.Add(new ColorUtils(NameType.Silver, new Color(192, 192, 192)));
-            Colors.Add(new ColorUtils(NameType.Darkgray, new Color(169, 169, 169)));
+            Colors.Add(new ColorUtils(NameType.DarkGray, new Color(169, 169, 169)));
             Colors.Add(new ColorUtils(NameType.Gray, new Color(128, 128, 128)));
-            Colors.Add(new ColorUtils(NameType.Dimgray, new Color(105, 105, 105)));
-            Colors.Add(new ColorUtils(NameType.Lightslategray, new Color(119, 136, 153)));
-            Colors.Add(new ColorUtils(NameType.Slategray, new Color(112, 128, 144)));
-            Colors.Add(new ColorUtils(NameType.Darkslategray, new Color(47, 79, 79)));
+            Colors.Add(new ColorUtils(NameType.DimGray, new Color(105, 105, 105)));
+            Colors.Add(new ColorUtils(NameType.LightSlateGray, new Color(119, 136, 153)));
+            Colors.Add(new ColorUtils(NameType.SlateGray, new Color(112, 128, 144)));
+            Colors.Add(new ColorUtils(NameType.DarkSlateGray, new Color(47, 79, 79)));
             Colors.Add(new ColorUtils(NameType.Black, new Color(0, 0, 0)));
-            Colors.Add(new ColorUtils(NameType.Indianred, new Color(205, 92, 92)));
-            Colors.Add(new ColorUtils(NameType.Lightcoral, new Color(240, 128, 128)));
+            Colors.Add(new ColorUtils(NameType.IndianRed, new Color(205, 92, 92)));
+            Colors.Add(new ColorUtils(NameType.LightCoral, new Color(240, 128, 128)));
             Colors.Add(new ColorUtils(NameType.Salmon, new Color(250, 128, 114)));
-            Colors.Add(new ColorUtils(NameType.Darksalmon, new Color(233, 150, 122)));
-            Colors.Add(new ColorUtils(NameType.Lightsalmon, new Color(255, 160, 122)));
+            Colors.Add(new ColorUtils(NameType.DarkSalmon, new Color(233, 150, 122)));
+            Colors.Add(new ColorUtils(NameType.LightSalmon, new Color(255, 160, 122)));
             Colors.Add(new ColorUtils(NameType.Crimson, new Color(220, 20, 60)));
             Colors.Add(new ColorUtils(NameType.Red, new Color(255, 0, 0)));
             Colors.Add(new ColorUtils(NameType.Firebrick, new Color(178, 34, 34)));
-            Colors.Add(new ColorUtils(NameType.Darkred, new Color(139, 0, 0)));
+            Colors.Add(new ColorUtils(NameType.DarkRed, new Color(139, 0, 0)));
             Colors.Add(new ColorUtils(NameType.Coral, new Color(255, 127, 80)));
             Colors.Add(new ColorUtils(NameType.Tomato, new Color(255, 99, 71)));
-            Colors.Add(new ColorUtils(NameType.Orangered, new Color(255, 69, 0)));
+            Colors.Add(new ColorUtils(NameType.OrangeRed, new Color(255, 69, 0)));
             Colors.Add(new ColorUtils(NameType.Darkorange, new Color(255, 140, 0)));
             Colors.Add(new ColorUtils(NameType.Orange, new Color(255, 165, 0)));
             Colors.Add(new ColorUtils(NameType.Cornsilk, new Color(255, 248, 220)));
-            Colors.Add(new ColorUtils(NameType.Blanchedalmond, new Color(255, 235, 205)));
+            Colors.Add(new ColorUtils(NameType.BlanchedAlmond, new Color(255, 235, 205)));
             Colors.Add(new ColorUtils(NameType.Bisque, new Color(255, 228, 196)));
             Colors.Add(new ColorUtils(NameType.Navajowhite, new Color(255, 222, 173)));
             Colors.Add(new ColorUtils(NameType.Wheat, new Color(245, 222, 179)));
@@ -68,52 +68,52 @@ namespace EnaiumToolKit.Framework.Utils
             Colors.Add(new ColorUtils(NameType.Turquoise, new Color(64, 224, 208)));
             Colors.Add(new ColorUtils(NameType.Mediumturquoise, new Color(72, 209, 204)));
             Colors.Add(new ColorUtils(NameType.Darkturquoise, new Color(0, 206, 209)));
-            Colors.Add(new ColorUtils(NameType.Cadetblue, new Color(95, 158, 160)));
-            Colors.Add(new ColorUtils(NameType.Steelblue, new Color(70, 130, 180)));
-            Colors.Add(new ColorUtils(NameType.Lightsteelblue, new Color(176, 196, 222)));
-            Colors.Add(new ColorUtils(NameType.Powderblue, new Color(176, 224, 230)));
-            Colors.Add(new ColorUtils(NameType.Lightblue, new Color(173, 216, 230)));
-            Colors.Add(new ColorUtils(NameType.Skyblue, new Color(135, 206, 235)));
-            Colors.Add(new ColorUtils(NameType.Lightskyblue, new Color(135, 206, 250)));
-            Colors.Add(new ColorUtils(NameType.Deepskyblue, new Color(0, 191, 255)));
-            Colors.Add(new ColorUtils(NameType.Dodgerblue, new Color(30, 144, 255)));
-            Colors.Add(new ColorUtils(NameType.Cornflowerblue, new Color(100, 149, 237)));
-            Colors.Add(new ColorUtils(NameType.Mediumslateblue, new Color(123, 104, 238)));
-            Colors.Add(new ColorUtils(NameType.Royalblue, new Color(65, 105, 225)));
+            Colors.Add(new ColorUtils(NameType.CadetBlue, new Color(95, 158, 160)));
+            Colors.Add(new ColorUtils(NameType.SteelBlue, new Color(70, 130, 180)));
+            Colors.Add(new ColorUtils(NameType.LightSteelBlue, new Color(176, 196, 222)));
+            Colors.Add(new ColorUtils(NameType.PowderBlue, new Color(176, 224, 230)));
+            Colors.Add(new ColorUtils(NameType.LightBlue, new Color(173, 216, 230)));
+            Colors.Add(new ColorUtils(NameType.SkyBlue, new Color(135, 206, 235)));
+            Colors.Add(new ColorUtils(NameType.LightSkyBlue, new Color(135, 206, 250)));
+            Colors.Add(new ColorUtils(NameType.DeepSkyBlue, new Color(0, 191, 255)));
+            Colors.Add(new ColorUtils(NameType.DodgerBlue, new Color(30, 144, 255)));
+            Colors.Add(new ColorUtils(NameType.CornflowerBlue, new Color(100, 149, 237)));
+            Colors.Add(new ColorUtils(NameType.MediumSlateBlue, new Color(123, 104, 238)));
+            Colors.Add(new ColorUtils(NameType.RoyalBlue, new Color(65, 105, 225)));
             Colors.Add(new ColorUtils(NameType.Blue, new Color(0, 0, 255)));
-            Colors.Add(new ColorUtils(NameType.Mediumblue, new Color(0, 0, 205)));
-            Colors.Add(new ColorUtils(NameType.Darkblue, new Color(0, 0, 139)));
+            Colors.Add(new ColorUtils(NameType.MediumBlue, new Color(0, 0, 205)));
+            Colors.Add(new ColorUtils(NameType.DarkBlue, new Color(0, 0, 139)));
             Colors.Add(new ColorUtils(NameType.Navy, new Color(0, 0, 128)));
-            Colors.Add(new ColorUtils(NameType.Midnightblue, new Color(25, 25, 112)));
-            Colors.Add(new ColorUtils(NameType.Greenyellow, new Color(173, 255, 47)));
+            Colors.Add(new ColorUtils(NameType.MidnightBlue, new Color(25, 25, 112)));
+            Colors.Add(new ColorUtils(NameType.GreenYellow, new Color(173, 255, 47)));
             Colors.Add(new ColorUtils(NameType.Chartreuse, new Color(127, 255, 0)));
-            Colors.Add(new ColorUtils(NameType.Lawngreen, new Color(124, 252, 0)));
+            Colors.Add(new ColorUtils(NameType.LawnGreen, new Color(124, 252, 0)));
             Colors.Add(new ColorUtils(NameType.Lime, new Color(0, 255, 0)));
-            Colors.Add(new ColorUtils(NameType.Limegreen, new Color(50, 205, 50)));
-            Colors.Add(new ColorUtils(NameType.Palegreen, new Color(152, 251, 152)));
-            Colors.Add(new ColorUtils(NameType.Lightgreen, new Color(144, 238, 144)));
-            Colors.Add(new ColorUtils(NameType.Mediumspringgreen, new Color(0, 250, 154)));
-            Colors.Add(new ColorUtils(NameType.Springgreen, new Color(0, 255, 127)));
-            Colors.Add(new ColorUtils(NameType.Mediumseagreen, new Color(60, 179, 113)));
-            Colors.Add(new ColorUtils(NameType.Seagreen, new Color(46, 139, 87)));
-            Colors.Add(new ColorUtils(NameType.Forestgreen, new Color(34, 139, 34)));
+            Colors.Add(new ColorUtils(NameType.LimeGreen, new Color(50, 205, 50)));
+            Colors.Add(new ColorUtils(NameType.PaleGreen, new Color(152, 251, 152)));
+            Colors.Add(new ColorUtils(NameType.LightGreen, new Color(144, 238, 144)));
+            Colors.Add(new ColorUtils(NameType.MediumSpringGreen, new Color(0, 250, 154)));
+            Colors.Add(new ColorUtils(NameType.SpringGreen, new Color(0, 255, 127)));
+            Colors.Add(new ColorUtils(NameType.MediumSeaGreen, new Color(60, 179, 113)));
+            Colors.Add(new ColorUtils(NameType.SeaGreen, new Color(46, 139, 87)));
+            Colors.Add(new ColorUtils(NameType.ForestGreen, new Color(34, 139, 34)));
             Colors.Add(new ColorUtils(NameType.Green, new Color(0, 128, 0)));
-            Colors.Add(new ColorUtils(NameType.Darkgreen, new Color(0, 100, 0)));
-            Colors.Add(new ColorUtils(NameType.Yellowgreen, new Color(154, 205, 50)));
+            Colors.Add(new ColorUtils(NameType.DarkGreen, new Color(0, 100, 0)));
+            Colors.Add(new ColorUtils(NameType.YellowGreen, new Color(154, 205, 50)));
             Colors.Add(new ColorUtils(NameType.Olivedrab, new Color(107, 142, 35)));
             Colors.Add(new ColorUtils(NameType.Olive, new Color(128, 128, 0)));
-            Colors.Add(new ColorUtils(NameType.Darkolivegreen, new Color(85, 107, 47)));
+            Colors.Add(new ColorUtils(NameType.DarkOliveGreen, new Color(85, 107, 47)));
             Colors.Add(new ColorUtils(NameType.Mediumaquamarine, new Color(102, 205, 170)));
-            Colors.Add(new ColorUtils(NameType.Darkseagreen, new Color(143, 188, 139)));
-            Colors.Add(new ColorUtils(NameType.Lightseagreen, new Color(32, 178, 170)));
+            Colors.Add(new ColorUtils(NameType.DarkSeaGreen, new Color(143, 188, 139)));
+            Colors.Add(new ColorUtils(NameType.LightSeaGreen, new Color(32, 178, 170)));
             Colors.Add(new ColorUtils(NameType.Darkcyan, new Color(0, 139, 139)));
             Colors.Add(new ColorUtils(NameType.Teal, new Color(0, 128, 128)));
             Colors.Add(new ColorUtils(NameType.Pink, new Color(255, 192, 203)));
             Colors.Add(new ColorUtils(NameType.Lightpink, new Color(255, 182, 193)));
             Colors.Add(new ColorUtils(NameType.Hotpink, new Color(255, 105, 180)));
             Colors.Add(new ColorUtils(NameType.Deeppink, new Color(255, 20, 147)));
-            Colors.Add(new ColorUtils(NameType.Mediumvioletred, new Color(199, 21, 133)));
-            Colors.Add(new ColorUtils(NameType.Palevioletred, new Color(219, 112, 147)));
+            Colors.Add(new ColorUtils(NameType.MediumVioletRed, new Color(199, 21, 133)));
+            Colors.Add(new ColorUtils(NameType.PaleVioletRed, new Color(219, 112, 147)));
             Colors.Add(new ColorUtils(NameType.Lavender, new Color(230, 230, 250)));
             Colors.Add(new ColorUtils(NameType.Thistle, new Color(216, 191, 216)));
             Colors.Add(new ColorUtils(NameType.Plum, new Color(221, 160, 221)));
@@ -130,14 +130,14 @@ namespace EnaiumToolKit.Framework.Utils
             Colors.Add(new ColorUtils(NameType.Darkmagenta, new Color(139, 0, 139)));
             Colors.Add(new ColorUtils(NameType.Purple, new Color(128, 0, 128)));
             Colors.Add(new ColorUtils(NameType.Indigo, new Color(75, 0, 130)));
-            Colors.Add(new ColorUtils(NameType.Slateblue, new Color(106, 90, 205)));
-            Colors.Add(new ColorUtils(NameType.Darkslateblue, new Color(72, 61, 139)));
+            Colors.Add(new ColorUtils(NameType.SlateBlue, new Color(106, 90, 205)));
+            Colors.Add(new ColorUtils(NameType.DarkSlateBlue, new Color(72, 61, 139)));
             Colors.Add(new ColorUtils(NameType.White, new Color(255, 255, 255)));
             Colors.Add(new ColorUtils(NameType.Snow, new Color(255, 250, 250)));
             Colors.Add(new ColorUtils(NameType.Honeydew, new Color(240, 255, 240)));
             Colors.Add(new ColorUtils(NameType.Mintcream, new Color(245, 255, 250)));
             Colors.Add(new ColorUtils(NameType.Azure, new Color(240, 255, 255)));
-            Colors.Add(new ColorUtils(NameType.Aliceblue, new Color(240, 248, 255)));
+            Colors.Add(new ColorUtils(NameType.AliceBlue, new Color(240, 248, 255)));
             Colors.Add(new ColorUtils(NameType.Ghostwhite, new Color(248, 248, 255)));
             Colors.Add(new ColorUtils(NameType.Whitesmoke, new Color(245, 245, 245)));
             Colors.Add(new ColorUtils(NameType.Seashell, new Color(255, 245, 238)));
@@ -151,15 +151,15 @@ namespace EnaiumToolKit.Framework.Utils
             Colors.Add(new ColorUtils(NameType.Mistyrose, new Color(255, 228, 225)));
             Colors.Add(new ColorUtils(NameType.Gold, new Color(255, 215, 0)));
             Colors.Add(new ColorUtils(NameType.Yellow, new Color(255, 255, 0)));
-            Colors.Add(new ColorUtils(NameType.Lightyellow, new Color(255, 255, 224)));
-            Colors.Add(new ColorUtils(NameType.Lemonchiffon, new Color(255, 250, 205)));
-            Colors.Add(new ColorUtils(NameType.Lightgoldenrodyellow, new Color(250, 250, 210)));
+            Colors.Add(new ColorUtils(NameType.LightYellow, new Color(255, 255, 224)));
+            Colors.Add(new ColorUtils(NameType.LemonChiffon, new Color(255, 250, 205)));
+            Colors.Add(new ColorUtils(NameType.LightGoldenrodYellow, new Color(250, 250, 210)));
             Colors.Add(new ColorUtils(NameType.Papayawhip, new Color(255, 239, 213)));
             Colors.Add(new ColorUtils(NameType.Moccasin, new Color(255, 228, 181)));
             Colors.Add(new ColorUtils(NameType.Peachpuff, new Color(255, 218, 185)));
             Colors.Add(new ColorUtils(NameType.Palegoldenrod, new Color(238, 232, 170)));
             Colors.Add(new ColorUtils(NameType.Khaki, new Color(240, 230, 140)));
-            Colors.Add(new ColorUtils(NameType.Darkkhaki, new Color(189, 183, 107)));
+            Colors.Add(new ColorUtils(NameType.DarkKhaki, new Color(189, 183, 107)));
         }
 
         public Color Get(NameType nameType)
@@ -185,31 +185,31 @@ namespace EnaiumToolKit.Framework.Utils
         public enum NameType
         {
             Gainsboro,
-            Lightgray,
+            LightGray,
             Silver,
-            Darkgray,
+            DarkGray,
             Gray,
-            Dimgray,
-            Lightslategray,
-            Slategray,
-            Darkslategray,
+            DimGray,
+            LightSlateGray,
+            SlateGray,
+            DarkSlateGray,
             Black,
-            Indianred,
-            Lightcoral,
+            IndianRed,
+            LightCoral,
             Salmon,
-            Darksalmon,
-            Lightsalmon,
+            DarkSalmon,
+            LightSalmon,
             Crimson,
             Red,
             Firebrick,
-            Darkred,
+            DarkRed,
             Coral,
             Tomato,
-            Orangered,
+            OrangeRed,
             Darkorange,
             Orange,
             Cornsilk,
-            Blanchedalmond,
+            BlanchedAlmond,
             Bisque,
             Navajowhite,
             Wheat,
@@ -233,52 +233,52 @@ namespace EnaiumToolKit.Framework.Utils
             Turquoise,
             Mediumturquoise,
             Darkturquoise,
-            Cadetblue,
-            Steelblue,
-            Lightsteelblue,
-            Powderblue,
-            Lightblue,
-            Skyblue,
-            Lightskyblue,
-            Deepskyblue,
-            Dodgerblue,
-            Cornflowerblue,
-            Mediumslateblue,
-            Royalblue,
+            CadetBlue,
+            SteelBlue,
+            LightSteelBlue,
+            PowderBlue,
+            LightBlue,
+            SkyBlue,
+            LightSkyBlue,
+            DeepSkyBlue,
+            DodgerBlue,
+            CornflowerBlue,
+            MediumSlateBlue,
+            RoyalBlue,
             Blue,
-            Mediumblue,
-            Darkblue,
+            MediumBlue,
+            DarkBlue,
             Navy,
-            Midnightblue,
-            Greenyellow,
+            MidnightBlue,
+            GreenYellow,
             Chartreuse,
-            Lawngreen,
+            LawnGreen,
             Lime,
-            Limegreen,
-            Palegreen,
-            Lightgreen,
-            Mediumspringgreen,
-            Springgreen,
-            Mediumseagreen,
-            Seagreen,
-            Forestgreen,
+            LimeGreen,
+            PaleGreen,
+            LightGreen,
+            MediumSpringGreen,
+            SpringGreen,
+            MediumSeaGreen,
+            SeaGreen,
+            ForestGreen,
             Green,
-            Darkgreen,
-            Yellowgreen,
+            DarkGreen,
+            YellowGreen,
             Olivedrab,
             Olive,
-            Darkolivegreen,
+            DarkOliveGreen,
             Mediumaquamarine,
-            Darkseagreen,
-            Lightseagreen,
+            DarkSeaGreen,
+            LightSeaGreen,
             Darkcyan,
             Teal,
             Pink,
             Lightpink,
             Hotpink,
             Deeppink,
-            Mediumvioletred,
-            Palevioletred,
+            MediumVioletRed,
+            PaleVioletRed,
             Lavender,
             Thistle,
             Plum,
@@ -295,14 +295,14 @@ namespace EnaiumToolKit.Framework.Utils
             Darkmagenta,
             Purple,
             Indigo,
-            Slateblue,
-            Darkslateblue,
+            SlateBlue,
+            DarkSlateBlue,
             White,
             Snow,
             Honeydew,
             Mintcream,
             Azure,
-            Aliceblue,
+            AliceBlue,
             Ghostwhite,
             Whitesmoke,
             Seashell,
@@ -316,15 +316,15 @@ namespace EnaiumToolKit.Framework.Utils
             Mistyrose,
             Gold,
             Yellow,
-            Lightyellow,
-            Lemonchiffon,
-            Lightgoldenrodyellow,
+            LightYellow,
+            LemonChiffon,
+            LightGoldenrodYellow,
             Papayawhip,
             Moccasin,
             Peachpuff,
             Palegoldenrod,
             Khaki,
-            Darkkhaki
+            DarkKhaki
         }
     }
 }
