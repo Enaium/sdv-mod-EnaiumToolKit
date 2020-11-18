@@ -45,7 +45,6 @@
     <ItemGroup>
         <Compile Include="Framework\Gui\TestScreen.cs" />
         <Compile Include="Framework\Screen\Elements\Button.cs" />
-        <Compile Include="Framework\Screen\Elements\ColorSelect.cs" />
         <Compile Include="Framework\Screen\Elements\Element.cs" />
         <Compile Include="Framework\Screen\Elements\Label.cs" />
         <Compile Include="Framework\Screen\Elements\ModeButton.cs" />
