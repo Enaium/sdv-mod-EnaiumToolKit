@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using EnaiumToolKit.Framework.Screen;
 using EnaiumToolKit.Framework.Screen.Elements;
+using EnaiumToolKit.Framework.Utils;
 using StardewModdingAPI;
+using StardewValley;
 
 namespace EnaiumToolKit.Framework.Gui
 {
@@ -33,6 +35,24 @@ namespace EnaiumToolKit.Framework.Gui
             {
                 Current = 1, Min = 1, Max = 10
             });
+            AddElement(new Button("Colors", "Colors")
+            {
+                OnLeftClicked = () => { Game1.activeClickableMenu = new Colors(); }
+            });
+        }
+
+        private class Colors : ScreenGui
+        {
+            public Colors()
+            {
+                foreach (var variable in ColorUtils.Instance.Colors)
+                {
+                    AddElement(new ColorButton(variable.Name.ToString(), "Color")
+                    {
+                        Color = ColorUtils.Instance.Get(variable.Name)
+                    });
+                }
+            }
         }
     }
 }
