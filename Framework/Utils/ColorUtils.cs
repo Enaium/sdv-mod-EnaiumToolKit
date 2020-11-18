@@ -172,7 +172,7 @@ namespace EnaiumToolKit.Framework.Utils
             return new Color(0, 0, 0);
         }
 
-        public NameType GetNameTypeByColor(Color color)
+        public NameType Get(Color color)
         {
             foreach (var variable in Colors.Where(it => it.Color == color))
             {
