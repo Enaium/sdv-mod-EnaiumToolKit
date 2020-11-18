@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using EnaiumToolKit.Framework.Screen.Elements;
 using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -32,9 +34,13 @@ namespace EnaiumToolKit.Framework.Screen
             const int buttonSize = 60;
             _up = new B("U", xPositionOnScreen + width + buttonSize, yPositionOnScreen, buttonSize, () =>
             {
-                if (_index > 0)
+                if (_index >= _maxElement)
                 {
-                    _index--;
+                    _index -= _maxElement;
+                }
+                else
+                {
+                    _index = 0;
                 }
             });
             _down = new B("D", xPositionOnScreen + width + buttonSize, yPositionOnScreen + height - buttonSize,
@@ -44,7 +50,14 @@ namespace EnaiumToolKit.Framework.Screen
                     if (_index + (_elements.Count >= _maxElement ? _maxElement : _elements.Count) <
                         _elements.Count)
                     {
-                        _index++;
+                        if (_index + _maxElement <= _elements.Count - _maxElement)
+                        {
+                            _index += _maxElement;
+                        }
+                        else
+                        {
+                            _index += _elements.Count - _index - _maxElement;
+                        }
                     }
                 });
             _close = new B("C", Game1.viewport.Width - buttonSize, 0, buttonSize,
