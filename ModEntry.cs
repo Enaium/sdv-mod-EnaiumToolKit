@@ -16,10 +16,10 @@ namespace EnaiumToolKit
 
         public override void Entry(IModHelper helper)
         {
-            helper.Events.Input.ButtonPressed += onButtonPress;
+            helper.Events.Input.ButtonPressed += OnButtonPress;
         }
 
-        private void onButtonPress(object sender, ButtonPressedEventArgs e)
+        private void OnButtonPress(object sender, ButtonPressedEventArgs e)
         {
             if (e.Button == SButton.F12)
             {

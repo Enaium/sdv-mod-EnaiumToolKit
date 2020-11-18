@@ -45,12 +45,14 @@
     <ItemGroup>
         <Compile Include="Framework\Gui\TestScreen.cs" />
         <Compile Include="Framework\Screen\Elements\Button.cs" />
+        <Compile Include="Framework\Screen\Elements\ColorButton.cs" />
         <Compile Include="Framework\Screen\Elements\Element.cs" />
         <Compile Include="Framework\Screen\Elements\Label.cs" />
         <Compile Include="Framework\Screen\Elements\ModeButton.cs" />
         <Compile Include="Framework\Screen\Elements\ToggleButton.cs" />
         <Compile Include="Framework\Screen\Elements\ValueButton.cs" />
         <Compile Include="Framework\Screen\ScreenGui.cs" />
+        <Compile Include="Framework\Utils\ColorUtils.cs" />
         <Compile Include="Framework\Utils\FontUtils.cs" />
         <Compile Include="Framework\Utils\Render2DUtils.cs" />
         <Compile Include="ModEntry.cs" />
