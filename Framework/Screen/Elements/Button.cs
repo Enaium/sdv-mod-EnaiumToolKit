@@ -10,7 +10,7 @@ namespace EnaiumToolKit.Framework.Screen.Elements
         public Button(string title, string description) : base(title, description)
         {
         }
-
+        
         public override void Render(SpriteBatch b, int x, int y)
         {
             Hovered = Render2DUtils.isHovered(Game1.getMouseX(), Game1.getMouseY(), x, y, Width, Height);
