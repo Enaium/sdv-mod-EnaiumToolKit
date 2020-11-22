@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
+using EnaiumToolKit.Framework.Screen.Components;
 using EnaiumToolKit.Framework.Screen.Elements;
 using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
@@ -9,43 +10,52 @@ using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
+using Button = EnaiumToolKit.Framework.Screen.Components.Button;
 
 namespace EnaiumToolKit.Framework.Screen
 {
     public class ScreenGui : IClickableMenu
     {
         private List<Element> _elements;
+        private List<Component> _components;
         private int _index;
         private int _maxElement;
-        private B _up;
-        private B _down;
-        private B _close;
+        private TextField _searchTextField;
 
         public ScreenGui()
         {
             _elements = new List<Element>();
+            _components = new List<Component>();
             _index = 0;
             _maxElement = 7;
             width = 832;
-            height = 576;
+            height = 578;
             var centeringOnScreen = Utility.getTopLeftPositionForCenteringOnScreen(width, height);
             xPositionOnScreen = (int) centeringOnScreen.X;
             yPositionOnScreen = (int) centeringOnScreen.Y + 32;
             const int buttonSize = 60;
-            _up = new B("U", xPositionOnScreen + width + buttonSize, yPositionOnScreen, buttonSize, () =>
+            AddComponent(new Button("U", GetTranslation("component.textField.flipUp"),
+                xPositionOnScreen + width + buttonSize, yPositionOnScreen, buttonSize,
+                buttonSize)
             {
-                if (_index >= _maxElement)
+                OnLeftClicked = () =>
                 {
-                    _index -= _maxElement;
-                }
-                else
-                {
-                    _index = 0;
+                    if (_index >= _maxElement)
+                    {
+                        _index -= _maxElement;
+                    }
+                    else
+                    {
+                        _index = 0;
+                    }
                 }
             });
-            _down = new B("D", xPositionOnScreen + width + buttonSize, yPositionOnScreen + height - buttonSize,
-                buttonSize,
-                () =>
+            AddComponent(new Button("D", GetTranslation("component.textField.flipDown"),
+                xPositionOnScreen + width + buttonSize,
+                yPositionOnScreen + height - buttonSize,
+                buttonSize, buttonSize)
+            {
+                OnLeftClicked = () =>
                 {
                     if (_index + (_elements.Count >= _maxElement ? _maxElement : _elements.Count) <
                         _elements.Count)
@@ -59,35 +69,64 @@ namespace EnaiumToolKit.Framework.Screen
                             _index += _elements.Count - _index - _maxElement;
                         }
                     }
-                });
-            _close = new B("C", Game1.viewport.Width - buttonSize, 0, buttonSize,
-                () => { Game1.activeClickableMenu = null; });
+                }
+            });
+            AddComponent(new Button("C", GetTranslation("component.textField.closeScreen"),
+                Game1.viewport.Width - buttonSize, 0, buttonSize, buttonSize)
+            {
+                OnLeftClicked = () => { Game1.activeClickableMenu = null; }
+            });
+            _searchTextField = new TextField(GetTranslation("component.textField.Search"), xPositionOnScreen,
+                yPositionOnScreen - 100, width, 50);
+            AddComponent(_searchTextField);
+        }
+
+        private string GetTranslation(string key)
+        {
+            return ModEntry.GetInstance().Helper.Translation.Get(key);
         }
 
         public override void draw(SpriteBatch b)
         {
-            _up.Render(b);
-            _down.Render(b);
-            _close.Render(b);
             drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 373, 18, 18), xPositionOnScreen, yPositionOnScreen,
                 width, height, Color.White, 4f);
             var y = yPositionOnScreen + 20;
-
-            for (int i = _index, j = 0; j < (_elements.Count >= _maxElement ? _maxElement : _elements.Count); i++, j++)
+            List<Element> searchElements = new List<Element>();
+            searchElements.AddRange(GetSearchElements());
+            for (int i = _index, j = 0;
+                j < (searchElements.Count >= _maxElement ? _maxElement : searchElements.Count);
+                i++, j++)
             {
-                var variable = _elements[i];
+                var element = searchElements[i];
 
-                if (variable.Visibled && variable.Enabled)
+                if (element.Visibled)
                 {
-                    variable.Render(b, xPositionOnScreen + 15, y + j * 78);
-                    if (variable.Hovered)
+                    element.Render(b, xPositionOnScreen + 15, y + j * 78);
+                    if (element.Hovered && !element.Description.Equals(""))
                     {
-                        var descriptionWidth = FontUtils.GetWidth(variable.Description) + 50;
-                        var descriptionHeight = FontUtils.GetHeight(variable.Description) + 50;
+                        var descriptionWidth = FontUtils.GetWidth(element.Description) + 50;
+                        var descriptionHeight = FontUtils.GetHeight(element.Description) + 50;
 
                         drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 396, 15, 15), 0, 0, descriptionWidth,
                             descriptionHeight, Color.Wheat, 4f, false);
-                        FontUtils.DrawHvCentered(b, variable.Description, descriptionWidth / 2, descriptionHeight / 2);
+                        FontUtils.DrawHvCentered(b, element.Description, descriptionWidth / 2, descriptionHeight / 2);
+                    }
+                }
+            }
+
+            foreach (var component in _components)
+            {
+                if (component.Visibled)
+                {
+                    component.Render(b);
+                    if (component.Hovered && !component.Description.Equals(""))
+                    {
+                        var descriptionWidth = FontUtils.GetWidth(component.Description) + 50;
+                        var descriptionHeight = FontUtils.GetHeight(component.Description) + 50;
+
+                        drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 396, 15, 15), 0, 0, descriptionWidth,
+                            descriptionHeight, Color.Wheat, 4f, false);
+                        FontUtils.DrawHvCentered(b, component.Description, descriptionWidth / 2, descriptionHeight / 2);
                     }
                 }
             }
@@ -101,14 +140,20 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void receiveLeftClick(int x, int y, bool playSound)
         {
-            _up.MouseLeftClicked();
-            _down.MouseLeftClicked();
-            _close.MouseLeftClicked();
             foreach (var variable in _elements)
             {
                 if (variable.Visibled && variable.Enabled && variable.Hovered)
                 {
                     variable.MouseLeftClicked(x, y);
+                    Game1.playSound("drumkit6");
+                }
+            }
+
+            foreach (var component in _components)
+            {
+                if (component.Visibled && component.Enabled && component.Hovered)
+                {
+                    component.MouseLeftClicked(x, y);
                     Game1.playSound("drumkit6");
                 }
             }
@@ -126,6 +171,14 @@ namespace EnaiumToolKit.Framework.Screen
                 }
             }
 
+            foreach (var component in _components)
+            {
+                if (component.Visibled && component.Enabled && component.Hovered)
+                {
+                    component.MouseLeftReleased(x, y);
+                }
+            }
+
             base.releaseLeftClick(x, y);
         }
 
@@ -136,6 +189,14 @@ namespace EnaiumToolKit.Framework.Screen
                 if (variable.Visibled && variable.Enabled && variable.Hovered)
                 {
                     variable.MouseRightClicked(x, y);
+                }
+            }
+
+            foreach (var component in _components)
+            {
+                if (component.Visibled && component.Enabled && component.Hovered)
+                {
+                    component.MouseRightClicked(x, y);
                 }
             }
 
@@ -157,48 +218,70 @@ namespace EnaiumToolKit.Framework.Screen
             base.receiveScrollWheelAction(direction);
         }
 
-        public void AddElement(Element element)
+        public override void receiveKeyPress(Keys key)
+        {
+            if (Game1.options.menuButton[0].key == key)
+            {
+                return;
+            }
+            base.receiveKeyPress(key);
+        }
+
+        private IEnumerable<Element> GetSearchElements()
+        {
+            IEnumerable<Element> elements = _elements;
+            if (!_searchTextField.Text.Equals(""))
+            {
+                elements = elements.Where(element =>
+                    element.Title.IndexOf(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase) >= 0);
+            }
+
+            return elements;
+        }
+
+        protected void AddElement(Element element)
         {
             _elements.Add(element);
         }
 
-        public void AddElementRange(params Element[] element)
+        protected void AddElementRange(params Element[] element)
         {
             _elements.AddRange(element);
         }
-    }
 
-    public class B
-    {
-        private string _title;
-        private int _x;
-        private int _y;
-        private int _buttonSize;
-        private Action _onLeftClicked;
-        private bool _hovered;
-
-        public B(string title, int x, int y, int buttonSize, Action onLeftClicked)
+        protected void RemoveElement(Element element)
         {
-            _title = title;
-            _x = x;
-            _y = y;
-            _buttonSize = buttonSize;
-            _onLeftClicked = onLeftClicked;
+            _elements.Remove(element);
         }
 
-        public void Render(SpriteBatch b)
+        protected void RemoveElementRange(params Element[] element)
         {
-            _hovered = Render2DUtils.isHovered(Game1.getMouseX(), Game1.getMouseY(), _x, _y, _buttonSize, _buttonSize);
-            Render2DUtils.drawRect(b, _x, _y, 60, 60, _hovered ? Color.Wheat : Color.White);
-            FontUtils.DrawHvCentered(b, _title, _x + _buttonSize / 2, _y + _buttonSize / 2);
-        }
-
-        public void MouseLeftClicked()
-        {
-            if (_hovered)
+            foreach (var variable in element)
             {
-                Game1.playSound("drumkit6");
-                _onLeftClicked.Invoke();
+                _elements.Remove(variable);
+            }
+        }
+
+        protected void AddComponent(Component component)
+        {
+            _components.Add(component);
+        }
+
+        protected void AddComponentRange(params Component[] component)
+        {
+            _components.AddRange(component);
+        }
+
+        protected void RemoveComponent(Component component)
+        {
+            _components.Remove(component);
+        }
+
+        protected void RemoveComponentRange(params Component[] component)
+        {
+            foreach (var variable in component)
+            {
+                _components.Remove(variable);
             }
         }
     }
