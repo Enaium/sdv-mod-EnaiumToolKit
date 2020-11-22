@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace EnaiumToolKit.Framework.Screen.Elements
+namespace EnaiumToolKit.Framework.Screen.Components
 {
-    public abstract class Element
+    public abstract class Component
     {
         public bool Hovered;
         public bool Visibled;
@@ -19,18 +19,20 @@ namespace EnaiumToolKit.Framework.Screen.Elements
         public Action OnLeftReleased = () => { };
         public Action OnRightClicked = () => { };
 
-        public Element(string title, string description)
+        public Component(string title, string description, int x, int y, int width, int height)
         {
             Title = title;
             Description = description;
-            Width = 800;
-            Height = 75;
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
             Hovered = false;
             Visibled = true;
             Enabled = true;
         }
-        
-        public abstract void Render(SpriteBatch b, int x, int y);
+
+        public abstract void Render(SpriteBatch b);
         
         public virtual void MouseLeftClicked(int x, int y)
         {

@@ -44,6 +44,9 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Framework\Gui\TestScreen.cs" />
+        <Compile Include="Framework\Screen\Components\Button.cs" />
+        <Compile Include="Framework\Screen\Components\Component.cs" />
+        <Compile Include="Framework\Screen\Components\TextField.cs" />
         <Compile Include="Framework\Screen\Elements\Button.cs" />
         <Compile Include="Framework\Screen\Elements\ColorButton.cs" />
         <Compile Include="Framework\Screen\Elements\Element.cs" />
@@ -60,6 +63,8 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include=".gitignore" />
+      <Content Include="i18n\default.json" />
+      <Content Include="i18n\zh.json" />
       <Content Include="manifest.json" />
       <Content Include="README.md" />
     </ItemGroup>
