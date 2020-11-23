@@ -17,6 +17,7 @@ namespace EnaiumToolKit.Framework.Screen
     public class ScreenGui : IClickableMenu
     {
         private List<Element> _elements;
+        private List<Element> _searchElements;
         private List<Component> _components;
         private int _index;
         private int _maxElement;
@@ -57,16 +58,16 @@ namespace EnaiumToolKit.Framework.Screen
             {
                 OnLeftClicked = () =>
                 {
-                    if (_index + (_elements.Count >= _maxElement ? _maxElement : _elements.Count) <
-                        _elements.Count)
+                    if (_index + (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count) <
+                        _searchElements.Count)
                     {
-                        if (_index + _maxElement <= _elements.Count - _maxElement)
+                        if (_index + _maxElement <= _searchElements.Count - _maxElement)
                         {
                             _index += _maxElement;
                         }
                         else
                         {
-                            _index += _elements.Count - _index - _maxElement;
+                            _index += _searchElements.Count - _index - _maxElement;
                         }
                     }
                 }
@@ -91,13 +92,13 @@ namespace EnaiumToolKit.Framework.Screen
             drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 373, 18, 18), xPositionOnScreen, yPositionOnScreen,
                 width, height, Color.White, 4f);
             var y = yPositionOnScreen + 20;
-            List<Element> searchElements = new List<Element>();
-            searchElements.AddRange(GetSearchElements());
+            _searchElements = new List<Element>();
+            _searchElements.AddRange(GetSearchElements());
             for (int i = _index, j = 0;
-                j < (searchElements.Count >= _maxElement ? _maxElement : searchElements.Count);
+                j < (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count);
                 i++, j++)
             {
-                var element = searchElements[i];
+                var element = _searchElements[i];
 
                 if (element.Visibled)
                 {
@@ -209,8 +210,8 @@ namespace EnaiumToolKit.Framework.Screen
             {
                 _index--;
             }
-            else if (direction < 0 && _index + (_elements.Count >= _maxElement ? _maxElement : _elements.Count) <
-                _elements.Count)
+            else if (direction < 0 && _index + (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count) <
+                _searchElements.Count)
             {
                 _index++;
             }
