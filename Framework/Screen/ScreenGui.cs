@@ -141,7 +141,7 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void receiveLeftClick(int x, int y, bool playSound)
         {
-            foreach (var variable in _elements)
+            foreach (var variable in _searchElements)
             {
                 if (variable.Visibled && variable.Enabled && variable.Hovered)
                 {
@@ -150,7 +150,7 @@ namespace EnaiumToolKit.Framework.Screen
                 }
             }
 
-            foreach (var component in _components)
+            foreach (var component in _searchElements)
             {
                 if (component.Visibled && component.Enabled && component.Hovered)
                 {
@@ -164,7 +164,7 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void releaseLeftClick(int x, int y)
         {
-            foreach (var variable in _elements)
+            foreach (var variable in _searchElements)
             {
                 if (variable.Visibled && variable.Enabled && variable.Hovered)
                 {
@@ -172,7 +172,7 @@ namespace EnaiumToolKit.Framework.Screen
                 }
             }
 
-            foreach (var component in _components)
+            foreach (var component in _searchElements)
             {
                 if (component.Visibled && component.Enabled && component.Hovered)
                 {
@@ -185,7 +185,7 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void receiveRightClick(int x, int y, bool playSound)
         {
-            foreach (var variable in _elements)
+            foreach (var variable in _searchElements)
             {
                 if (variable.Visibled && variable.Enabled && variable.Hovered)
                 {
