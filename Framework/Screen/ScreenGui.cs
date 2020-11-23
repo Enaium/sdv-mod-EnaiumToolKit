@@ -150,7 +150,7 @@ namespace EnaiumToolKit.Framework.Screen
                 }
             }
 
-            foreach (var component in _searchElements)
+            foreach (var component in _components)
             {
                 if (component.Visibled && component.Enabled && component.Hovered)
                 {
@@ -172,7 +172,7 @@ namespace EnaiumToolKit.Framework.Screen
                 }
             }
 
-            foreach (var component in _searchElements)
+            foreach (var component in _components)
             {
                 if (component.Visibled && component.Enabled && component.Hovered)
                 {
