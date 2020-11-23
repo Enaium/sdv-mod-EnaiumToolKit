@@ -17,7 +17,7 @@ namespace EnaiumToolKit.Framework.Screen.Components
             _textBox = new TextBox(Game1.content.Load<Texture2D>("LooseSprites\\textBox"), null, Game1.dialogueFont,
                 Game1.textColor)
             {
-                Selected = true, X = x, Y = y, Width = width, Height = 0
+                X = x, Y = y, Width = width, Height = 0
             };
         }
 
