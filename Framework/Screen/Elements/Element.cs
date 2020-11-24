@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace EnaiumToolKit.Framework.Screen.Elements
@@ -8,8 +9,6 @@ namespace EnaiumToolKit.Framework.Screen.Elements
         public bool Hovered;
         public bool Visibled;
         public bool Enabled;
-        public int X;
-        public int Y;
         public int Width;
         public int Height;
         public string Title;

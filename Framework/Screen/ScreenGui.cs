@@ -89,8 +89,7 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void draw(SpriteBatch b)
         {
-            drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 373, 18, 18), xPositionOnScreen, yPositionOnScreen,
-                width, height, Color.White, 4f);
+            Render2DUtils.DrawBound(b, xPositionOnScreen, yPositionOnScreen, width, height, Color.White);
             var y = yPositionOnScreen + 20;
             _searchElements = new List<Element>();
             _searchElements.AddRange(GetSearchElements());
@@ -210,8 +209,9 @@ namespace EnaiumToolKit.Framework.Screen
             {
                 _index--;
             }
-            else if (direction < 0 && _index + (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count) <
-                _searchElements.Count)
+            else if (direction < 0 &&
+                     _index + (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count) <
+                     _searchElements.Count)
             {
                 _index++;
             }
@@ -225,6 +225,7 @@ namespace EnaiumToolKit.Framework.Screen
             {
                 return;
             }
+
             base.receiveKeyPress(key);
         }
 

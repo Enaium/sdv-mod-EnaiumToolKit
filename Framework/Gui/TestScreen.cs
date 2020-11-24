@@ -22,11 +22,13 @@ namespace EnaiumToolKit.Framework.Gui
                 ModEntry.GetInstance().Monitor.Log(toggleButton.Toggled + "", LogLevel.Debug);
             };
             AddElement(toggleButton);
-            var modeButton = new ModeButton("ModeButton", "Left key plus right key minus",
-                new List<string> {"Mode1", "Mode2", "Mode3", "Mode4"}, "Mode1");
+            var modeButton = new ModeButton("ModeButton", "Left key plus right key minus")
+            {
+                modes = new List<string> {"Mode1", "Mode2", "Mode3", "Mode4"}, Current = "Mode1"
+            };
             modeButton.OnLeftClicked = () =>
             {
-                ModEntry.GetInstance().Monitor.Log(modeButton.getCurrent(), LogLevel.Debug);
+                ModEntry.GetInstance().Monitor.Log(modeButton.Current, LogLevel.Debug);
             };
             AddElement(modeButton);
             AddElementRange(new Label("Label1", "It is Label1"), new Label("Label2", "It is Label2"),

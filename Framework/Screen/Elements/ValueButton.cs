@@ -17,9 +17,9 @@ namespace EnaiumToolKit.Framework.Screen.Elements
 
         public override void Render(SpriteBatch b, int x, int y)
         {
-            Hovered = Render2DUtils.isHovered(Game1.getMouseX(), Game1.getMouseY(), x, y, Width, Height);
+            Hovered = Render2DUtils.IsHovered(Game1.getMouseX(), Game1.getMouseY(), x, y, Width, Height);
 
-            Render2DUtils.drawRect(b, x, y, Width, Height, Hovered ? Color.Wheat : Color.White);
+            Render2DUtils.DrawButton(b, x, y, Width, Height, Hovered ? Color.Wheat : Color.White);
             FontUtils.DrawHvCentered(b, $"{Title}:({Min}-{Max}){Current}", x + Width / 2, y + Height / 2);
         }
 
