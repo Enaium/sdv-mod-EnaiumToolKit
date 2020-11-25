@@ -23,7 +23,7 @@ namespace EnaiumToolKit
         {
             if (e.Button == SButton.F12)
             {
-                Game1.activeClickableMenu = new TestScreen();
+                Game1.activeClickableMenu = new EnaiumToolKitScreen();
             }
         }
 

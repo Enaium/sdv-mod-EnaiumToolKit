@@ -35,7 +35,7 @@ namespace EnaiumToolKit.Framework.Screen
             xPositionOnScreen = (int) centeringOnScreen.X;
             yPositionOnScreen = (int) centeringOnScreen.Y + 32;
             const int buttonSize = 60;
-            AddComponent(new Button("U", GetTranslation("component.textField.flipUp"),
+            AddComponent(new Button("U", GetTranslation("screenGui.component.textField.flipUp"),
                 xPositionOnScreen + width + buttonSize, yPositionOnScreen, buttonSize,
                 buttonSize)
             {
@@ -51,7 +51,7 @@ namespace EnaiumToolKit.Framework.Screen
                     }
                 }
             });
-            AddComponent(new Button("D", GetTranslation("component.textField.flipDown"),
+            AddComponent(new Button("D", GetTranslation("screenGui.component.textField.flipDown"),
                 xPositionOnScreen + width + buttonSize,
                 yPositionOnScreen + height - buttonSize,
                 buttonSize, buttonSize)
@@ -72,12 +72,12 @@ namespace EnaiumToolKit.Framework.Screen
                     }
                 }
             });
-            AddComponent(new Button("C", GetTranslation("component.textField.closeScreen"),
+            AddComponent(new Button("C", GetTranslation("screenGui.component.textField.closeScreen"),
                 Game1.viewport.Width - buttonSize, 0, buttonSize, buttonSize)
             {
                 OnLeftClicked = () => { Game1.activeClickableMenu = null; }
             });
-            _searchTextField = new TextField(GetTranslation("component.textField.Search"), xPositionOnScreen,
+            _searchTextField = new TextField(GetTranslation("screenGui.component.textField.Search"), xPositionOnScreen,
                 yPositionOnScreen - 100, width, 50);
             AddComponent(_searchTextField);
         }
