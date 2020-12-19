@@ -6,7 +6,7 @@ namespace EnaiumToolKit.Framework.Gui
 {
     public class EnaiumToolKitScreen : ScreenGui
     {
-        public EnaiumToolKitScreen()
+        public EnaiumToolKitScreen() : base("Enaium toolKit")
         {
             AddElement(new Button(GetTranslation("enaiumToolKitScreen.element.button.testScreen"),
                 GetTranslation("enaiumToolKitScreen.element.button.testScreen"))

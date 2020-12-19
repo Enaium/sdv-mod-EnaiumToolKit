@@ -10,7 +10,7 @@ namespace EnaiumToolKit.Framework.Gui
 {
     public class AllScreenGui : ScreenGui
     {
-        public AllScreenGui()
+        public AllScreenGui() : base("All screenGui")
         {
             var type = typeof(ScreenGui);
             var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes())

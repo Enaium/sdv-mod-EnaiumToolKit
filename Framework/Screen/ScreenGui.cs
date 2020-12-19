@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
 using Button = EnaiumToolKit.Framework.Screen.Components.Button;
 
@@ -22,6 +23,13 @@ namespace EnaiumToolKit.Framework.Screen
         private int _index;
         private int _maxElement;
         private TextField _searchTextField;
+
+        private string Title;
+
+        public string GetTitle()
+        {
+            return Title;
+        }
 
         public ScreenGui()
         {
@@ -82,6 +90,12 @@ namespace EnaiumToolKit.Framework.Screen
             AddComponent(_searchTextField);
         }
 
+        public ScreenGui(string title) : this()
+        {
+            Title = title;
+        }
+
+
         private string GetTranslation(string key)
         {
             return ModEntry.GetInstance().Helper.Translation.Get(key);
@@ -129,6 +143,12 @@ namespace EnaiumToolKit.Framework.Screen
                         FontUtils.DrawHvCentered(b, component.Description, descriptionWidth / 2, descriptionHeight / 2);
                     }
                 }
+            }
+
+            if (Title != null)
+            {
+                SpriteText.drawStringWithScrollCenteredAt(b, Title, Game1.viewport.Width / 2,
+                    Game1.viewport.Height - 100, Title);
             }
 
             const string text = "EnaiumToolKit By Enaium";
