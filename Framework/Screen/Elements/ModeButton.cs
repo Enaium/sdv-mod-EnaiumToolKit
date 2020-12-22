@@ -10,21 +10,18 @@ namespace EnaiumToolKit.Framework.Screen.Elements
 {
     public class ModeButton : Element
     {
-        private List<string> modes;
-        private string _current;
+        public List<string> modes;
+        public string Current;
 
-        public ModeButton(string title, string description, List<string> modes, String current) : base(title,
-            description)
+        public ModeButton(string title, string description) : base(title, description)
         {
-            this.modes = modes;
-            this._current = current;
         }
 
         public override void Render(SpriteBatch b, int x, int y)
         {
-            Hovered = Render2DUtils.isHovered(Game1.getMouseX(), Game1.getMouseY(), x, y, Width, Height);
+            Hovered = Render2DUtils.IsHovered(Game1.getMouseX(), Game1.getMouseY(), x, y, Width, Height);
 
-            Render2DUtils.drawRect(b, x, y, Width, Height, Hovered ? Color.Wheat : Color.White);
+            Render2DUtils.DrawButton(b, x, y, Width, Height, Hovered ? Color.Wheat : Color.White);
             FontUtils.DrawHvCentered(b, $"{Title}:({getCurrentIndex() + 1}/{modes.Count}){modes[getCurrentIndex()]}",
                 x + Width / 2,
                 y + Height / 2);
@@ -34,11 +31,11 @@ namespace EnaiumToolKit.Framework.Screen.Elements
         {
             try
             {
-                _current = modes[getCurrentIndex() + 1];
+                Current = modes[getCurrentIndex() + 1];
             }
             catch (Exception e)
             {
-                _current = modes.First();
+                Current = modes.First();
             }
 
             base.MouseLeftClicked(x, y);
@@ -48,19 +45,14 @@ namespace EnaiumToolKit.Framework.Screen.Elements
         {
             try
             {
-                _current = modes[getCurrentIndex() - 1];
+                Current = modes[getCurrentIndex() - 1];
             }
             catch (Exception e)
             {
-                _current = modes.Last();
+                Current = modes.Last();
             }
 
             base.MouseRightClicked(x, y);
-        }
-
-        public String getCurrent()
-        {
-            return _current;
         }
 
         public int getCurrentIndex()
@@ -68,7 +60,7 @@ namespace EnaiumToolKit.Framework.Screen.Elements
             var index = 0;
             foreach (var variable in modes)
             {
-                if (variable.Equals(_current))
+                if (variable.Equals(Current))
                 {
                     return index;
                 }

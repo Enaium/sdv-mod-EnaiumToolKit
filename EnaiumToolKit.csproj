@@ -43,6 +43,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Framework\Gui\EnaiumToolKitScreen.cs" />
         <Compile Include="Framework\Gui\TestScreen.cs" />
         <Compile Include="Framework\Screen\Components\Button.cs" />
         <Compile Include="Framework\Screen\Components\Component.cs" />

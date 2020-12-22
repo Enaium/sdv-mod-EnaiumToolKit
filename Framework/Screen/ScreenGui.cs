@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
 using Button = EnaiumToolKit.Framework.Screen.Components.Button;
 
@@ -23,6 +24,8 @@ namespace EnaiumToolKit.Framework.Screen
         private int _maxElement;
         private TextField _searchTextField;
 
+        public string Title { get; }
+
         public ScreenGui()
         {
             _elements = new List<Element>();
@@ -35,7 +38,7 @@ namespace EnaiumToolKit.Framework.Screen
             xPositionOnScreen = (int) centeringOnScreen.X;
             yPositionOnScreen = (int) centeringOnScreen.Y + 32;
             const int buttonSize = 60;
-            AddComponent(new Button("U", GetTranslation("component.textField.flipUp"),
+            AddComponent(new Button("U", GetTranslation("screenGui.component.textField.flipUp"),
                 xPositionOnScreen + width + buttonSize, yPositionOnScreen, buttonSize,
                 buttonSize)
             {
@@ -51,7 +54,7 @@ namespace EnaiumToolKit.Framework.Screen
                     }
                 }
             });
-            AddComponent(new Button("D", GetTranslation("component.textField.flipDown"),
+            AddComponent(new Button("D", GetTranslation("screenGui.component.textField.flipDown"),
                 xPositionOnScreen + width + buttonSize,
                 yPositionOnScreen + height - buttonSize,
                 buttonSize, buttonSize)
@@ -72,15 +75,21 @@ namespace EnaiumToolKit.Framework.Screen
                     }
                 }
             });
-            AddComponent(new Button("C", GetTranslation("component.textField.closeScreen"),
+            AddComponent(new Button("C", GetTranslation("screenGui.component.textField.closeScreen"),
                 Game1.viewport.Width - buttonSize, 0, buttonSize, buttonSize)
             {
                 OnLeftClicked = () => { Game1.activeClickableMenu = null; }
             });
-            _searchTextField = new TextField(GetTranslation("component.textField.Search"), xPositionOnScreen,
+            _searchTextField = new TextField(GetTranslation("screenGui.component.textField.Search"), xPositionOnScreen,
                 yPositionOnScreen - 100, width, 50);
             AddComponent(_searchTextField);
         }
+
+        public ScreenGui(string title) : this()
+        {
+            Title = title;
+        }
+
 
         private string GetTranslation(string key)
         {
@@ -89,8 +98,7 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void draw(SpriteBatch b)
         {
-            drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 373, 18, 18), xPositionOnScreen, yPositionOnScreen,
-                width, height, Color.White, 4f);
+            Render2DUtils.DrawBound(b, xPositionOnScreen, yPositionOnScreen, width, height, Color.White);
             var y = yPositionOnScreen + 20;
             _searchElements = new List<Element>();
             _searchElements.AddRange(GetSearchElements());
@@ -130,6 +138,12 @@ namespace EnaiumToolKit.Framework.Screen
                         FontUtils.DrawHvCentered(b, component.Description, descriptionWidth / 2, descriptionHeight / 2);
                     }
                 }
+            }
+
+            if (Title != null)
+            {
+                SpriteText.drawStringWithScrollCenteredAt(b, Title, Game1.viewport.Width / 2,
+                    Game1.viewport.Height - 100, Title);
             }
 
             const string text = "EnaiumToolKit By Enaium";
@@ -210,8 +224,9 @@ namespace EnaiumToolKit.Framework.Screen
             {
                 _index--;
             }
-            else if (direction < 0 && _index + (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count) <
-                _searchElements.Count)
+            else if (direction < 0 &&
+                     _index + (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count) <
+                     _searchElements.Count)
             {
                 _index++;
             }
@@ -225,6 +240,7 @@ namespace EnaiumToolKit.Framework.Screen
             {
                 return;
             }
+
             base.receiveKeyPress(key);
         }
 

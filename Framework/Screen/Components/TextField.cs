@@ -23,10 +23,9 @@ namespace EnaiumToolKit.Framework.Screen.Components
 
         public override void Render(SpriteBatch b)
         {
-            Hovered = Render2DUtils.isHovered(Game1.getMouseX(), Game1.getMouseY(), X, Y, Width, Height);
+            Hovered = Render2DUtils.IsHovered(Game1.getMouseX(), Game1.getMouseY(), X, Y, Width, Height);
 
-            IClickableMenu.drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 373, 18, 18), X - 5, Y - 5,
-                Width + 20, Height + 25, Color.White, 4f);
+            Render2DUtils.DrawBound(b, X - 5, Y - 5, Width + 20, Height + 25, Color.White);
 
             if (!Hovered)
             {
