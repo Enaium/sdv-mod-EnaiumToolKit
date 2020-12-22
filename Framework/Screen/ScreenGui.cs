@@ -24,12 +24,7 @@ namespace EnaiumToolKit.Framework.Screen
         private int _maxElement;
         private TextField _searchTextField;
 
-        private string Title;
-
-        public string GetTitle()
-        {
-            return Title;
-        }
+        public string Title { get; }
 
         public ScreenGui()
         {
