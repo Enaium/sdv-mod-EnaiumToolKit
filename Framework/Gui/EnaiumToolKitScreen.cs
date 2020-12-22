@@ -13,12 +13,6 @@ namespace EnaiumToolKit.Framework.Gui
             {
                 OnLeftClicked = () => { Game1.activeClickableMenu = new TestScreen(); }
             });
-
-            AddElement(new Button(GetTranslation("enaiumToolKitScreen.element.button.allScreenGui"),
-                GetTranslation("enaiumToolKitScreen.element.button.allScreenGui"))
-            {
-                OnLeftClicked = () => { Game1.activeClickableMenu = new AllScreenGui(); }
-            });
         }
 
         private string GetTranslation(string key)
