@@ -21,7 +21,7 @@ namespace EnaiumToolKit
 
         private void OnButtonPress(object sender, ButtonPressedEventArgs e)
         {
-            if (e.Button == SButton.F12)
+            if (e.Button == SButton.RightControl)
             {
                 Game1.activeClickableMenu = new EnaiumToolKitScreen();
             }
