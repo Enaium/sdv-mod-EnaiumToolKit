@@ -75,17 +75,23 @@ namespace EnaiumToolKit.Framework.Screen
                     }
                 }
             });
-            AddComponent(new Button("C", GetTranslation("screenGui.component.textField.closeScreen"),
-                Game1.viewport.Width - buttonSize, 0, buttonSize, buttonSize)
+
+            if (!(Game1.activeClickableMenu is TitleMenu))
             {
-                OnLeftClicked = () => { Game1.activeClickableMenu = null; }
-            });
-            _searchTextField = new TextField(GetTranslation("screenGui.component.textField.Search"), xPositionOnScreen,
+                AddComponent(new Button("C", GetTranslation("screenGui.component.textField.closeScreen"),
+                    Game1.viewport.Width - buttonSize, 0, buttonSize, buttonSize)
+                {
+                    OnLeftClicked = () => { Game1.activeClickableMenu = null; }
+                });
+            }
+
+            _searchTextField = new TextField(GetTranslation("screenGui.component.textField.Search"),
+                xPositionOnScreen,
                 yPositionOnScreen - 100, width, 50);
             AddComponent(_searchTextField);
         }
 
-        public ScreenGui(string title) : this()
+        protected ScreenGui(string title) : this()
         {
             Title = title;
         }
@@ -116,26 +122,11 @@ namespace EnaiumToolKit.Framework.Screen
                         var descriptionWidth = FontUtils.GetWidth(element.Description) + 50;
                         var descriptionHeight = FontUtils.GetHeight(element.Description) + 50;
 
-                        drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 396, 15, 15), 0, 0, descriptionWidth,
+                        drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 396, 15, 15), 0, 0,
+                            descriptionWidth,
                             descriptionHeight, Color.Wheat, 4f, false);
-                        FontUtils.DrawHvCentered(b, element.Description, descriptionWidth / 2, descriptionHeight / 2);
-                    }
-                }
-            }
-
-            foreach (var component in _components)
-            {
-                if (component.Visibled)
-                {
-                    component.Render(b);
-                    if (component.Hovered && !component.Description.Equals(""))
-                    {
-                        var descriptionWidth = FontUtils.GetWidth(component.Description) + 50;
-                        var descriptionHeight = FontUtils.GetHeight(component.Description) + 50;
-
-                        drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 396, 15, 15), 0, 0, descriptionWidth,
-                            descriptionHeight, Color.Wheat, 4f, false);
-                        FontUtils.DrawHvCentered(b, component.Description, descriptionWidth / 2, descriptionHeight / 2);
+                        FontUtils.DrawHvCentered(b, element.Description, descriptionWidth / 2,
+                            descriptionHeight / 2);
                     }
                 }
             }
@@ -144,6 +135,20 @@ namespace EnaiumToolKit.Framework.Screen
             {
                 SpriteText.drawStringWithScrollCenteredAt(b, Title, Game1.viewport.Width / 2,
                     Game1.viewport.Height - 100, Title);
+            }
+
+            foreach (var component in _components.Where(component => component.Visibled))
+            {
+                component.Render(b);
+                if (component.Hovered && !component.Description.Equals(""))
+                {
+                    var descriptionWidth = FontUtils.GetWidth(component.Description) + 50;
+                    var descriptionHeight = FontUtils.GetHeight(component.Description) + 50;
+
+                    drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 396, 15, 15), 0, 0, descriptionWidth,
+                        descriptionHeight, Color.Wheat, 4f, false);
+                    FontUtils.DrawHvCentered(b, component.Description, descriptionWidth / 2, descriptionHeight / 2);
+                }
             }
 
             const string text = "EnaiumToolKit By Enaium";
@@ -155,22 +160,18 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void receiveLeftClick(int x, int y, bool playSound)
         {
-            foreach (var variable in _searchElements)
+            foreach (var variable in _searchElements.Where(variable =>
+                variable.Visibled && variable.Enabled && variable.Hovered))
             {
-                if (variable.Visibled && variable.Enabled && variable.Hovered)
-                {
-                    variable.MouseLeftClicked(x, y);
-                    Game1.playSound("drumkit6");
-                }
+                variable.MouseLeftClicked(x, y);
+                Game1.playSound("drumkit6");
             }
 
-            foreach (var component in _components)
+            foreach (var component in _components.Where(component =>
+                component.Visibled && component.Enabled && component.Hovered))
             {
-                if (component.Visibled && component.Enabled && component.Hovered)
-                {
-                    component.MouseLeftClicked(x, y);
-                    Game1.playSound("drumkit6");
-                }
+                component.MouseLeftClicked(x, y);
+                Game1.playSound("drumkit6");
             }
 
             base.receiveLeftClick(x, y, playSound);
@@ -178,20 +179,16 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void releaseLeftClick(int x, int y)
         {
-            foreach (var variable in _searchElements)
+            foreach (var variable in _searchElements.Where(variable =>
+                variable.Visibled && variable.Enabled && variable.Hovered))
             {
-                if (variable.Visibled && variable.Enabled && variable.Hovered)
-                {
-                    variable.MouseLeftReleased(x, y);
-                }
+                variable.MouseLeftReleased(x, y);
             }
 
-            foreach (var component in _components)
+            foreach (var component in _components.Where(component =>
+                component.Visibled && component.Enabled && component.Hovered))
             {
-                if (component.Visibled && component.Enabled && component.Hovered)
-                {
-                    component.MouseLeftReleased(x, y);
-                }
+                component.MouseLeftReleased(x, y);
             }
 
             base.releaseLeftClick(x, y);
@@ -199,20 +196,16 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void receiveRightClick(int x, int y, bool playSound)
         {
-            foreach (var variable in _searchElements)
+            foreach (var variable in _searchElements.Where(variable =>
+                variable.Visibled && variable.Enabled && variable.Hovered))
             {
-                if (variable.Visibled && variable.Enabled && variable.Hovered)
-                {
-                    variable.MouseRightClicked(x, y);
-                }
+                variable.MouseRightClicked(x, y);
             }
 
-            foreach (var component in _components)
+            foreach (var component in _components.Where(component =>
+                component.Visibled && component.Enabled && component.Hovered))
             {
-                if (component.Visibled && component.Enabled && component.Hovered)
-                {
-                    component.MouseRightClicked(x, y);
-                }
+                component.MouseRightClicked(x, y);
             }
 
             base.receiveRightClick(x, y);
@@ -299,6 +292,18 @@ namespace EnaiumToolKit.Framework.Screen
             foreach (var variable in component)
             {
                 _components.Remove(variable);
+            }
+        }
+
+        protected void OpenScreenGui(IClickableMenu clickableMenu)
+        {
+            if (Game1.activeClickableMenu is TitleMenu)
+            {
+                TitleMenu.subMenu = clickableMenu;
+            }
+            else
+            {
+                Game1.activeClickableMenu = clickableMenu;
             }
         }
     }
