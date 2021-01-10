@@ -7,9 +7,9 @@ using StardewValley;
 
 namespace EnaiumToolKit.Framework.Gui
 {
-    public class TestScreen : ScreenGui
+    public class ElementScreen : ScreenGui
     {
-        public TestScreen()
+        public ElementScreen() : base("Element")
         {
             AddElement(new Button("Button", "It is Button")
             {
@@ -39,7 +39,7 @@ namespace EnaiumToolKit.Framework.Gui
             });
             AddElement(new Button("Colors", "Colors")
             {
-                OnLeftClicked = () => { Game1.activeClickableMenu = new Colors(); }
+                OnLeftClicked = () => { OpenScreenGui(new Colors()); }
             });
         }
 
