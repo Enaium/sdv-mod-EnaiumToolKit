@@ -14,7 +14,7 @@ namespace EnaiumToolKit.Framework.Screen.Components
 
         public int SlotHeight;
 
-        public Entry SelectedEntry;
+        public T SelectedEntry;
         private bool _mouseClicked;
         private int _index;
         private int _maxEntry;
@@ -41,7 +41,7 @@ namespace EnaiumToolKit.Framework.Screen.Components
                     Y + j * SlotHeight, Width, SlotHeight, Color.Wheat, 4f, false);
                 Entries[i].Width = Width;
                 Entries[i].Height = SlotHeight;
-                int slotY = Y + j * SlotHeight;
+                var slotY = Y + j * SlotHeight;
                 Entries[i].Render(b, X, slotY);
                 if (Entries[i].Hovered)
                 {
