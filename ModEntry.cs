@@ -2,6 +2,7 @@
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Menus;
 
 namespace EnaiumToolKit
 {
@@ -23,7 +24,14 @@ namespace EnaiumToolKit
         {
             if (e.Button == SButton.RightControl)
             {
-                Game1.activeClickableMenu = new EnaiumToolKitScreen();
+                if (Game1.activeClickableMenu is TitleMenu)
+                {
+                    TitleMenu.subMenu = new EnaiumToolKitScreen();
+                }
+                else
+                {
+                    Game1.activeClickableMenu = new EnaiumToolKitScreen();
+                }
             }
         }
 
