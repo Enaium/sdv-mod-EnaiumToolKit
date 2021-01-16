@@ -9,7 +9,12 @@ namespace EnaiumToolKit.Framework.Screen.Components
     public class TextField : Component
     {
         private TextBox _textBox;
-        public string Text => _textBox.Text;
+
+        public string Text
+        {
+            get => _textBox.Text;
+            set => _textBox.Text = value;
+        }
 
         public TextField(string title, string description, int x, int y, int width, int height) : base(title,
             description, x, y, width, height)
