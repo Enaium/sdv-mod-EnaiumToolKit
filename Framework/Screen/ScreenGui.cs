@@ -85,7 +85,7 @@ namespace EnaiumToolKit.Framework.Screen
                 });
             }
 
-            _searchTextField = new TextField(GetTranslation("screenGui.component.textField.Search"),
+            _searchTextField = new TextField("", GetTranslation("screenGui.component.textField.Search"),
                 xPositionOnScreen,
                 yPositionOnScreen - 100, width, 50);
             AddComponent(_searchTextField);
