@@ -6,5 +6,10 @@
   "UniqueID": "Enaium.EnaiumToolKit",
   "EntryDll": "EnaiumToolKit.dll",
   "MinimumApiVersion": "3.8.0",
-  "UpdateKeys": ["GitHub:Enaium-StardewValleyMods/EnaiumToolKit"]
+  "UpdateKeys": [
+    "GitHub:Enaium-StardewValleyMods/EnaiumToolKit",
+    "Chucklefish:6080",
+    "CurseForge:436787",
+    "ModDrop:863959"
+  ]
 }
