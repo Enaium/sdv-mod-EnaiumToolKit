@@ -11,11 +11,26 @@ namespace EnaiumToolKit.Framework.Screen
 {
     public class GuiScreen : IClickableMenu
     {
-        private List<Component> _components;
+        private List<Component> _components = new List<Component>();
 
-        public GuiScreen()
+        protected GuiScreen()
         {
-            _components = new List<Component>();
+            _components.Clear();
+            Initialization();
+            ModEntry.GetInstance().Helper.Events.Display.WindowResized += (sender, args) =>
+            {
+                Initialization();
+            };
+        }
+
+        private void Initialization()
+        {
+            _components.Clear();
+            Init();
+        }
+
+        protected virtual void Init()
+        {
         }
 
         public override void draw(SpriteBatch b)
