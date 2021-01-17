@@ -7,7 +7,6 @@ using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using StardewModdingAPI;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
@@ -15,21 +14,18 @@ using Button = EnaiumToolKit.Framework.Screen.Components.Button;
 
 namespace EnaiumToolKit.Framework.Screen
 {
-    public class ScreenGui : IClickableMenu
+    public class ScreenGui : GuiScreen
     {
-        private List<Element> _elements;
+        private List<Element> _elements = new List<Element>();
         private List<Element> _searchElements;
-        private List<Component> _components;
         private int _index;
         private int _maxElement;
         private TextField _searchTextField;
 
         public string Title { get; }
 
-        public ScreenGui()
+        protected override void Init()
         {
-            _elements = new List<Element>();
-            _components = new List<Component>();
             _index = 0;
             _maxElement = 7;
             width = 832;
@@ -89,9 +85,15 @@ namespace EnaiumToolKit.Framework.Screen
                 xPositionOnScreen,
                 yPositionOnScreen - 100, width, 50);
             AddComponent(_searchTextField);
+
+            base.Init();
         }
 
-        protected ScreenGui(string title) : this()
+        protected ScreenGui()
+        {
+        }
+
+        protected ScreenGui(string title)
         {
             Title = title;
         }
@@ -137,20 +139,6 @@ namespace EnaiumToolKit.Framework.Screen
                     Game1.viewport.Height - 100, Title);
             }
 
-            foreach (var component in _components.Where(component => component.Visibled))
-            {
-                component.Render(b);
-                if (component.Hovered && !component.Description.Equals(""))
-                {
-                    var descriptionWidth = FontUtils.GetWidth(component.Description) + 50;
-                    var descriptionHeight = FontUtils.GetHeight(component.Description) + 50;
-
-                    drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 396, 15, 15), 0, 0, descriptionWidth,
-                        descriptionHeight, Color.Wheat, 4f, false);
-                    FontUtils.DrawHvCentered(b, component.Description, descriptionWidth / 2, descriptionHeight / 2);
-                }
-            }
-
             const string text = "EnaiumToolKit By Enaium";
             FontUtils.Draw(b, text, 0, Game1.viewport.Height - FontUtils.GetHeight(text));
 
@@ -167,13 +155,6 @@ namespace EnaiumToolKit.Framework.Screen
                 Game1.playSound("drumkit6");
             }
 
-            foreach (var component in _components.Where(component =>
-                component.Visibled && component.Enabled && component.Hovered))
-            {
-                component.MouseLeftClicked(x, y);
-                Game1.playSound("drumkit6");
-            }
-
             base.receiveLeftClick(x, y, playSound);
         }
 
@@ -185,12 +166,6 @@ namespace EnaiumToolKit.Framework.Screen
                 variable.MouseLeftReleased(x, y);
             }
 
-            foreach (var component in _components.Where(component =>
-                component.Visibled && component.Enabled && component.Hovered))
-            {
-                component.MouseLeftReleased(x, y);
-            }
-
             base.releaseLeftClick(x, y);
         }
 
@@ -200,12 +175,6 @@ namespace EnaiumToolKit.Framework.Screen
                 variable.Visibled && variable.Enabled && variable.Hovered))
             {
                 variable.MouseRightClicked(x, y);
-            }
-
-            foreach (var component in _components.Where(component =>
-                component.Visibled && component.Enabled && component.Hovered))
-            {
-                component.MouseRightClicked(x, y);
             }
 
             base.receiveRightClick(x, y);
@@ -269,29 +238,6 @@ namespace EnaiumToolKit.Framework.Screen
             foreach (var variable in element)
             {
                 _elements.Remove(variable);
-            }
-        }
-
-        protected void AddComponent(Component component)
-        {
-            _components.Add(component);
-        }
-
-        protected void AddComponentRange(params Component[] component)
-        {
-            _components.AddRange(component);
-        }
-
-        protected void RemoveComponent(Component component)
-        {
-            _components.Remove(component);
-        }
-
-        protected void RemoveComponentRange(params Component[] component)
-        {
-            foreach (var variable in component)
-            {
-                _components.Remove(variable);
             }
         }
 

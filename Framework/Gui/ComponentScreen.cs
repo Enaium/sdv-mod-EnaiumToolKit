@@ -7,7 +7,7 @@ namespace EnaiumToolKit.Framework.Gui
 {
     public class ComponentScreen : GuiScreen
     {
-        public ComponentScreen()
+        protected override void Init()
         {
             AddComponent(new Button("Button", "Button", 20, 20, 150, 50));
             var slot = new Slot<LabelSlot>("Slot", "", 10, 60, 200, 560, 80);
@@ -17,6 +17,7 @@ namespace EnaiumToolKit.Framework.Gui
             }
 
             AddComponent(slot);
+            base.Init();
         }
     }
 }
