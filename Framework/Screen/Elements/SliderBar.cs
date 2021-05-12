@@ -7,7 +7,7 @@ using StardewValley.Menus;
 
 namespace EnaiumToolKit.Framework.Screen.Elements
 {
-    public class Slider : Element
+    public class SliderBar : Element
     {
         public int current;
 
@@ -17,7 +17,7 @@ namespace EnaiumToolKit.Framework.Screen.Elements
         private int _sliderOffset;
         private bool _dragging;
 
-        public Slider(string title, string description, int min, int max) : base(title, description)
+        public SliderBar(string title, string description, int min, int max) : base(title, description)
         {
             _min = min;
             _max = max;
