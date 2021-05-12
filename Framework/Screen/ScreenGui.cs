@@ -110,15 +110,12 @@ namespace EnaiumToolKit.Framework.Screen
             var y = yPositionOnScreen + 20;
             _searchElements = new List<Element>();
             _searchElements.AddRange(GetSearchElements());
-            for (int i = _index, j = 0;
-                j < (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count);
-                i++, j++)
+            var i = 0;
+            foreach (var element in GetElements())
             {
-                var element = _searchElements[i];
-
                 if (element.Visibled)
                 {
-                    element.Render(b, xPositionOnScreen + 15, y + j * 78);
+                    element.Render(b, xPositionOnScreen + 15, y + i * 78);
                     if (element.Hovered && !element.Description.Equals(""))
                     {
                         var descriptionWidth = FontUtils.GetWidth(element.Description) + 50;
@@ -131,6 +128,8 @@ namespace EnaiumToolKit.Framework.Screen
                             descriptionHeight / 2);
                     }
                 }
+
+                i++;
             }
 
             if (Title != null)
@@ -148,7 +147,7 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void receiveLeftClick(int x, int y, bool playSound)
         {
-            foreach (var variable in _searchElements.Where(variable =>
+            foreach (var variable in GetElements().Where(variable =>
                 variable.Visibled && variable.Enabled && variable.Hovered))
             {
                 variable.MouseLeftClicked(x, y);
@@ -160,7 +159,7 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void releaseLeftClick(int x, int y)
         {
-            foreach (var variable in _searchElements.Where(variable =>
+            foreach (var variable in GetElements().Where(variable =>
                 variable.Visibled && variable.Enabled && variable.Hovered))
             {
                 variable.MouseLeftReleased(x, y);
@@ -171,7 +170,7 @@ namespace EnaiumToolKit.Framework.Screen
 
         public override void receiveRightClick(int x, int y, bool playSound)
         {
-            foreach (var variable in _searchElements.Where(variable =>
+            foreach (var variable in GetElements().Where(variable =>
                 variable.Visibled && variable.Enabled && variable.Hovered))
             {
                 variable.MouseRightClicked(x, y);
@@ -206,6 +205,19 @@ namespace EnaiumToolKit.Framework.Screen
             base.receiveKeyPress(key);
         }
 
+        private IEnumerable<Element> GetElements()
+        {
+            List<Element> elements = new List<Element>();
+            for (int i = _index, j = 0;
+                j < (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count);
+                i++, j++)
+            {
+                elements.Add(_elements[i]);
+            }
+
+            return elements;
+        }
+
         private IEnumerable<Element> GetSearchElements()
         {
             IEnumerable<Element> elements = _elements;
@@ -238,18 +250,6 @@ namespace EnaiumToolKit.Framework.Screen
             foreach (var variable in element)
             {
                 _elements.Remove(variable);
-            }
-        }
-
-        protected void OpenScreenGui(IClickableMenu clickableMenu)
-        {
-            if (Game1.activeClickableMenu is TitleMenu)
-            {
-                TitleMenu.subMenu = clickableMenu;
-            }
-            else
-            {
-                Game1.activeClickableMenu = clickableMenu;
             }
         }
     }

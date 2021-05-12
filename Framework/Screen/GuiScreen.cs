@@ -17,10 +17,7 @@ namespace EnaiumToolKit.Framework.Screen
         {
             _components.Clear();
             Initialization();
-            ModEntry.GetInstance().Helper.Events.Display.WindowResized += (sender, args) =>
-            {
-                Initialization();
-            };
+            ModEntry.GetInstance().Helper.Events.Display.WindowResized += (sender, args) => { Initialization(); };
         }
 
         private void Initialization()
@@ -121,6 +118,18 @@ namespace EnaiumToolKit.Framework.Screen
             foreach (var variable in component)
             {
                 _components.Remove(variable);
+            }
+        }
+
+        protected void OpenScreenGui(IClickableMenu clickableMenu)
+        {
+            if (Game1.activeClickableMenu is TitleMenu)
+            {
+                TitleMenu.subMenu = clickableMenu;
+            }
+            else
+            {
+                Game1.activeClickableMenu = clickableMenu;
             }
         }
     }
