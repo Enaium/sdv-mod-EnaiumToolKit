@@ -41,6 +41,7 @@ namespace EnaiumToolKit.Framework.Gui
             {
                 OnLeftClicked = () => { OpenScreenGui(new Colors()); }
             });
+            AddElement(new Slider("Slider", "Slider", 0, 100));
         }
 
         private class Colors : ScreenGui
