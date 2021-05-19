@@ -32,8 +32,7 @@ namespace EnaiumToolKit.Framework.Screen.Elements
                 if (_dragging)
                 {
                     _sliderOffset = (int) MathHelper.Clamp(Game1.getMouseX() - x, 0, Width - 20);
-                    current = (int) (_min + MathHelper.Clamp((Game1.getMouseX() - x) / (float) Width, 0, 1) *
-                        (_max - _min));
+                    current = (int) (_min + MathHelper.Clamp((Game1.getMouseX() - x) / (float) Width, 0, 1) * (_max - _min));
                 }
             }
             else
