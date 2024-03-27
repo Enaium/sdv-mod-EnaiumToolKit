@@ -56,6 +56,7 @@
         <Compile Include="Framework\Screen\Elements\Element.cs" />
         <Compile Include="Framework\Screen\Elements\Label.cs" />
         <Compile Include="Framework\Screen\Elements\ModeButton.cs" />
+        <Compile Include="Framework\Screen\Elements\SliderBar.cs" />
         <Compile Include="Framework\Screen\Elements\ToggleButton.cs" />
         <Compile Include="Framework\Screen\Elements\ValueButton.cs" />
         <Compile Include="Framework\Screen\GuiScreen.cs" />
