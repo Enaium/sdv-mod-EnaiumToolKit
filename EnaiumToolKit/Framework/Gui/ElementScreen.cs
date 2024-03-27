@@ -5,7 +5,7 @@ using StardewModdingAPI;
 
 namespace EnaiumToolKit.Framework.Gui;
 
-public class ElementScreen : ScreenGui
+internal class ElementScreen : ScreenGui
 {
     public ElementScreen() : base("Element")
     {

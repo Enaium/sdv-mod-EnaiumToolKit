@@ -3,7 +3,7 @@ using EnaiumToolKit.Framework.Screen.Elements;
 
 namespace EnaiumToolKit.Framework.Gui;
 
-public class EnaiumToolKitScreen : ScreenGui
+internal class EnaiumToolKitScreen : ScreenGui
 {
     public EnaiumToolKitScreen() : base("Enaium toolKit")
     {

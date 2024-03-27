@@ -4,7 +4,7 @@ using EnaiumToolKit.Framework.Screen.Components.Slots;
 
 namespace EnaiumToolKit.Framework.Gui;
 
-public class ComponentScreen : GuiScreen
+internal class ComponentScreen : GuiScreen
 {
     protected override void Init()
     {
