@@ -107,15 +107,12 @@ public class ScreenGui : GuiScreen
         var y = yPositionOnScreen + 20;
         _searchElements = new List<Element>();
         _searchElements.AddRange(GetSearchElements());
-        for (int i = _index, j = 0;
-             j < (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count);
-             i++, j++)
+        var i = 0;
+        foreach (var element in GetElements())
         {
-            var element = _searchElements[i];
-
             if (element.Visibled)
             {
-                element.Render(b, xPositionOnScreen + 15, y + j * 78);
+                element.Render(b, xPositionOnScreen + 15, y + i * 78);
                 if (element.Hovered && !element.Description.Equals(""))
                 {
                     var descriptionWidth = FontUtils.GetWidth(element.Description) + 50;
@@ -128,6 +125,7 @@ public class ScreenGui : GuiScreen
                         descriptionHeight / 2);
                 }
             }
+            i++;
         }
 
         if (Title != null)
@@ -145,7 +143,7 @@ public class ScreenGui : GuiScreen
 
     public override void receiveLeftClick(int x, int y, bool playSound = true)
     {
-        foreach (var variable in _searchElements.Where(variable =>
+        foreach (var variable in GetElements().Where(variable =>
                      variable is { Visibled: true, Enabled: true, Hovered: true }))
         {
             variable.MouseLeftClicked(x, y);
@@ -157,7 +155,7 @@ public class ScreenGui : GuiScreen
 
     public override void releaseLeftClick(int x, int y)
     {
-        foreach (var variable in _searchElements.Where(variable =>
+        foreach (var variable in GetElements().Where(variable =>
                      variable is { Visibled: true, Enabled: true, Hovered: true }))
         {
             variable.MouseLeftReleased(x, y);
@@ -168,7 +166,7 @@ public class ScreenGui : GuiScreen
 
     public override void receiveRightClick(int x, int y, bool playSound = true)
     {
-        foreach (var variable in _searchElements.Where(variable =>
+        foreach (var variable in GetElements().Where(variable =>
                      variable is { Visibled: true, Enabled: true, Hovered: true }))
         {
             variable.MouseRightClicked(x, y);
@@ -201,6 +199,19 @@ public class ScreenGui : GuiScreen
         }
 
         base.receiveKeyPress(key);
+    }
+    
+    private IEnumerable<Element> GetElements()
+    {
+        List<Element> elements = new List<Element>();
+        for (int i = _index, j = 0;
+             j < (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count);
+             i++, j++)
+        {
+            elements.Add(_elements[i]);
+        }
+
+        return elements;
     }
 
     private IEnumerable<Element> GetSearchElements()
@@ -235,18 +246,6 @@ public class ScreenGui : GuiScreen
         foreach (var variable in element)
         {
             _elements.Remove(variable);
-        }
-    }
-
-    protected void OpenScreenGui(IClickableMenu clickableMenu)
-    {
-        if (Game1.activeClickableMenu is TitleMenu)
-        {
-            TitleMenu.subMenu = clickableMenu;
-        }
-        else
-        {
-            Game1.activeClickableMenu = clickableMenu;
         }
     }
 }

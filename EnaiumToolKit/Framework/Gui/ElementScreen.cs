@@ -36,6 +36,7 @@ internal class ElementScreen : ScreenGui
         {
             OnLeftClicked = () => { OpenScreenGui(new Colors()); }
         });
+        AddElement(new SliderBar("Slider", "Slider", 0, 100));
     }
 
     private class Colors : ScreenGui

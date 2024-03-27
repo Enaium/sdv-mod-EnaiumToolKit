@@ -118,4 +118,16 @@ public class GuiScreen : IClickableMenu
             _components.Remove(variable);
         }
     }
+    
+    protected void OpenScreenGui(IClickableMenu clickableMenu)
+    {
+        if (Game1.activeClickableMenu is TitleMenu)
+        {
+            TitleMenu.subMenu = clickableMenu;
+        }
+        else
+        {
+            Game1.activeClickableMenu = clickableMenu;
+        }
+    }
 }
