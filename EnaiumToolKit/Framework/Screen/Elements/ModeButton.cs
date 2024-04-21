@@ -5,7 +5,7 @@ using StardewValley;
 
 namespace EnaiumToolKit.Framework.Screen.Elements;
 
-public class ModeButton : Element
+public class ModeButton : BaseButton
 {
     public List<string> modes;
     public string Current;
@@ -16,11 +16,10 @@ public class ModeButton : Element
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        Hovered = Render2DUtils.IsHovered(Game1.getMouseX(), Game1.getMouseY(), x, y, Width, Height);
-
         Render2DUtils.DrawButton(b, x, y, Width, Height, Hovered ? Color.Wheat : Color.White);
         FontUtils.DrawHvCentered(b, $"{Title}:({GetCurrentIndex() + 1}/{modes.Count}){modes[GetCurrentIndex()]}", x, y,
             Width, Height);
+        base.Render(b, x, y);
     }
 
     public override void MouseLeftClicked(int x, int y)
@@ -34,6 +33,7 @@ public class ModeButton : Element
             Current = modes.First();
         }
 
+        Game1.playSound("drumkit6");
         base.MouseLeftClicked(x, y);
     }
 
@@ -48,6 +48,7 @@ public class ModeButton : Element
             Current = modes.Last();
         }
 
+        Game1.playSound("drumkit5");
         base.MouseRightClicked(x, y);
     }
 

@@ -5,7 +5,7 @@ using StardewValley;
 
 namespace EnaiumToolKit.Framework.Screen.Elements;
 
-public class SliderBar : Element
+public class SliderBar : BaseButton
 {
     public int Current;
 
@@ -23,8 +23,6 @@ public class SliderBar : Element
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        Hovered = Render2DUtils.IsHovered(Game1.getMouseX(), Game1.getMouseY(), x, y, Width, Height);
-
         if (Hovered)
         {
             if (_dragging)
@@ -41,6 +39,7 @@ public class SliderBar : Element
         Render2DUtils.DrawButton(b, x + _sliderOffset, y, 20, Height, Color.Wheat);
 
         FontUtils.DrawHvCentered(b, $"{Title}:{Current}", x, y, Width, Height);
+        base.Render(b, x, y);
     }
 
     public override void MouseLeftClicked(int x, int y)

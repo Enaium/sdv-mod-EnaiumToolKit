@@ -147,7 +147,6 @@ public class ScreenGui : GuiScreen
                      variable is { Visibled: true, Enabled: true, Hovered: true }))
         {
             variable.MouseLeftClicked(x, y);
-            Game1.playSound("drumkit6");
         }
 
         base.receiveLeftClick(x, y, playSound);
