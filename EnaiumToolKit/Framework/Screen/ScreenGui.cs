@@ -121,10 +121,10 @@ public class ScreenGui : GuiScreen
                     drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 396, 15, 15), 0, 0,
                         descriptionWidth,
                         descriptionHeight, Color.Wheat, 4f, false);
-                    FontUtils.DrawHvCentered(b, element.Description, descriptionWidth / 2,
-                        descriptionHeight / 2);
+                    FontUtils.DrawHvCentered(b, element.Description, 0, 0, descriptionWidth, descriptionHeight);
                 }
             }
+
             i++;
         }
 
@@ -200,7 +200,7 @@ public class ScreenGui : GuiScreen
 
         base.receiveKeyPress(key);
     }
-    
+
     private IEnumerable<Element> GetElements()
     {
         List<Element> elements = new List<Element>();

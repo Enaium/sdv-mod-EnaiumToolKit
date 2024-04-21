@@ -18,7 +18,7 @@ public class Button : Component
         Hovered = Render2DUtils.IsHovered(Game1.getMouseX(), Game1.getMouseY(), X, Y, Width, Height);
 
         Render2DUtils.DrawButton(b, X, Y, Width, Height, Hovered ? Color.Wheat : Color.White);
-        FontUtils.DrawHvCentered(b, Title, X + Width / 2, Y + Height / 2);
+        FontUtils.DrawHvCentered(b, Title, X, Y, Width, Height);
 
         if (Hovered)
         {

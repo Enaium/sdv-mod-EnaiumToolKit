@@ -27,7 +27,7 @@ public class ToggleButton : Element
                 Color.Black, 4f, false);
         }
 
-        FontUtils.DrawHvCentered(b, Title, x + Width / 2, y + Height / 2);
+        FontUtils.DrawHvCentered(b, Title, x, y, Width, Height);
     }
 
     public override void MouseLeftClicked(int x, int y)

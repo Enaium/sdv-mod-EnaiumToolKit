@@ -40,7 +40,7 @@ public class SliderBar : Element
 
         Render2DUtils.DrawButton(b, x + _sliderOffset, y, 20, Height, Color.Wheat);
 
-        FontUtils.DrawHvCentered(b, $"{Title}:{Current}", x + Width / 2, y + Height / 2);
+        FontUtils.DrawHvCentered(b, $"{Title}:{Current}", x, y, Width, Height);
     }
 
     public override void MouseLeftClicked(int x, int y)

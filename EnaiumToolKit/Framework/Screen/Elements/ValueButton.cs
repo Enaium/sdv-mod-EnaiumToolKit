@@ -20,7 +20,7 @@ public class ValueButton : Element
         Hovered = Render2DUtils.IsHovered(Game1.getMouseX(), Game1.getMouseY(), x, y, Width, Height);
 
         Render2DUtils.DrawButton(b, x, y, Width, Height, Hovered ? Color.Wheat : Color.White);
-        FontUtils.DrawHvCentered(b, $"{Title}:({Min}-{Max}){Current}", x + Width / 2, y + Height / 2);
+        FontUtils.DrawHvCentered(b, $"{Title}:({Min}-{Max}){Current}", x, y, Width, Height);
     }
 
     public override void MouseLeftClicked(int x, int y)

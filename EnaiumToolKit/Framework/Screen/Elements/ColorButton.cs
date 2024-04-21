@@ -17,6 +17,6 @@ public class ColorButton : Element
     {
         Hovered = Render2DUtils.IsHovered(Game1.getMouseX(), Game1.getMouseY(), x, y, Width, Height);
         b.Draw(Game1.staminaRect, new Rectangle(x, y, Width, Height), Color);
-        FontUtils.DrawHvCentered(b, Title, x + Width / 2, y + Height / 2);
+        FontUtils.DrawHvCentered(b, Title, x, y, Width, Height);
     }
 }

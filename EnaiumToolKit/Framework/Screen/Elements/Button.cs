@@ -22,6 +22,6 @@ public class Button : Element
                 Color.Black, 4f, false);
         }
 
-        FontUtils.DrawHvCentered(b, Title, x + Width / 2, y + Height / 2);
+        FontUtils.DrawHvCentered(b, Title, x, y, Width, Height);
     }
 }
