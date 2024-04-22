@@ -204,7 +204,7 @@ public class ScreenGui : GuiScreen
              j < (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count);
              i++, j++)
         {
-            elements.Add(_elements[i]);
+            elements.Add(_searchElements[i]);
         }
 
         return elements;
@@ -216,9 +216,11 @@ public class ScreenGui : GuiScreen
         if (!_searchTextField.Text.Equals(""))
         {
             elements = elements.Where(element =>
-                element.Title.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase));
+                element.Title.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase)
+                || element.Description.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase)
+            );
         }
-
+        
         return elements;
     }
 
