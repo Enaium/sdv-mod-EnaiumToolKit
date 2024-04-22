@@ -2,6 +2,7 @@
 
 namespace EnaiumToolKit.Framework.Utils;
 
+[Obsolete]
 public class ColorUtils
 {
     public readonly NameType Name;

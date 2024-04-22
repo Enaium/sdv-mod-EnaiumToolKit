@@ -36,7 +36,13 @@ public class SliderBar : BaseButton
             _dragging = false;
         }
 
-        Render2DUtils.DrawButton(b, x + _sliderOffset, y, 20, Height, Color.Wheat);
+        Render2DUtils.DrawButton(b,
+            x + (_sliderOffset != 0 ? _sliderOffset :
+                Current != 0 ? (int)MathHelper.Clamp((Current - _min) / (float)(_max - _min), 0, 1) * Width - 20 :
+                _sliderOffset),
+            y,
+            20, Height,
+            Color.Wheat);
 
         FontUtils.DrawHvCentered(b, $"{Title}:{Current}", x, y, Width, Height);
         base.Render(b, x, y);

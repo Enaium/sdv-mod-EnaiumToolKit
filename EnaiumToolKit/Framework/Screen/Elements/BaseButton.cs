@@ -8,7 +8,7 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class BaseButton : Element
 {
-    public BaseButton(string title, string description) : base(title, description)
+    protected BaseButton(string title, string description) : base(title, description)
     {
     }
 
@@ -18,7 +18,7 @@ public class BaseButton : Element
         if (Hovered)
         {
             IClickableMenu.drawTextureBox(b, Game1.mouseCursors, new Rectangle(375, 357, 3, 3), x, y, Width, Height,
-                Color.Black, 4f, false);
+                Color.Red, 4f, false);
         }
     }
 
