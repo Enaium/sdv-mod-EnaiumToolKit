@@ -13,7 +13,7 @@ public class SliderBar : BaseButton
     private int _max;
 
     private int _sliderOffset;
-    private bool _dragging;
+    public bool Dragging;
 
     public SliderBar(string title, string description, int min, int max) : base(title, description)
     {
@@ -25,7 +25,7 @@ public class SliderBar : BaseButton
     {
         if (Hovered)
         {
-            if (_dragging)
+            if (Dragging)
             {
                 _sliderOffset = MathHelper.Clamp(Game1.getMouseX() - x, 0, Width - 20);
                 Current = (int)(_min + MathHelper.Clamp((Game1.getMouseX() - x) / (float)Width, 0, 1) * (_max - _min));
@@ -33,7 +33,7 @@ public class SliderBar : BaseButton
         }
         else
         {
-            _dragging = false;
+            Dragging = false;
         }
 
         Render2DUtils.DrawButton(b,
@@ -50,13 +50,13 @@ public class SliderBar : BaseButton
 
     public override void MouseLeftClicked(int x, int y)
     {
-        _dragging = true;
+        Dragging = true;
         base.MouseLeftClicked(x, y);
     }
 
     public override void MouseLeftReleased(int x, int y)
     {
-        _dragging = false;
+        Dragging = false;
         base.MouseLeftReleased(x, y);
     }
 }

@@ -39,7 +39,7 @@ internal class ElementScreen : ScreenGui
         });
         AddElement(new SliderBar("Slider", "Slider", 0, 100));
         var colorPicker = new ColorPicker("Color Picker", "Color Picker", Color.White);
-        colorPicker.OnLeftClicked = () =>
+        colorPicker.OnColorChanged = () =>
         {
             ModEntry.GetInstance().Monitor.Log(colorPicker.Color.ToString(), LogLevel.Debug);
         };
