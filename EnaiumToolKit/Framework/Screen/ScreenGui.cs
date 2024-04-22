@@ -32,9 +32,13 @@ public class ScreenGui : GuiScreen
         xPositionOnScreen = (int)centeringOnScreen.X;
         yPositionOnScreen = (int)centeringOnScreen.Y + 32;
         const int buttonSize = 60;
+        _searchTextField = new TextField("", GetTranslation("screenGui.component.textField.Search"),
+            xPositionOnScreen,
+            yPositionOnScreen - 100, width, 50);
+        AddComponent(_searchTextField);
         AddComponent(new ArrowButton(xPositionOnScreen + width + ArrowButton.Width, yPositionOnScreen)
         {
-            Up = true,
+            Direction = ArrowButton.DirectionType.Up,
             OnLeftClicked = () =>
             {
                 if (_index >= _maxElement)
@@ -47,9 +51,10 @@ public class ScreenGui : GuiScreen
                 }
             }
         });
-        AddComponent(new ArrowButton(xPositionOnScreen + width + ArrowButton.Width, yPositionOnScreen + height - ArrowButton.Height)
+        AddComponent(new ArrowButton(xPositionOnScreen + width + ArrowButton.Width,
+            yPositionOnScreen + height - ArrowButton.Height)
         {
-            Up = false,
+            Direction = ArrowButton.DirectionType.Down,
             OnLeftClicked = () =>
             {
                 if (_index + (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count) <
@@ -69,17 +74,11 @@ public class ScreenGui : GuiScreen
 
         if (Game1.activeClickableMenu is not TitleMenu)
         {
-            AddComponent(new Button("C", GetTranslation("screenGui.component.textField.closeScreen"),
-                Game1.viewport.Width - buttonSize, 0, buttonSize, buttonSize)
+            AddComponent(new CloseButton(xPositionOnScreen + width + ArrowButton.Width, _searchTextField.Y)
             {
                 OnLeftClicked = () => { Game1.activeClickableMenu = null; }
             });
         }
-
-        _searchTextField = new TextField("", GetTranslation("screenGui.component.textField.Search"),
-            xPositionOnScreen,
-            yPositionOnScreen - 100, width, 50);
-        AddComponent(_searchTextField);
 
         base.Init();
     }
@@ -101,7 +100,6 @@ public class ScreenGui : GuiScreen
 
     public override void draw(SpriteBatch b)
     {
-        _searchTextField.Visibled = _elements.Count > 7;
         Render2DUtils.DrawBound(b, xPositionOnScreen, yPositionOnScreen, width, height, Color.White);
         var y = yPositionOnScreen + 20;
         _searchElements = new List<Element>();
