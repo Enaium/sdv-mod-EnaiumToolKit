@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
+using BaseButton = EnaiumToolKit.Framework.Screen.Components.BaseButton;
 using Button = EnaiumToolKit.Framework.Screen.Components.Button;
 
 namespace EnaiumToolKit.Framework.Screen;
@@ -31,10 +32,9 @@ public class ScreenGui : GuiScreen
         xPositionOnScreen = (int)centeringOnScreen.X;
         yPositionOnScreen = (int)centeringOnScreen.Y + 32;
         const int buttonSize = 60;
-        AddComponent(new Button("U", GetTranslation("screenGui.component.textField.flipUp"),
-            xPositionOnScreen + width + buttonSize, yPositionOnScreen, buttonSize,
-            buttonSize)
+        AddComponent(new ArrowButton(xPositionOnScreen + width + ArrowButton.Width, yPositionOnScreen)
         {
+            Up = true,
             OnLeftClicked = () =>
             {
                 if (_index >= _maxElement)
@@ -47,11 +47,9 @@ public class ScreenGui : GuiScreen
                 }
             }
         });
-        AddComponent(new Button("D", GetTranslation("screenGui.component.textField.flipDown"),
-            xPositionOnScreen + width + buttonSize,
-            yPositionOnScreen + height - buttonSize,
-            buttonSize, buttonSize)
+        AddComponent(new ArrowButton(xPositionOnScreen + width + ArrowButton.Width, yPositionOnScreen + height - ArrowButton.Height)
         {
+            Up = false,
             OnLeftClicked = () =>
             {
                 if (_index + (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count) <
@@ -69,7 +67,7 @@ public class ScreenGui : GuiScreen
             }
         });
 
-        if (!(Game1.activeClickableMenu is TitleMenu))
+        if (Game1.activeClickableMenu is not TitleMenu)
         {
             AddComponent(new Button("C", GetTranslation("screenGui.component.textField.closeScreen"),
                 Game1.viewport.Width - buttonSize, 0, buttonSize, buttonSize)
@@ -103,6 +101,7 @@ public class ScreenGui : GuiScreen
 
     public override void draw(SpriteBatch b)
     {
+        _searchTextField.Visibled = _elements.Count > 7;
         Render2DUtils.DrawBound(b, xPositionOnScreen, yPositionOnScreen, width, height, Color.White);
         var y = yPositionOnScreen + 20;
         _searchElements = new List<Element>();
@@ -202,7 +201,7 @@ public class ScreenGui : GuiScreen
 
     private IEnumerable<Element> GetElements()
     {
-        List<Element> elements = new List<Element>();
+        var elements = new List<Element>();
         for (int i = _index, j = 0;
              j < (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count);
              i++, j++)
@@ -219,7 +218,7 @@ public class ScreenGui : GuiScreen
         if (!_searchTextField.Text.Equals(""))
         {
             elements = elements.Where(element =>
-                element.Title.IndexOf(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase) >= 0);
+                element.Title.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase));
         }
 
         return elements;
