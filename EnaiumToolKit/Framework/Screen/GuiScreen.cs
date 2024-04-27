@@ -33,7 +33,7 @@ public class GuiScreen : IClickableMenu
         foreach (var component in _components.Where(component => component.Visibled))
         {
             component.Render(b);
-            if (component.Hovered && !component.Description.Equals(""))
+            if (component is { Hovered: true, Description: not null } && !component.Description.Equals(""))
             {
                 var descriptionWidth = FontUtils.GetWidth(component.Description) + 50;
                 var descriptionHeight = FontUtils.GetHeight(component.Description) + 50;
