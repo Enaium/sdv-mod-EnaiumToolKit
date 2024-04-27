@@ -2,12 +2,25 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
+using StardewValley.Menus;
 
 namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class SliderBar : BaseButton
 {
-    public int Current;
+    private int _current;
+
+    public int Current
+    {
+        get => _current;
+        set
+        {
+            _current = value;
+            _previous = value;
+        }
+    }
+
+    private int _previous;
 
     private int _min;
     private int _max;
@@ -22,14 +35,24 @@ public class SliderBar : BaseButton
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        var blockSize = 20;
+        if (_current != _previous)
+        {
+            Game1.playSound("shiny4");
+            _previous = _current;
+        }
+
+        var blockWidth = 20;
 
         if (Hovered)
         {
             if (Dragging)
             {
-                Current = (int)(_min + MathHelper.Clamp((Game1.getMouseX() - x) / (float)(Width - blockSize), 0, 1) *
-                    (_max - _min));
+                if (_max - _min != 0)
+                {
+                    _current = (int)(_min +
+                                     MathHelper.Clamp((Game1.getMouseX() - x) / (float)(Width - blockWidth), 0, 1) *
+                                     (_max - _min));
+                }
             }
         }
         else
@@ -37,22 +60,30 @@ public class SliderBar : BaseButton
             Dragging = false;
         }
 
-        var sliderOffset = (Width - blockSize) * (Current - _min) / (_max - _min);
-        Render2DUtils.DrawButton(b, x + sliderOffset, y, blockSize, Height, Color.Wheat);
+        var sliderOffset = Width - blockWidth;
 
-        FontUtils.DrawHvCentered(b, $"{Title}:{Current}", x, y, Width, Height);
+        if (_max - _min != 0)
+        {
+            sliderOffset = sliderOffset * (_current - _min) / (_max - _min);
+        }
+        else
+        {
+            sliderOffset = 0;
+        }
+
+        Render2DUtils.DrawButton(b, x + sliderOffset, y, blockWidth, Height, Color.Wheat);
+
+        FontUtils.DrawHvCentered(b, $"{Title}:{_current}", x, y, Width, Height);
         base.Render(b, x, y);
     }
 
     public override void MouseLeftClicked(int x, int y)
     {
         Dragging = true;
-        base.MouseLeftClicked(x, y);
     }
 
     public override void MouseLeftReleased(int x, int y)
     {
         Dragging = false;
-        base.MouseLeftReleased(x, y);
     }
 }
