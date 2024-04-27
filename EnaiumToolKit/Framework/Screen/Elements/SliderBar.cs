@@ -26,6 +26,8 @@ public class SliderBar : BaseButton
     private int _max;
 
     public bool Dragging;
+    
+    public Action OnValueChanged = () => { };
 
     public SliderBar(string title, string description, int min, int max) : base(title, description)
     {
@@ -49,9 +51,9 @@ public class SliderBar : BaseButton
             {
                 if (_max - _min != 0)
                 {
-                    _current = (int)(_min +
-                                     MathHelper.Clamp((Game1.getMouseX() - x) / (float)(Width - blockWidth), 0, 1) *
-                                     (_max - _min));
+                    _current = MathHelper.Clamp((Game1.getMouseX() - x) * (_max - _min) / (Width - blockWidth) + _min,
+                        _min, _max);
+                    OnValueChanged.Invoke();
                 }
             }
         }

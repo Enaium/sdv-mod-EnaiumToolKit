@@ -21,5 +21,12 @@ public class BaseButton : Component
             IClickableMenu.drawTextureBox(b, Game1.mouseCursors, new Rectangle(375, 357, 3, 3), X, Y, Width, Height,
                 Color.Red, 4f, false);
         }
+    } 
+
+    public override void MouseLeftClicked(int x, int y)
+    {
+        
+        Game1.playSound("drumkit6");
+        base.MouseLeftClicked(x, y);
     }
 }

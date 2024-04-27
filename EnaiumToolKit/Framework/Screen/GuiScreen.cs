@@ -57,7 +57,6 @@ public class GuiScreen : IClickableMenu
                      component is { Visibled: true, Enabled: true, Hovered: true }))
         {
             component.MouseLeftClicked(x, y);
-            Game1.playSound("drumkit6");
         }
 
         base.receiveLeftClick(x, y, playSound);

@@ -7,8 +7,6 @@ using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
-using BaseButton = EnaiumToolKit.Framework.Screen.Components.BaseButton;
-using Button = EnaiumToolKit.Framework.Screen.Components.Button;
 
 namespace EnaiumToolKit.Framework.Screen;
 
@@ -19,6 +17,7 @@ public class ScreenGui : GuiScreen
     private int _index;
     private int _maxElement;
     private TextField _searchTextField;
+    private ScrollBar _scrollBar;
 
     private string? Title { get; }
 
@@ -35,8 +34,7 @@ public class ScreenGui : GuiScreen
         _searchTextField = new TextField("", GetTranslation("screenGui.component.textField.Search"),
             xPositionOnScreen,
             yPositionOnScreen - 100, width, 50);
-        AddComponent(_searchTextField);
-        AddComponent(new ArrowButton(xPositionOnScreen + width + ArrowButton.Width, yPositionOnScreen)
+        var upArrowButton = new ArrowButton(xPositionOnScreen + width + ArrowButton.Width, yPositionOnScreen)
         {
             Direction = ArrowButton.DirectionType.Up,
             OnLeftClicked = () =>
@@ -50,8 +48,8 @@ public class ScreenGui : GuiScreen
                     _index = 0;
                 }
             }
-        });
-        AddComponent(new ArrowButton(xPositionOnScreen + width + ArrowButton.Width,
+        };
+        var downButton = new ArrowButton(xPositionOnScreen + width + ArrowButton.Width,
             yPositionOnScreen + height - ArrowButton.Height)
         {
             Direction = ArrowButton.DirectionType.Down,
@@ -70,7 +68,10 @@ public class ScreenGui : GuiScreen
                     }
                 }
             }
-        });
+        };
+        _scrollBar = new ScrollBar(upArrowButton.X, upArrowButton.Y + ArrowButton.Height,
+            ArrowButton.Width, yPositionOnScreen + height - upArrowButton.Y - ArrowButton.Height * 2);
+        AddComponentRange(upArrowButton, downButton, _searchTextField, _scrollBar);
 
         if (Game1.activeClickableMenu is not TitleMenu)
         {
@@ -104,6 +105,17 @@ public class ScreenGui : GuiScreen
         var y = yPositionOnScreen + 20;
         _searchElements = new List<Element>();
         _searchElements.AddRange(GetSearchElements());
+
+        if (_searchElements.Count > _maxElement)
+        {
+            _scrollBar.Max = _searchElements.Count - _maxElement;
+            _scrollBar.Current = _index;
+            _scrollBar.OnValueChanged = () =>
+            {
+                _index = _scrollBar.Current;
+            };
+        }
+
         var i = 0;
         foreach (var element in GetElements())
         {
@@ -220,7 +232,7 @@ public class ScreenGui : GuiScreen
                 || element.Description.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase)
             );
         }
-        
+
         return elements;
     }
 
