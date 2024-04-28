@@ -119,11 +119,16 @@ public class ScreenGui : GuiScreen
         var y = yPositionOnScreen + 20;
         _searchElements = new List<Element>();
         _searchElements.AddRange(GetSearchElements());
+        
+        if (_index >= _searchElements.Count)
+        {
+            _index = 0;
+        }
 
         _scrollBar.Max = _searchElements.Count - _maxElement;
         _scrollBar.Current = _index;
         _scrollBar.OnValueChanged = () => { _index = _scrollBar.Current; };
-        
+
         _back.Visibled = PreviousMenu != null;
 
         var i = 0;
@@ -211,11 +216,6 @@ public class ScreenGui : GuiScreen
 
     public override void receiveKeyPress(Keys key)
     {
-        if (_searchTextField.Hovered)
-        {
-            _index = 0;
-        }
-
         if (Game1.options.menuButton[0].key == key)
         {
             return;
