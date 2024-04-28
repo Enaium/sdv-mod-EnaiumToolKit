@@ -18,6 +18,7 @@ public class ScreenGui : GuiScreen
     private int _maxElement;
     private TextField _searchTextField;
     private ScrollBar _scrollBar;
+    private ArrowButton _back;
 
     private string? Title { get; }
 
@@ -30,11 +31,10 @@ public class ScreenGui : GuiScreen
         var centeringOnScreen = Utility.getTopLeftPositionForCenteringOnScreen(width, height);
         xPositionOnScreen = (int)centeringOnScreen.X;
         yPositionOnScreen = (int)centeringOnScreen.Y + 32;
-        const int buttonSize = 60;
         _searchTextField = new TextField("", GetTranslation("screenGui.component.textField.Search"),
             xPositionOnScreen,
             yPositionOnScreen - 100, width, 50);
-        var upArrowButton = new ArrowButton(xPositionOnScreen + width + ArrowButton.Width, yPositionOnScreen)
+        var up = new ArrowButton(xPositionOnScreen + width + ArrowButton.Width, yPositionOnScreen)
         {
             Direction = ArrowButton.DirectionType.Up,
             OnLeftClicked = () =>
@@ -49,7 +49,7 @@ public class ScreenGui : GuiScreen
                 }
             }
         };
-        var downButton = new ArrowButton(xPositionOnScreen + width + ArrowButton.Width,
+        var down = new ArrowButton(xPositionOnScreen + width + ArrowButton.Width,
             yPositionOnScreen + height - ArrowButton.Height)
         {
             Direction = ArrowButton.DirectionType.Down,
@@ -69,9 +69,23 @@ public class ScreenGui : GuiScreen
                 }
             }
         };
-        _scrollBar = new ScrollBar(upArrowButton.X, upArrowButton.Y + ArrowButton.Height,
-            ArrowButton.Width, yPositionOnScreen + height - upArrowButton.Y - ArrowButton.Height * 2);
-        AddComponentRange(upArrowButton, downButton, _searchTextField, _scrollBar);
+        _scrollBar = new ScrollBar(up.X, up.Y + ArrowButton.Height,
+            ArrowButton.Width, yPositionOnScreen + height - up.Y - ArrowButton.Height * 2);
+
+        _back = new ArrowButton(xPositionOnScreen - ArrowButton.Width * 2, yPositionOnScreen)
+        {
+            Direction = ArrowButton.DirectionType.Left,
+            OnLeftClicked = () =>
+            {
+                if (PreviousMenu != null)
+                {
+                    Game1.activeClickableMenu = PreviousMenu;
+                }
+            }
+        };
+
+
+        AddComponentRange(up, down, _searchTextField, _scrollBar, _back);
 
         if (Game1.activeClickableMenu is not TitleMenu)
         {
@@ -108,10 +122,9 @@ public class ScreenGui : GuiScreen
 
         _scrollBar.Max = _searchElements.Count - _maxElement;
         _scrollBar.Current = _index;
-        _scrollBar.OnValueChanged = () =>
-        {
-            _index = _scrollBar.Current;
-        };
+        _scrollBar.OnValueChanged = () => { _index = _scrollBar.Current; };
+        
+        _back.Visibled = PreviousMenu != null;
 
         var i = 0;
         foreach (var element in GetElements())
@@ -202,6 +215,7 @@ public class ScreenGui : GuiScreen
         {
             _index = 0;
         }
+
         if (Game1.options.menuButton[0].key == key)
         {
             return;

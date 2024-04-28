@@ -2,6 +2,7 @@
 using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -10,6 +11,7 @@ namespace EnaiumToolKit.Framework.Screen;
 public class GuiScreen : IClickableMenu
 {
     private readonly List<Component> _components = new();
+    public IClickableMenu? PreviousMenu;
 
     protected GuiScreen()
     {
@@ -126,6 +128,11 @@ public class GuiScreen : IClickableMenu
         }
         else
         {
+            if (clickableMenu is GuiScreen guiScreen)
+            {
+                guiScreen.PreviousMenu = this;
+            }
+
             Game1.activeClickableMenu = clickableMenu;
         }
     }
