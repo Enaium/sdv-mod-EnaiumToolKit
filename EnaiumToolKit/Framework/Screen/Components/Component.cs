@@ -12,14 +12,14 @@ public abstract class Component
     public int Y;
     public int Width;
     public int Height;
-    public string Title;
-    public string Description;
+    public string? Title;
+    public string? Description;
 
     public Action OnLeftClicked = () => { };
     public Action OnLeftReleased = () => { };
     public Action OnRightClicked = () => { };
 
-    public Component(string title, string description, int x, int y, int width, int height)
+    public Component(string? title, string? description, int x, int y, int width, int height)
     {
         Title = title;
         Description = description;

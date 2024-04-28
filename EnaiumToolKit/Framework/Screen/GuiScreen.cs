@@ -2,6 +2,7 @@
 using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -10,6 +11,7 @@ namespace EnaiumToolKit.Framework.Screen;
 public class GuiScreen : IClickableMenu
 {
     private readonly List<Component> _components = new();
+    public IClickableMenu? PreviousMenu;
 
     protected GuiScreen()
     {
@@ -33,7 +35,7 @@ public class GuiScreen : IClickableMenu
         foreach (var component in _components.Where(component => component.Visibled))
         {
             component.Render(b);
-            if (component.Hovered && !component.Description.Equals(""))
+            if (component is { Hovered: true, Description: not null } && !component.Description.Equals(""))
             {
                 var descriptionWidth = FontUtils.GetWidth(component.Description) + 50;
                 var descriptionHeight = FontUtils.GetHeight(component.Description) + 50;
@@ -57,7 +59,6 @@ public class GuiScreen : IClickableMenu
                      component is { Visibled: true, Enabled: true, Hovered: true }))
         {
             component.MouseLeftClicked(x, y);
-            Game1.playSound("drumkit6");
         }
 
         base.receiveLeftClick(x, y, playSound);
@@ -127,6 +128,11 @@ public class GuiScreen : IClickableMenu
         }
         else
         {
+            if (clickableMenu is GuiScreen guiScreen)
+            {
+                guiScreen.PreviousMenu = this;
+            }
+
             Game1.activeClickableMenu = clickableMenu;
         }
     }
