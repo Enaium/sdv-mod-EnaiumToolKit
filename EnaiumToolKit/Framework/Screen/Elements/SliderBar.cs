@@ -8,22 +8,10 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class SliderBar : BaseButton
 {
-    private int _current;
-
-    public int Current
-    {
-        get => _current;
-        set
-        {
-            _current = value;
-            _previous = value;
-        }
-    }
-
-    private int _previous;
-
-    private int _min;
-    private int _max;
+    public int Current { get; set; }
+    
+    private readonly int _min;
+    private readonly int _max;
 
     public bool Dragging;
 
@@ -37,7 +25,7 @@ public class SliderBar : BaseButton
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        var previous = _current;
+        var previous = Current;
 
         var blockWidth = 20;
 
@@ -47,10 +35,10 @@ public class SliderBar : BaseButton
             {
                 if (_max - _min != 0)
                 {
-                    _current = MathHelper.Clamp((Game1.getMouseX() - x) * (_max - _min) / (Width - blockWidth) + _min,
+                    Current = MathHelper.Clamp((Game1.getMouseX() - x) * (_max - _min) / (Width - blockWidth) + _min,
                         _min, _max);
                     OnValueChanged.Invoke();
-                    if (previous != _current)
+                    if (previous != Current)
                     {
                         Game1.playSound("shiny4");
                     }
@@ -66,7 +54,7 @@ public class SliderBar : BaseButton
 
         if (_max - _min != 0)
         {
-            sliderOffset = sliderOffset * (_current - _min) / (_max - _min);
+            sliderOffset = sliderOffset * (Current - _min) / (_max - _min);
         }
         else
         {
@@ -75,7 +63,7 @@ public class SliderBar : BaseButton
 
         Render2DUtils.DrawButton(b, x + sliderOffset, y, blockWidth, Height, Color.Wheat);
 
-        FontUtils.DrawHvCentered(b, $"{Title}:{_current}", x, y, Width, Height);
+        FontUtils.DrawHvCentered(b, $"{Title}:{Current}", x, y, Width, Height);
         base.Render(b, x, y);
     }
 

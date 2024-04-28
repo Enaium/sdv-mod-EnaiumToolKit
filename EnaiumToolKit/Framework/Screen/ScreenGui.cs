@@ -106,15 +106,12 @@ public class ScreenGui : GuiScreen
         _searchElements = new List<Element>();
         _searchElements.AddRange(GetSearchElements());
 
-        if (_searchElements.Count > _maxElement)
+        _scrollBar.Max = _searchElements.Count - _maxElement;
+        _scrollBar.Current = _index;
+        _scrollBar.OnValueChanged = () =>
         {
-            _scrollBar.Max = _searchElements.Count - _maxElement;
-            _scrollBar.Current = _index;
-            _scrollBar.OnValueChanged = () =>
-            {
-                _index = _scrollBar.Current;
-            };
-        }
+            _index = _scrollBar.Current;
+        };
 
         var i = 0;
         foreach (var element in GetElements())
@@ -201,6 +198,10 @@ public class ScreenGui : GuiScreen
 
     public override void receiveKeyPress(Keys key)
     {
+        if (_searchTextField.Hovered)
+        {
+            _index = 0;
+        }
         if (Game1.options.menuButton[0].key == key)
         {
             return;
