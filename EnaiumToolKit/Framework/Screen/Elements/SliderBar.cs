@@ -26,7 +26,7 @@ public class SliderBar : BaseButton
     private int _max;
 
     public bool Dragging;
-    
+
     public Action OnValueChanged = () => { };
 
     public SliderBar(string title, string description, int min, int max) : base(title, description)
@@ -37,11 +37,7 @@ public class SliderBar : BaseButton
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        if (_current != _previous)
-        {
-            Game1.playSound("shiny4");
-            _previous = _current;
-        }
+        var previous = _current;
 
         var blockWidth = 20;
 
@@ -54,6 +50,10 @@ public class SliderBar : BaseButton
                     _current = MathHelper.Clamp((Game1.getMouseX() - x) * (_max - _min) / (Width - blockWidth) + _min,
                         _min, _max);
                     OnValueChanged.Invoke();
+                    if (previous != _current)
+                    {
+                        Game1.playSound("shiny4");
+                    }
                 }
             }
         }

@@ -8,29 +8,13 @@ namespace EnaiumToolKit.Framework.Screen.Components;
 
 public class ScrollBar : BaseButton
 {
-    private int _min;
-    private int _max;
-    private int _current;
-    private int _previous;
     private bool _dragging;
 
-    public int Min
-    {
-        get => _min;
-        set => _min = value;
-    }
+    public int Min { get; set; }
 
-    public int Max
-    {
-        get => _max;
-        set => _max = value;
-    }
+    public int Max { get; set; }
 
-    public int Current
-    {
-        get => _current;
-        set => _current = value;
-    }
+    public int Current { get; set; }
 
     public Action OnValueChanged = () => { };
 
@@ -40,14 +24,9 @@ public class ScrollBar : BaseButton
 
     public override void Render(SpriteBatch b)
     {
-        if (_current != _previous)
-        {
-            Game1.playSound("shiny4");
-            _previous = _current;
-        }
-
         IClickableMenu.drawTextureBox(b, Game1.mouseCursors, new Rectangle(403, 383, 6, 6), X, Y, Width, Height,
             Color.White, 4f, false);
+        var previous = Current;
 
         var blockHeight = 20;
 
@@ -55,11 +34,15 @@ public class ScrollBar : BaseButton
         {
             if (_dragging)
             {
-                if (_max - _min != 0)
+                if (Max - Min != 0)
                 {
-                    _current = MathHelper.Clamp((Game1.getMouseY() - Y) * (_max - _min) / (Height - blockHeight) + _min,
-                        _min, _max);
+                    Current = MathHelper.Clamp((Game1.getMouseY() - Y) * (Max - Min) / (Height - blockHeight) + Min,
+                        Min, Max);
                     OnValueChanged.Invoke();
+                    if (previous != Current)
+                    {
+                        Game1.playSound("shiny4");
+                    }
                 }
             }
         }
@@ -70,9 +53,9 @@ public class ScrollBar : BaseButton
 
         var sliderOffset = Height - blockHeight;
 
-        if (_max - _min != 0)
+        if (Max - Min != 0)
         {
-            sliderOffset = sliderOffset * (_current - _min) / (_max - _min);
+            sliderOffset = sliderOffset * (Current - Min) / (Max - Min);
         }
         else
         {
