@@ -30,7 +30,7 @@ public class TextField : Component
     {
         Hovered = Render2DUtils.IsHovered(Game1.getMouseX(), Game1.getMouseY(), X, Y, Width, Height);
 
-        Render2DUtils.DrawBound(b, X - 5, Y - 5, Width + 20, Height + 25, Color.White);
+        Render2DUtils.DrawBound(b, X, Y, Width, Height, Color.White);
 
         if (!Hovered)
         {

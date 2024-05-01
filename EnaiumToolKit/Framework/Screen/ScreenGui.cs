@@ -33,7 +33,7 @@ public class ScreenGui : GuiScreen
         yPositionOnScreen = (int)centeringOnScreen.Y + 32;
         _searchTextField = new TextField("", GetTranslation("screenGui.component.textField.Search"),
             xPositionOnScreen,
-            yPositionOnScreen - 100, width, 50);
+            yPositionOnScreen - 100, width, 70);
         var up = new ArrowButton(xPositionOnScreen + width + ArrowButton.Width, yPositionOnScreen)
         {
             Direction = ArrowButton.DirectionType.Up,
