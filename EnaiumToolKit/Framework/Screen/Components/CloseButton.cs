@@ -9,7 +9,7 @@ public class CloseButton : BaseButton
     public static readonly int Width = 48;
     public static readonly int Height = 48;
 
-    public CloseButton(int x, int y) : base("", "", x, y, Width, Height)
+    public CloseButton(int x, int y) : base(null, null, x, y, Width, Height)
     {
     }
 

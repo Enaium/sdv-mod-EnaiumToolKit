@@ -10,13 +10,13 @@ public abstract class Element
     public int Width;
     public int Height;
     public string Title;
-    public string Description;
-        
-    public Action OnLeftClicked = () => { };
-    public Action OnLeftReleased = () => { };
-    public Action OnRightClicked = () => { };
+    public string? Description;
 
-    protected Element(string title, string description)
+    public Action? OnLeftClicked = null;
+    public Action? OnLeftReleased = null;
+    public Action? OnRightClicked = null;
+
+    protected Element(string title, string? description)
     {
         Title = title;
         Description = description;
@@ -31,16 +31,16 @@ public abstract class Element
         
     public virtual void MouseLeftClicked(int x, int y)
     {
-        OnLeftClicked.Invoke();
+        OnLeftClicked?.Invoke();
     }
 
     public virtual void MouseLeftReleased(int x, int y)
     {
-        OnLeftReleased.Invoke();
+        OnLeftReleased?.Invoke();
     }
 
     public virtual void MouseRightClicked(int x, int y)
     {
-        OnRightClicked.Invoke();
+        OnRightClicked?.Invoke();
     }
 }

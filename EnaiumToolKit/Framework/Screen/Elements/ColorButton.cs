@@ -9,7 +9,7 @@ public class ColorButton : BaseButton
 {
     public Color Color;
 
-    public ColorButton(string title, string description) : base(title, description)
+    public ColorButton(string title, string? description = null) : base(title, description)
     {
     }
 

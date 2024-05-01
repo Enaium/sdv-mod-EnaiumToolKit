@@ -16,10 +16,12 @@ public class ColorPicker : Element
     private readonly SliderBar _blue = new("Blue", "", 0, byte.MaxValue);
 
     private readonly SliderBar _alpha = new("Alpha", "", 0, byte.MaxValue);
-    
-    public Action OnColorChanged = () => { };
 
-    public ColorPicker(string title, string description, Color color) : base(title, description)
+    [Obsolete] public Action? OnColorChanged = null;
+
+    public Action<Color>? OnValueChanged = null;
+
+    public ColorPicker(string title, string? description, Color color) : base(title, description)
     {
         Color = color;
         _red.Current = color.R;
@@ -45,10 +47,11 @@ public class ColorPicker : Element
         _alpha.Width = Width / 2;
         _alpha.Height = Height / 2;
         _alpha.Render(b, x + Width / 2, y + Height / 2);
-        
+
         if (_red.Dragging || _green.Dragging || _blue.Dragging || _alpha.Dragging)
         {
-            OnColorChanged.Invoke();
+            OnColorChanged?.Invoke();
+            OnValueChanged?.Invoke(Color);
         }
     }
 

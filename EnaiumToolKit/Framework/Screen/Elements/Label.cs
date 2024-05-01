@@ -6,7 +6,7 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class Label : Element
 {
-    public Label(string title, string description) : base(title, description)
+    public Label(string title, string? description = null) : base(title, description)
     {
     }
 

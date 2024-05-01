@@ -15,35 +15,37 @@ internal class ElementScreen : ScreenGui
             OnLeftClicked = () => { ModEntry.GetInstance().Monitor.Log("Clicked", LogLevel.Debug); }
         });
 
-        var toggleButton = new ToggleButton("ToggleButton", "It is Toggle");
-        toggleButton.OnLeftClicked = () =>
+        var toggleButton = new ToggleButton("ToggleButton", "It is Toggle")
         {
-            ModEntry.GetInstance().Monitor.Log(toggleButton.Toggled + "", LogLevel.Debug);
+            OnValueChanged = value => { ModEntry.GetInstance().Monitor.Log(value.ToString(), LogLevel.Debug); }
         };
         AddElement(toggleButton);
-        var modeButton = new ModeButton("ModeButton", "Left key plus right key minus")
+        AddElement(new ModeButton("ModeButton", "Left key plus right key minus")
         {
-            modes = new List<string> { "Mode1", "Mode2", "Mode3", "Mode4" }, Current = "Mode1"
-        };
-        modeButton.OnLeftClicked = () => { ModEntry.GetInstance().Monitor.Log(modeButton.Current, LogLevel.Debug); };
-        AddElement(modeButton);
+            Modes = new List<string> { "Mode1", "Mode2", "Mode3", "Mode4" }, Current = "Mode1",
+            OnValueChanged = (current) => { ModEntry.GetInstance().Monitor.Log(current, LogLevel.Debug); }
+        });
         AddElementRange(new Label("Label1", "It is Label1"), new Label("Label2", "It is Label2"),
             new Label("Label3", "It is Label3"), new Label("Label4", "It is Label4"));
         AddElement(new ValueButton("ValueButton", "It is ValueButton")
         {
-            Current = 1, Min = 1, Max = 10
+            Current = 1, Min = 1, Max = 10,
+            OnValueChanged = value => { ModEntry.GetInstance().Monitor.Log(value.ToString(), LogLevel.Debug); }
         });
         AddElement(new Button("Colors", "Colors")
         {
             OnLeftClicked = () => { OpenScreenGui(new Colors()); }
         });
         AddElement(new SliderBar("Slider", "Slider", 0, 100));
-        var colorPicker = new ColorPicker("Color Picker", "Color Picker", Color.White);
-        colorPicker.OnColorChanged = () =>
+        AddElement(new ColorPicker("Color Picker", "Color Picker", Color.White)
         {
-            ModEntry.GetInstance().Monitor.Log(colorPicker.Color.ToString(), LogLevel.Debug);
-        };
-        AddElement(colorPicker);
+            OnValueChanged = value => { ModEntry.GetInstance().Monitor.Log(value.ToString(), LogLevel.Debug); }
+        });
+        AddElement(new CheckBox("CheckBox")
+        {
+            Value = true,
+            OnValueChanged = (value) => { ModEntry.GetInstance().Monitor.Log(value.ToString(), LogLevel.Debug); }
+        });
     }
 
     private class Colors : ScreenGui

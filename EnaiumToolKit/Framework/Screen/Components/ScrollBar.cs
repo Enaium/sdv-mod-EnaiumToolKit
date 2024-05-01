@@ -16,7 +16,10 @@ public class ScrollBar : BaseButton
 
     public int Current { get; set; }
 
+    [Obsolete]
     public Action OnValueChanged = () => { };
+    
+    public Action<int>? OnCurrentChanged = null;
 
     public ScrollBar(int x, int y, int width, int height) : base(null, null, x, y, width, height)
     {
@@ -38,7 +41,8 @@ public class ScrollBar : BaseButton
                 {
                     Current = MathHelper.Clamp((Game1.getMouseY() - Y) * (Max - Min) / (Height - blockHeight) + Min,
                         Min, Max);
-                    OnValueChanged.Invoke();
+                    OnValueChanged?.Invoke();
+                    OnCurrentChanged?.Invoke(Current);
                     if (previous != Current)
                     {
                         Game1.playSound("shiny4");

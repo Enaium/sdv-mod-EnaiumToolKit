@@ -119,7 +119,7 @@ public class ScreenGui : GuiScreen
         var y = yPositionOnScreen + 20;
         _searchElements = new List<Element>();
         _searchElements.AddRange(GetSearchElements());
-        
+
         if (_index >= _searchElements.Count)
         {
             _index = 0;
@@ -137,7 +137,7 @@ public class ScreenGui : GuiScreen
             if (element.Visibled)
             {
                 element.Render(b, xPositionOnScreen + 15, y + i * 78);
-                if (element.Hovered && !element.Description.Equals(""))
+                if (element is { Hovered: true, Description: not null } && !element.Description.Equals(""))
                 {
                     var descriptionWidth = FontUtils.GetWidth(element.Description) + 50;
                     var descriptionHeight = FontUtils.GetHeight(element.Description) + 50;
@@ -244,7 +244,7 @@ public class ScreenGui : GuiScreen
         {
             elements = elements.Where(element =>
                 element.Title.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase)
-                || element.Description.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase)
+                || element.Description?.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase) == true
             );
         }
 

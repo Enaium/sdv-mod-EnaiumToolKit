@@ -15,9 +15,9 @@ public class SliderBar : BaseButton
 
     public bool Dragging;
 
-    public Action OnValueChanged = () => { };
+    public Action? OnValueChanged = null;
 
-    public SliderBar(string title, string description, int min, int max) : base(title, description)
+    public SliderBar(string title, string? description, int min, int max) : base(title, description)
     {
         _min = min;
         _max = max;
@@ -37,7 +37,7 @@ public class SliderBar : BaseButton
                 {
                     Current = MathHelper.Clamp((Game1.getMouseX() - x) * (_max - _min) / (Width - blockWidth) + _min,
                         _min, _max);
-                    OnValueChanged.Invoke();
+                    OnValueChanged?.Invoke();
                     if (previous != Current)
                     {
                         Game1.playSound("shiny4");

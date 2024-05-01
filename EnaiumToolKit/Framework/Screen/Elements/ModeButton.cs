@@ -7,10 +7,19 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class ModeButton : BaseButton
 {
-    public List<string> modes;
-    public string Current;
+    [Obsolete]
+    public List<string> modes = new();
 
-    public ModeButton(string title, string description) : base(title, description)
+    public List<string> Modes
+    {
+        get => modes;
+        set => modes = value;
+    }
+    public string Current;
+    
+    public Action<string>? OnValueChanged;
+
+    public ModeButton(string title, string? description) : base(title, description)
     {
     }
 
@@ -32,6 +41,7 @@ public class ModeButton : BaseButton
         {
             Current = modes.First();
         }
+        OnValueChanged?.Invoke(Current);
 
         Game1.playSound("drumkit6");
         base.MouseLeftClicked(x, y);
@@ -47,6 +57,7 @@ public class ModeButton : BaseButton
         {
             Current = modes.Last();
         }
+        OnValueChanged?.Invoke(Current);
 
         Game1.playSound("drumkit5");
         base.MouseRightClicked(x, y);
