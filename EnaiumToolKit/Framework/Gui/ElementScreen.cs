@@ -32,10 +32,6 @@ internal class ElementScreen : ScreenGui
             Current = 1, Min = 1, Max = 10,
             OnValueChanged = value => { ModEntry.GetInstance().Monitor.Log(value.ToString(), LogLevel.Debug); }
         });
-        AddElement(new Button("Colors", "Colors")
-        {
-            OnLeftClicked = () => { OpenScreenGui(new Colors()); }
-        });
         AddElement(new SliderBar("Slider", "Slider", 0, 100));
         AddElement(new ColorPicker("Color Picker", "Color Picker", Color.White)
         {
@@ -46,19 +42,5 @@ internal class ElementScreen : ScreenGui
             Value = true,
             OnValueChanged = (value) => { ModEntry.GetInstance().Monitor.Log(value.ToString(), LogLevel.Debug); }
         });
-    }
-
-    private class Colors : ScreenGui
-    {
-        public Colors()
-        {
-            foreach (var variable in ColorUtils.Instance.Colors)
-            {
-                AddElement(new ColorButton(variable.Name.ToString(), "Color")
-                {
-                    Color = ColorUtils.Instance.Get(variable.Name)
-                });
-            }
-        }
     }
 }
