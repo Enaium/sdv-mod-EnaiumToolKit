@@ -11,7 +11,7 @@ public class ValueButton : BaseButton
     public int Min;
     public int Max;
     
-    public Action<int>? OnValueChanged = null;
+    public Action<int>? OnCurrentChanged = null;
 
     public ValueButton(string title, string? description = null) : base(title, description)
     {
@@ -35,7 +35,7 @@ public class ValueButton : BaseButton
             Current = Min;
         }
         
-        OnValueChanged?.Invoke(Current);
+        OnCurrentChanged?.Invoke(Current);
 
         Game1.playSound("drumkit6");
         base.MouseLeftClicked(x, y);
@@ -52,7 +52,7 @@ public class ValueButton : BaseButton
             Current = Max;
         }
         
-        OnValueChanged?.Invoke(Current);
+        OnCurrentChanged?.Invoke(Current);
 
         Game1.playSound("drumkit5");
         base.MouseRightClicked(x, y);

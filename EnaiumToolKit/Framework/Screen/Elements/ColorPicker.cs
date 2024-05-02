@@ -7,7 +7,13 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class ColorPicker : Element
 {
-    public Color Color;
+    [Obsolete] public Color Color;
+
+    public Color Current
+    {
+        get => Color;
+        set => Color = value;
+    }
 
     private readonly SliderBar _red = new("Red", "", 0, byte.MaxValue);
 
@@ -19,7 +25,7 @@ public class ColorPicker : Element
 
     [Obsolete] public Action? OnColorChanged = null;
 
-    public Action<Color>? OnValueChanged = null;
+    public Action<Color>? OnCurrentChanged = null;
 
     public ColorPicker(string title, string? description, Color color) : base(title, description)
     {
@@ -51,7 +57,7 @@ public class ColorPicker : Element
         if (_red.Dragging || _green.Dragging || _blue.Dragging || _alpha.Dragging)
         {
             OnColorChanged?.Invoke();
-            OnValueChanged?.Invoke(Color);
+            OnCurrentChanged?.Invoke(Current);
         }
     }
 

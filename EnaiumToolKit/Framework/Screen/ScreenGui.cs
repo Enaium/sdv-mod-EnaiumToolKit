@@ -137,16 +137,6 @@ public class ScreenGui : GuiScreen
             if (element.Visibled)
             {
                 element.Render(b, xPositionOnScreen + 15, y + i * 78);
-                if (element is { Hovered: true, Description: not null } && !element.Description.Equals(""))
-                {
-                    var descriptionWidth = FontUtils.GetWidth(element.Description) + 50;
-                    var descriptionHeight = FontUtils.GetHeight(element.Description) + 50;
-
-                    drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 396, 15, 15), 0, 0,
-                        descriptionWidth,
-                        descriptionHeight, Color.Wheat, 4f, false);
-                    FontUtils.DrawHvCentered(b, element.Description, 0, 0, descriptionWidth, descriptionHeight);
-                }
             }
 
             i++;
@@ -161,8 +151,25 @@ public class ScreenGui : GuiScreen
         const string text = "EnaiumToolKit By Enaium";
         FontUtils.Draw(b, text, 0, Game1.viewport.Height - FontUtils.GetHeight(text));
 
-        drawMouse(b);
         base.draw(b);
+
+        foreach (var element in GetElements())
+        {
+            if (element is { Hovered: true, Description: not null } && !element.Description.Equals(""))
+            {
+                var descriptionWidth = FontUtils.GetWidth(element.Description) + 50;
+                var descriptionHeight = FontUtils.GetHeight(element.Description) + 50;
+
+                var mouseX = Game1.getMouseX() + 40;
+                var mouseY = Game1.getMouseY() + 40;
+                drawTextureBox(b, Game1.menuTexture, new Rectangle(0, 256, 60, 60), mouseX,
+                    mouseY, descriptionWidth, descriptionHeight, Color.White, 1f, false);
+                FontUtils.DrawHvCentered(b, element.Description, mouseX, mouseY, descriptionWidth,
+                    descriptionHeight);
+            }
+        }
+
+        drawMouse(b);
     }
 
     public override void receiveLeftClick(int x, int y, bool playSound = true)
@@ -244,7 +251,8 @@ public class ScreenGui : GuiScreen
         {
             elements = elements.Where(element =>
                 element.Title.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase)
-                || element.Description?.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase) == true
+                || element.Description?.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase) ==
+                true
             );
         }
 

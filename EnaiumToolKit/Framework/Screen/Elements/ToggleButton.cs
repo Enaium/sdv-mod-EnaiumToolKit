@@ -8,9 +8,15 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class ToggleButton : BaseButton
 {
-    public bool Toggled;
-    
-    public Action<bool>? OnValueChanged = null;
+    [Obsolete] public bool Toggled;
+
+    public bool Current
+    {
+        get => Toggled;
+        set => Toggled = value;
+    }
+
+    public Action<bool>? OnCurrentChanged = null;
 
     public ToggleButton(string title, string? description = null) : base(title, description)
     {
@@ -27,7 +33,7 @@ public class ToggleButton : BaseButton
     public override void MouseLeftClicked(int x, int y)
     {
         Toggled = !Toggled;
-        OnValueChanged?.Invoke(Toggled);
+        OnCurrentChanged?.Invoke(Toggled);
         Game1.playSound(Toggled ? "drumkit6" : "drumkit5");
         base.MouseLeftClicked(x, y);
     }

@@ -16,9 +16,8 @@ public class ScrollBar : BaseButton
 
     public int Current { get; set; }
 
-    [Obsolete]
-    public Action OnValueChanged = () => { };
-    
+    [Obsolete] public Action? OnValueChanged = null;
+
     public Action<int>? OnCurrentChanged = null;
 
     public ScrollBar(int x, int y, int width, int height) : base(null, null, x, y, width, height)
@@ -27,7 +26,7 @@ public class ScrollBar : BaseButton
 
     public override void Render(SpriteBatch b)
     {
-        IClickableMenu.drawTextureBox(b, Game1.mouseCursors, new Rectangle(403, 383, 6, 6), X, Y, Width, Height,
+        IClickableMenu.drawTextureBox(b, Game1.mouseCursors, OptionsSlider.sliderBGSource, X, Y, Width, Height,
             Color.White, 4f, false);
         var previous = Current;
 

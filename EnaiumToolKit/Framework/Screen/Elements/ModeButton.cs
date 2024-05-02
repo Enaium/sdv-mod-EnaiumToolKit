@@ -17,7 +17,7 @@ public class ModeButton : BaseButton
     }
     public string Current;
     
-    public Action<string>? OnValueChanged;
+    public Action<string>? OnCurrentChanged;
 
     public ModeButton(string title, string? description) : base(title, description)
     {
@@ -41,7 +41,7 @@ public class ModeButton : BaseButton
         {
             Current = modes.First();
         }
-        OnValueChanged?.Invoke(Current);
+        OnCurrentChanged?.Invoke(Current);
 
         Game1.playSound("drumkit6");
         base.MouseLeftClicked(x, y);
@@ -57,7 +57,7 @@ public class ModeButton : BaseButton
         {
             Current = modes.Last();
         }
-        OnValueChanged?.Invoke(Current);
+        OnCurrentChanged?.Invoke(Current);
 
         Game1.playSound("drumkit5");
         base.MouseRightClicked(x, y);
