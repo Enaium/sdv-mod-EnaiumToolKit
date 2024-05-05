@@ -16,7 +16,7 @@ public class ColorButton : BaseButton
     public override void Render(SpriteBatch b, int x, int y)
     {
         b.Draw(Game1.staminaRect, new Rectangle(x, y, Width, Height), Color);
-        FontUtils.DrawHvCentered(b, Title, x, y, Width, Height);
+        FontUtils.DrawHvCentered(b, Title!, x, y, Width, Height);
         base.Render(b, x, y);
     }
 }

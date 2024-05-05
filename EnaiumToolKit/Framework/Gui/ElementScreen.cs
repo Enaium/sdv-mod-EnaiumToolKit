@@ -37,11 +37,10 @@ internal class ElementScreen : ScreenGui
         {
             OnCurrentChanged = value => { ModEntry.GetInstance().Monitor.Log(value.ToString(), LogLevel.Debug); }
         });
-        AddElement(new ComboBox<string>("ComboBox", "ComboBox")
-        {
-            Items = new List<string?> { "Item1", "Item2", "Item3", "Item4" },
-            Current = "Item1",
-            OnCurrentChanged = value => { ModEntry.GetInstance().Monitor.Log($"{value}", LogLevel.Debug); }
+        AddElement(new CheckBox("CheckBox")
+        { 
+            Current = true,
+            OnCurrentChanged = value => { ModEntry.GetInstance().Monitor.Log(value.ToString(), LogLevel.Debug); }
         });
     }
 }

@@ -20,7 +20,7 @@ public class Render2DUtils
 
     public static void DrawBound(SpriteBatch b, int x, int y, int width, int height, Color color)
     {
-        IClickableMenu.drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 373, 18, 18), x, y,
-            width, height, color, 4f);
+        IClickableMenu.drawTextureBox(b, Game1.menuTexture, new Rectangle(0, 256, 60, 60), x, y,
+            width, height, color);
     }
 }

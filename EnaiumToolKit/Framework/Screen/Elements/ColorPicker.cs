@@ -15,13 +15,13 @@ public class ColorPicker : Element
         set => Color = value;
     }
 
-    private readonly SliderBar _red = new("Red", "", 0, byte.MaxValue);
+    private readonly SliderBar _red = new("Red", null, 0, byte.MaxValue);
 
-    private readonly SliderBar _green = new("Green", "", 0, byte.MaxValue);
+    private readonly SliderBar _green = new("Green", null, 0, byte.MaxValue);
 
-    private readonly SliderBar _blue = new("Blue", "", 0, byte.MaxValue);
+    private readonly SliderBar _blue = new("Blue", null, 0, byte.MaxValue);
 
-    private readonly SliderBar _alpha = new("Alpha", "", 0, byte.MaxValue);
+    private readonly SliderBar _alpha = new("Alpha", null, 0, byte.MaxValue);
 
     [Obsolete] public Action? OnColorChanged = null;
 

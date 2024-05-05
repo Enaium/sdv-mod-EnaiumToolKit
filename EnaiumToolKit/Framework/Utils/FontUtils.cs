@@ -43,7 +43,7 @@ public class FontUtils
             -1, -1, 0.0f);
     }
 
-    public static void DrawVCentered(SpriteBatch b, string text, int x, int y, int height)
+    public static void DrawVCentered(SpriteBatch b, string? text, int x, int y, int height)
     {
         var v = Game1.dialogueFont.MeasureString(text);
         Utility.drawTextWithShadow(b, text, Game1.dialogueFont,

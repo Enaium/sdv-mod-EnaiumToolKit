@@ -9,26 +9,28 @@ public abstract class Element
     public bool Enabled;
     public int Width;
     public int Height;
-    public string Title;
+    public string? Title;
     public string? Description;
 
     public Action? OnLeftClicked = null;
     public Action? OnLeftReleased = null;
     public Action? OnRightClicked = null;
 
-    protected Element(string title, string? description)
+    public const int DefaultHeight = 75;
+
+    protected Element(string? title, string? description)
     {
         Title = title;
         Description = description;
         Width = 800;
-        Height = 75;
+        Height = DefaultHeight;
         Hovered = false;
         Visibled = true;
         Enabled = true;
     }
-        
+
     public abstract void Render(SpriteBatch b, int x, int y);
-        
+
     public virtual void MouseLeftClicked(int x, int y)
     {
         OnLeftClicked?.Invoke();

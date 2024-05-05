@@ -15,7 +15,7 @@ public class Button : BaseButton
     public override void Render(SpriteBatch b, int x, int y)
     {
         Render2DUtils.DrawButton(b, x, y, Width, Height, Color.Wheat);
-        FontUtils.DrawHvCentered(b, Title, x, y, Width, Height);
+        FontUtils.DrawHvCentered(b, Title!, x, y, Width, Height);
         base.Render(b, x, y);
     }
 }

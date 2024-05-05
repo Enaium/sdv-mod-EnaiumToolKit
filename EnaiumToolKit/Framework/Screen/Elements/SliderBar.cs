@@ -18,7 +18,7 @@ public class SliderBar : BaseButton
     public Action? OnValueChanged = null;
     public Action<int>? OnCurrentChanged = null;
 
-    public SliderBar(string title, string? description, int min, int max) : base(title, description)
+    public SliderBar(string? title, string? description, int min, int max) : base(title, description)
     {
         _min = min;
         _max = max;
@@ -65,7 +65,10 @@ public class SliderBar : BaseButton
 
         Render2DUtils.DrawButton(b, x + sliderOffset, y, blockWidth, Height, Color.Wheat);
 
-        FontUtils.DrawHvCentered(b, $"{Title}:{Current}", x, y, Width, Height);
+        if (Title != null)
+        {
+            FontUtils.DrawHvCentered(b, $"{Title}:{Current}", x, y, Width, Height);   
+        }
         base.Render(b, x, y);
     }
 

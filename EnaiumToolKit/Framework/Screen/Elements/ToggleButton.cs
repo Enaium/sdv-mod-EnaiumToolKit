@@ -26,7 +26,7 @@ public class ToggleButton : BaseButton
     {
         var color = Toggled ? Color.Green : Color.Red;
         Render2DUtils.DrawButton(b, x, y, Width, Height, color);
-        FontUtils.DrawHvCentered(b, Title, x, y, Width, Height);
+        FontUtils.DrawHvCentered(b, Title!, x, y, Width, Height);
         base.Render(b, x, y);
     }
 

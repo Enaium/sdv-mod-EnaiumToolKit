@@ -8,7 +8,7 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class BaseButton : Element
 {
-    protected BaseButton(string title, string? description = null) : base(title, description)
+    protected BaseButton(string? title, string? description = null) : base(title, description)
     {
     }
 

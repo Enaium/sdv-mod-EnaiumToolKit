@@ -34,14 +34,20 @@ public class GuiScreen : IClickableMenu
         foreach (var component in _components.Where(component => component.Visibled))
         {
             component.Render(b);
+        }
+        
+        foreach (var component in _components.Where(component => component.Visibled))
+        {
             if (component is { Hovered: true, Description: not null } && !component.Description.Equals(""))
             {
                 var descriptionWidth = FontUtils.GetWidth(component.Description) + 50;
                 var descriptionHeight = FontUtils.GetHeight(component.Description) + 50;
 
-                drawTextureBox(b, Game1.mouseCursors, new Rectangle(384, 396, 15, 15), 0, 0, descriptionWidth,
-                    descriptionHeight, Color.Wheat, 4f, false);
-                FontUtils.DrawHvCentered(b, component.Description, 0, 0, descriptionWidth, descriptionHeight);
+                var mouseX = Game1.getMouseX() + 40;
+                var mouseY = Game1.getMouseY() + 40;
+                Render2DUtils.DrawBound(b, mouseX, mouseY, descriptionWidth, descriptionHeight, Color.White);
+                FontUtils.DrawHvCentered(b, component.Description, mouseX, mouseY, descriptionWidth,
+                    descriptionHeight);
             }
         }
 
@@ -55,9 +61,16 @@ public class GuiScreen : IClickableMenu
     public override void receiveLeftClick(int x, int y, bool playSound = true)
     {
         foreach (var component in _components.Where(component =>
-                     component is { Visibled: true, Enabled: true, Hovered: true }))
+                     component is { Visibled: true, Enabled: true}))
         {
-            component.MouseLeftClicked(x, y);
+            if (component is { Hovered: true })
+            {
+                component.MouseLeftClicked(x, y);
+            }
+            else
+            {
+                component.LostFocus();
+            }
         }
 
         base.receiveLeftClick(x, y, playSound);

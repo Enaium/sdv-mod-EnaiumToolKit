@@ -13,12 +13,12 @@ namespace EnaiumToolKit.Framework.Screen;
 public class ScreenGui : GuiScreen
 {
     private readonly List<Element> _elements = new();
-    private List<Element> _searchElements;
+    private List<Element> _searchElements = new();
     private int _index;
     private int _maxElement;
-    private TextField _searchTextField;
-    private ScrollBar _scrollBar;
-    private ArrowButton _back;
+    private TextField? _searchTextField;
+    private ScrollBar? _scrollBar;
+    private ArrowButton? _back;
 
     private string? Title { get; }
 
@@ -31,11 +31,12 @@ public class ScreenGui : GuiScreen
         var centeringOnScreen = Utility.getTopLeftPositionForCenteringOnScreen(width, height);
         xPositionOnScreen = (int)centeringOnScreen.X;
         yPositionOnScreen = (int)centeringOnScreen.Y + 32;
-        _searchTextField = new TextField("", GetTranslation("screenGui.component.textField.Search"),
+        _searchTextField = new TextField(null, GetTranslation("screenGui.component.textField.search"),
             xPositionOnScreen,
             yPositionOnScreen - 100, width, 70);
         var up = new ArrowButton(xPositionOnScreen + width + ArrowButton.Width, yPositionOnScreen)
         {
+            Description = GetTranslation("screenGui.component.arrowButton.flipUp"),
             Direction = ArrowButton.DirectionType.Up,
             OnLeftClicked = () =>
             {
@@ -52,6 +53,7 @@ public class ScreenGui : GuiScreen
         var down = new ArrowButton(xPositionOnScreen + width + ArrowButton.Width,
             yPositionOnScreen + height - ArrowButton.Height)
         {
+            Description = GetTranslation("screenGui.component.arrowButton.flipDown"),
             Direction = ArrowButton.DirectionType.Down,
             OnLeftClicked = () =>
             {
@@ -74,6 +76,7 @@ public class ScreenGui : GuiScreen
 
         _back = new ArrowButton(xPositionOnScreen - ArrowButton.Width * 2, yPositionOnScreen)
         {
+            Description = GetTranslation("screenGui.component.arrowButton.backScreen"),
             Direction = ArrowButton.DirectionType.Left,
             OnLeftClicked = () =>
             {
@@ -91,6 +94,7 @@ public class ScreenGui : GuiScreen
         {
             AddComponent(new CloseButton(xPositionOnScreen + width + ArrowButton.Width, _searchTextField.Y)
             {
+                Description = GetTranslation("screenGui.component.closeButton.closeScreen"),
                 OnLeftClicked = () => { Game1.activeClickableMenu = null; }
             });
         }
@@ -125,18 +129,25 @@ public class ScreenGui : GuiScreen
             _index = 0;
         }
 
-        _scrollBar.Max = _searchElements.Count - _maxElement;
-        _scrollBar.Current = _index;
-        _scrollBar.OnValueChanged = () => { _index = _scrollBar.Current; };
+        if (_scrollBar != null)
+        {
+            _scrollBar.Max = _searchElements.Count - _maxElement;
+            _scrollBar.Current = _index;
+            _scrollBar.OnCurrentChanged = current => { _index = current; };
+        }
 
-        _back.Visibled = PreviousMenu != null;
+        if (_back != null)
+        {
+            _back.Visibled = PreviousMenu != null;
+        }
+
 
         var i = 0;
         foreach (var element in GetElements())
         {
             if (element.Visibled)
             {
-                element.Render(b, xPositionOnScreen + 15, y + i * 78);
+                element.Render(b, xPositionOnScreen + 15, y + i * (Element.DefaultHeight + 3));
             }
 
             i++;
@@ -147,9 +158,6 @@ public class ScreenGui : GuiScreen
             SpriteText.drawStringWithScrollCenteredAt(b, Title, Game1.viewport.Width / 2,
                 Game1.viewport.Height - 100, Title);
         }
-
-        const string text = "EnaiumToolKit By Enaium";
-        FontUtils.Draw(b, text, 0, Game1.viewport.Height - FontUtils.GetHeight(text));
 
         base.draw(b);
 
@@ -162,8 +170,7 @@ public class ScreenGui : GuiScreen
 
                 var mouseX = Game1.getMouseX() + 40;
                 var mouseY = Game1.getMouseY() + 40;
-                drawTextureBox(b, Game1.menuTexture, new Rectangle(0, 256, 60, 60), mouseX,
-                    mouseY, descriptionWidth, descriptionHeight, Color.White, 1f, false);
+                Render2DUtils.DrawBound(b, mouseX, mouseY, descriptionWidth, descriptionHeight, Color.White);
                 FontUtils.DrawHvCentered(b, element.Description, mouseX, mouseY, descriptionWidth,
                     descriptionHeight);
             }
@@ -202,7 +209,7 @@ public class ScreenGui : GuiScreen
             variable.MouseRightClicked(x, y);
         }
 
-        base.receiveRightClick(x, y);
+        base.receiveRightClick(x, y, false);
     }
 
     public override void receiveScrollWheelAction(int direction)
@@ -247,10 +254,10 @@ public class ScreenGui : GuiScreen
     private IEnumerable<Element> GetSearchElements()
     {
         IEnumerable<Element> elements = _elements;
-        if (!_searchTextField.Text.Equals(""))
+        if (_searchTextField != null && !_searchTextField.Text.Equals(""))
         {
             elements = elements.Where(element =>
-                element.Title.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase)
+                element.Title?.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase) == true
                 || element.Description?.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase) ==
                 true
             );

@@ -52,4 +52,9 @@ public abstract class Component
     public virtual void MouseScrollWheelAction(int direction)
     {
     }
+
+    public virtual void LostFocus()
+    {
+        
+    }
 }

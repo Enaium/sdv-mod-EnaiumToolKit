@@ -16,7 +16,7 @@ public class TextField : Component
         set => _textBox.Text = value;
     }
 
-    public TextField(string title, string description, int x, int y, int width, int height) : base(title,
+    public TextField(string? title, string description, int x, int y, int width, int height) : base(title,
         description, x, y, width, height)
     {
         _textBox = new TextBox(Game1.content.Load<Texture2D>("LooseSprites\\textBox"), null, Game1.dialogueFont,
@@ -32,17 +32,18 @@ public class TextField : Component
 
         Render2DUtils.DrawBound(b, X, Y, Width, Height, Color.White);
 
-        if (!Hovered)
-        {
-            _textBox.Selected = false;
-        }
-
         _textBox.Draw(b);
     }
 
     public override void MouseLeftClicked(int x, int y)
     {
-        _textBox.Selected = !_textBox.Selected;
+        _textBox.Selected = true;
         base.MouseLeftClicked(x, y);
+    }
+
+    public override void LostFocus()
+    {
+        _textBox.Selected = false;
+        base.LostFocus();
     }
 }
