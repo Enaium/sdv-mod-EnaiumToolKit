@@ -1,4 +1,5 @@
-﻿using EnaiumToolKit.Framework.Utils;
+﻿using EnaiumToolKit.Framework.Extensions;
+using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -65,7 +66,7 @@ public class ScrollBar : BaseButton
             sliderOffset = 0;
         }
 
-        Render2DUtils.DrawButton(b, X, Y + sliderOffset, Width, blockHeight, Color.Wheat);
+        b.DrawButtonTexture(X, Y + sliderOffset, Width, blockHeight);
 
         base.Render(b);
     }

@@ -1,4 +1,5 @@
-﻿using EnaiumToolKit.Framework.Utils;
+﻿using EnaiumToolKit.Framework.Extensions;
+using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -9,7 +10,7 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 public class SliderBar : BaseButton
 {
     public int Current { get; set; }
-    
+
     private readonly int _min;
     private readonly int _max;
 
@@ -63,12 +64,13 @@ public class SliderBar : BaseButton
             sliderOffset = 0;
         }
 
-        Render2DUtils.DrawButton(b, x + sliderOffset, y, blockWidth, Height, Color.Wheat);
+        b.DrawButtonTexture(x + sliderOffset, y, blockWidth, Height, Color.Wheat);
 
         if (Title != null)
         {
-            FontUtils.DrawHvCentered(b, $"{Title}:{Current}", x, y, Width, Height);   
+            b.DrawStringCenter($"{Title}:{Current}", x, y, Width, Height);
         }
+
         base.Render(b, x, y);
     }
 

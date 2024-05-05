@@ -1,4 +1,5 @@
-﻿using EnaiumToolKit.Framework.Utils;
+﻿using EnaiumToolKit.Framework.Extensions;
+using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -28,9 +29,9 @@ public class TextField : Component
 
     public override void Render(SpriteBatch b)
     {
-        Hovered = Render2DUtils.IsHovered(Game1.getMouseX(), Game1.getMouseY(), X, Y, Width, Height);
+        Hovered = Bounds.Contains(Game1.getMouseX(), Game1.getMouseY());
 
-        Render2DUtils.DrawBound(b, X, Y, Width, Height, Color.White);
+        b.DrawWindowTexture(X, Y, Width, Height);
 
         _textBox.Draw(b);
     }

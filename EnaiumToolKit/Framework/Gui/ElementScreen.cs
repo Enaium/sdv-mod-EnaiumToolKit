@@ -38,7 +38,7 @@ internal class ElementScreen : ScreenGui
             OnCurrentChanged = value => { ModEntry.GetInstance().Monitor.Log(value.ToString(), LogLevel.Debug); }
         });
         AddElement(new CheckBox("CheckBox")
-        { 
+        {
             Current = true,
             OnCurrentChanged = value => { ModEntry.GetInstance().Monitor.Log(value.ToString(), LogLevel.Debug); }
         });

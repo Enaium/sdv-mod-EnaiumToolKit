@@ -1,4 +1,5 @@
-﻿using EnaiumToolKit.Framework.Utils;
+﻿using EnaiumToolKit.Framework.Extensions;
+using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -14,8 +15,8 @@ public class Button : BaseButton
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        Render2DUtils.DrawButton(b, x, y, Width, Height, Color.Wheat);
-        FontUtils.DrawHvCentered(b, Title!, x, y, Width, Height);
+        b.DrawButtonTexture(x, y, Width, Height, Hovered ? Color.Wheat : Color.White);
+        b.DrawStringCenter(Title!, x, y, Width, Height);
         base.Render(b, x, y);
     }
 }

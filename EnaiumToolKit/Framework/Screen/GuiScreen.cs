@@ -1,4 +1,5 @@
-﻿using EnaiumToolKit.Framework.Screen.Components;
+﻿using EnaiumToolKit.Framework.Extensions;
+using EnaiumToolKit.Framework.Screen.Components;
 using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +11,7 @@ namespace EnaiumToolKit.Framework.Screen;
 public class GuiScreen : IClickableMenu
 {
     private readonly List<Component> _components = new();
-    public IClickableMenu? PreviousMenu;
+    protected IClickableMenu? PreviousMenu;
 
     protected GuiScreen()
     {
@@ -35,24 +36,23 @@ public class GuiScreen : IClickableMenu
         {
             component.Render(b);
         }
-        
+
         foreach (var component in _components.Where(component => component.Visibled))
         {
             if (component is { Hovered: true, Description: not null } && !component.Description.Equals(""))
             {
-                var descriptionWidth = FontUtils.GetWidth(component.Description) + 50;
-                var descriptionHeight = FontUtils.GetHeight(component.Description) + 50;
+                var descriptionWidth = b.GetStringWidth(component.Description) + 50;
+                var descriptionHeight = b.GetStringHeight(component.Description) + 50;
 
                 var mouseX = Game1.getMouseX() + 40;
                 var mouseY = Game1.getMouseY() + 40;
-                Render2DUtils.DrawBound(b, mouseX, mouseY, descriptionWidth, descriptionHeight, Color.White);
-                FontUtils.DrawHvCentered(b, component.Description, mouseX, mouseY, descriptionWidth,
-                    descriptionHeight);
+                b.DrawWindowTexture(mouseX, mouseY, descriptionWidth, descriptionHeight);
+                b.DrawStringCenter(component.Description, mouseX, mouseY, descriptionWidth, descriptionHeight);
             }
         }
 
         const string text = "EnaiumToolKit By Enaium";
-        FontUtils.Draw(b, text, 0, Game1.viewport.Height - FontUtils.GetHeight(text));
+        b.DrawString(text, 0, Game1.viewport.Height - b.GetStringHeight(text));
 
         drawMouse(b);
         base.draw(b);
@@ -61,7 +61,7 @@ public class GuiScreen : IClickableMenu
     public override void receiveLeftClick(int x, int y, bool playSound = true)
     {
         foreach (var component in _components.Where(component =>
-                     component is { Visibled: true, Enabled: true}))
+                     component is { Visibled: true, Enabled: true }))
         {
             if (component is { Hovered: true })
             {

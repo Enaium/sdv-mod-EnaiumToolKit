@@ -1,4 +1,5 @@
-﻿using EnaiumToolKit.Framework.Screen.Components;
+﻿using EnaiumToolKit.Framework.Extensions;
+using EnaiumToolKit.Framework.Screen.Components;
 using EnaiumToolKit.Framework.Screen.Elements;
 using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
@@ -119,7 +120,7 @@ public class ScreenGui : GuiScreen
 
     public override void draw(SpriteBatch b)
     {
-        Render2DUtils.DrawBound(b, xPositionOnScreen, yPositionOnScreen, width, height, Color.White);
+        b.DrawWindowTexture(xPositionOnScreen, yPositionOnScreen, width, height);
         var y = yPositionOnScreen + 20;
         _searchElements = new List<Element>();
         _searchElements.AddRange(GetSearchElements());
@@ -165,13 +166,13 @@ public class ScreenGui : GuiScreen
         {
             if (element is { Hovered: true, Description: not null } && !element.Description.Equals(""))
             {
-                var descriptionWidth = FontUtils.GetWidth(element.Description) + 50;
-                var descriptionHeight = FontUtils.GetHeight(element.Description) + 50;
+                var descriptionWidth = b.GetStringWidth(element.Description) + 50;
+                var descriptionHeight = b.GetStringHeight(element.Description) + 50;
 
                 var mouseX = Game1.getMouseX() + 40;
                 var mouseY = Game1.getMouseY() + 40;
-                Render2DUtils.DrawBound(b, mouseX, mouseY, descriptionWidth, descriptionHeight, Color.White);
-                FontUtils.DrawHvCentered(b, element.Description, mouseX, mouseY, descriptionWidth,
+                b.DrawWindowTexture(mouseX, mouseY, descriptionWidth, descriptionHeight);
+                b.DrawStringCenter(element.Description, mouseX, mouseY, descriptionWidth,
                     descriptionHeight);
             }
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace EnaiumToolKit.Framework.Screen.Components;
 
@@ -12,6 +13,13 @@ public abstract class Component
     public int Y;
     public int Width;
     public int Height;
+
+    public Rectangle Bounds
+    {
+        get => new(X, Y, Width, Height);
+        set => (X, Y, Width, Height) = (value.X, value.Y, value.Width, value.Height);
+    }
+
     public string? Title;
     public string? Description;
 
@@ -55,6 +63,5 @@ public abstract class Component
 
     public virtual void LostFocus()
     {
-        
     }
 }

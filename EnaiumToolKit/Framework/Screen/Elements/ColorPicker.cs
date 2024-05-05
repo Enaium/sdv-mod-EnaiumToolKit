@@ -1,4 +1,5 @@
-﻿using EnaiumToolKit.Framework.Utils;
+﻿using EnaiumToolKit.Framework.Extensions;
+using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -38,7 +39,7 @@ public class ColorPicker : Element
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        Hovered = Render2DUtils.IsHovered(Game1.getMouseX(), Game1.getMouseY(), x, y, Width, Height);
+        Hovered = new Rectangle(x, y, Width, Height).Contains(Game1.getMouseX(), Game1.getMouseY());
         b.Draw(Game1.staminaRect, new Rectangle(x, y, Width, Height),
             Color = new Color(_red.Current, _green.Current, _blue.Current, _alpha.Current));
         _red.Width = Width / 2;

@@ -5,6 +5,7 @@ using StardewValley.BellsAndWhistles;
 
 namespace EnaiumToolKit.Framework.Utils;
 
+[Obsolete]
 public class FontUtils
 {
     public static void Draw(SpriteBatch b, string text, int x, int y)

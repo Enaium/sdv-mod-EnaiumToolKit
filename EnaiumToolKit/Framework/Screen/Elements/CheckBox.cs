@@ -1,8 +1,6 @@
-﻿using EnaiumToolKit.Framework.Utils;
+﻿using EnaiumToolKit.Framework.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using StardewValley;
-using StardewValley.Menus;
 
 namespace EnaiumToolKit.Framework.Screen.Elements;
 
@@ -17,20 +15,15 @@ public class CheckBox : BaseButton
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        FontUtils.DrawVCentered(b, Title, x, y, Height);
-        Utility.drawWithShadow(b, Game1.mouseCursors, new Vector2(x + Width - 36, y + Height / 2f - 36 / 2f), Current?  OptionsCheckbox.sourceRectChecked : OptionsCheckbox.sourceRectUnchecked,
-            Color.White, 0.0f, Vector2.Zero, 4f, false, 0.15f);
+        b.DrawStringVCenter(Title!, x, y, Height);
+        b.DrawCheckboxTexture(new Vector2(x + Width - 36, y + Height / 2f - 36 / 2f), Current);
         base.Render(b, x, y);
     }
 
     public override void MouseLeftClicked(int x, int y)
     {
-        if (Hovered)
-        {
-            Current = !Current;
-            OnCurrentChanged?.Invoke(Current);
-        }
-
+        Current = !Current;
+        OnCurrentChanged?.Invoke(Current);
         base.MouseLeftClicked(x, y);
     }
 }
