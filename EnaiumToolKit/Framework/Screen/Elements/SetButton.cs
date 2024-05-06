@@ -5,23 +5,22 @@ using StardewValley;
 
 namespace EnaiumToolKit.Framework.Screen.Elements;
 
-public class CheckBox : Element
+public class SetButton : Element
 {
-    public bool Current;
-    public Action<bool>? OnCurrentChanged = null;
+    
     private bool _hovered;
-
-    public CheckBox(string title, string? description = null) : base(title, description)
+    
+    public SetButton(string? title, string? description) : base(title, description)
     {
     }
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        var textureX = x + Width - 36;
-        var textureY = y + Height / 2 - 36 / 2;
-        _hovered = new Rectangle(textureX, textureY, 36, 36).Contains(Game1.getMouseX(), Game1.getMouseY());
+        var textureX = x + Width - 84;
+        var textureY = y + Height / 2 - 44 / 2;
+        _hovered = new Rectangle(textureX, textureY, 84, 44).Contains(Game1.getMouseX(), Game1.getMouseY());
         b.DrawStringVCenter(Title!, x, y, Height);
-        b.DrawCheckboxTexture(textureX, textureY, Current);
+        b.DrawSetTexture(textureX, textureY);
         base.Render(b, x, y);
     }
 
@@ -29,9 +28,7 @@ public class CheckBox : Element
     {
         if (_hovered)
         {
-            Current = !Current;
             Game1.playSound("drumkit6");
-            OnCurrentChanged?.Invoke(Current);
             base.MouseLeftClicked(x, y);
         }
     }

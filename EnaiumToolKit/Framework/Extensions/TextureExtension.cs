@@ -26,8 +26,7 @@ public static class TextureExtension
 
     public static void DrawWindowTexture(this SpriteBatch b, Rectangle bounds, Color? color = null)
     {
-        IClickableMenu.drawTextureBox(b, Game1.menuTexture, new Rectangle(0, 256, 60, 60), bounds.X, bounds.Y,
-            bounds.Width, bounds.Height, color ?? Color.White);
+        DrawWindowTexture(b, bounds.X, bounds.Y, bounds.Width, bounds.Height, color);
     }
 
     public static void DrawBoundsTexture(this SpriteBatch b, int x, int y, int width, int height, Color? color = null)
@@ -38,8 +37,7 @@ public static class TextureExtension
 
     public static void DrawBoundsTexture(this SpriteBatch b, Rectangle bounds, Color? color = null)
     {
-        IClickableMenu.drawTextureBox(b, Game1.mouseCursors, new Rectangle(379, 357, 3, 3), bounds.X, bounds.Y,
-            bounds.Width, bounds.Height, color ?? Color.White, 4f, false);
+        DrawBoundsTexture(b, bounds.X, bounds.Y, bounds.Width, bounds.Height, color);
     }
 
     public static void DrawCloseTexture(this SpriteBatch b, int x, int y)
@@ -61,11 +59,9 @@ public static class TextureExtension
             Color.White, 4f, false);
     }
 
-    public static void DrawCheckboxTexture(this SpriteBatch b, Vector2 position, bool current)
+    public static void DrawSetTexture(this SpriteBatch b, int x, int y, Color? color = null)
     {
-        IClickableMenu.drawTextureBox(b, Game1.mouseCursors,
-            current ? OptionsCheckbox.sourceRectChecked : OptionsCheckbox.sourceRectUnchecked, (int)position.X,
-            (int)position.Y, 36, 36,
-            Color.White, 4f, false);
+        Utility.drawWithShadow(b, Game1.mouseCursors, new Vector2(x, y), OptionsInputListener.setButtonSource,
+            Color.White, 0.0f, Vector2.Zero, 4f, false, 0.15f);
     }
 }

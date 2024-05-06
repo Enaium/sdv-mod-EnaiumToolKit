@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using StardewValley;
 
 namespace EnaiumToolKit.Framework.Screen.Elements;
 
@@ -29,7 +31,10 @@ public abstract class Element
         Enabled = true;
     }
 
-    public abstract void Render(SpriteBatch b, int x, int y);
+    public virtual void Render(SpriteBatch b, int x, int y)
+    {
+        Hovered = new Rectangle(x, y, Width, Height).Contains(Game1.getMouseX(), Game1.getMouseY());
+    }
 
     public virtual void MouseLeftClicked(int x, int y)
     {

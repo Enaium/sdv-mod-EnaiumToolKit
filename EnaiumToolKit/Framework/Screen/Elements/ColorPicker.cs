@@ -60,6 +60,7 @@ public class ColorPicker : Element
             OnColorChanged?.Invoke();
             OnCurrentChanged?.Invoke(Current);
         }
+        base.Render(b, x, y);
     }
 
     public override void MouseLeftClicked(int x, int y)
