@@ -118,6 +118,15 @@ public class ScreenGui : GuiScreen
         return ModEntry.GetInstance().Helper.Translation.Get(key);
     }
 
+    public override void update(GameTime time)
+    {
+        if (IsActive() && Game1.input.GetMouseState().XButton1 == ButtonState.Pressed && Game1.oldMouseState.XButton1 == ButtonState.Released)
+        {
+            _back?.OnLeftClicked?.Invoke();
+        }
+        base.update(time);
+    }
+
     public override void draw(SpriteBatch b)
     {
         b.DrawWindowTexture(xPositionOnScreen - 15, yPositionOnScreen - 15, width + 30, height + 25);
