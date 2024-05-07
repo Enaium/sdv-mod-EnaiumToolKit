@@ -35,7 +35,10 @@ public class ToggleButton : BaseButton
     {
         Toggled = !Toggled;
         OnCurrentChanged?.Invoke(Toggled);
-        Game1.playSound(Toggled ? "drumkit6" : "drumkit5");
+        if (!Toggled)
+        {
+            Game1.playSound("drumkit5");
+        }
         base.MouseLeftClicked(x, y);
     }
 }

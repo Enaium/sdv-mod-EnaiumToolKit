@@ -1,8 +1,7 @@
 ﻿using EnaiumToolKit.Framework.Extensions;
 using EnaiumToolKit.Framework.Screen.Components;
-using EnaiumToolKit.Framework.Utils;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -107,6 +106,16 @@ public class GuiScreen : IClickableMenu
         }
 
         base.receiveScrollWheelAction(direction);
+    }
+    
+    public override void receiveKeyPress(Keys key)
+    {
+        if (Game1.options.menuButton[0].key == key)
+        {
+            return;
+        }
+
+        base.receiveKeyPress(key);
     }
 
     protected void AddComponent(Component component)

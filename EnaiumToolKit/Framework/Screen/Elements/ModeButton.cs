@@ -44,8 +44,6 @@ public class ModeButton : BaseButton
         }
 
         OnCurrentChanged?.Invoke(Current);
-
-        Game1.playSound("drumkit6");
         base.MouseLeftClicked(x, y);
     }
 

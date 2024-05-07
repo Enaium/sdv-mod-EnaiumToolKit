@@ -26,15 +26,15 @@ public class ScreenGui : GuiScreen
     protected override void Init()
     {
         _index = 0;
-        _maxElement = 7;
-        width = 832;
-        height = 578;
+        _maxElement = (int)(Game1.uiViewport.Height / 1.5) / (Element.DefaultHeight + 3);
+        width = 800;
+        height = _maxElement * (Element.DefaultHeight + 3);
         var centeringOnScreen = Utility.getTopLeftPositionForCenteringOnScreen(width, height);
         xPositionOnScreen = (int)centeringOnScreen.X;
-        yPositionOnScreen = (int)centeringOnScreen.Y + 32;
+        yPositionOnScreen = (int)centeringOnScreen.Y;
         _searchTextField = new TextField(null, GetTranslation("screenGui.component.textField.search"),
-            xPositionOnScreen,
-            yPositionOnScreen - 100, width, 70);
+            xPositionOnScreen - 15,
+            yPositionOnScreen - 100, width + 30, 70);
         var up = new ArrowButton(xPositionOnScreen + width + ArrowButton.Width, yPositionOnScreen)
         {
             Description = GetTranslation("screenGui.component.arrowButton.flipUp"),
@@ -120,8 +120,8 @@ public class ScreenGui : GuiScreen
 
     public override void draw(SpriteBatch b)
     {
-        b.DrawWindowTexture(xPositionOnScreen, yPositionOnScreen, width, height);
-        var y = yPositionOnScreen + 20;
+        b.DrawWindowTexture(xPositionOnScreen - 15, yPositionOnScreen - 15, width + 30, height + 25);
+        var y = yPositionOnScreen;
         _searchElements = new List<Element>();
         _searchElements.AddRange(GetSearchElements());
 
@@ -148,16 +148,15 @@ public class ScreenGui : GuiScreen
         {
             if (element.Visibled)
             {
-                element.Render(b, xPositionOnScreen + 15, y + i * (Element.DefaultHeight + 3));
+                element.Render(b, xPositionOnScreen, y + i * (Element.DefaultHeight + 3));
             }
-
             i++;
         }
 
         if (Title != null)
         {
-            SpriteText.drawStringWithScrollCenteredAt(b, Title, Game1.viewport.Width / 2,
-                Game1.viewport.Height - 100, Title);
+            SpriteText.drawStringWithScrollCenteredAt(b, Title, Game1.uiViewport.Width / 2,
+                Game1.uiViewport.Height - 100, Title);
         }
 
         base.draw(b);
@@ -227,16 +226,6 @@ public class ScreenGui : GuiScreen
         }
 
         base.receiveScrollWheelAction(direction);
-    }
-
-    public override void receiveKeyPress(Keys key)
-    {
-        if (Game1.options.menuButton[0].key == key)
-        {
-            return;
-        }
-
-        base.receiveKeyPress(key);
     }
 
     private IEnumerable<Element> GetElements()
