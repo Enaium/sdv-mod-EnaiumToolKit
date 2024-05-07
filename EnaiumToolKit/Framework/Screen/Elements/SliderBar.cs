@@ -16,6 +16,7 @@ public class SliderBar : BaseButton
 
     public bool Dragging;
 
+    [Obsolete]
     public Action? OnValueChanged = null;
     public Action<int>? OnCurrentChanged = null;
 
@@ -31,26 +32,19 @@ public class SliderBar : BaseButton
 
         var blockWidth = 20;
 
-        if (Hovered)
+        if (Dragging)
         {
-            if (Dragging)
+            if (_max - _min != 0)
             {
-                if (_max - _min != 0)
+                Current = MathHelper.Clamp((Game1.getMouseX() - x) * (_max - _min) / (Width - blockWidth) + _min,
+                    _min, _max);
+                if (previous != Current)
                 {
-                    Current = MathHelper.Clamp((Game1.getMouseX() - x) * (_max - _min) / (Width - blockWidth) + _min,
-                        _min, _max);
                     OnValueChanged?.Invoke();
                     OnCurrentChanged?.Invoke(Current);
-                    if (previous != Current)
-                    {
-                        Game1.playSound("shiny4");
-                    }
+                    Game1.playSound("shiny4");
                 }
             }
-        }
-        else
-        {
-            Dragging = false;
         }
 
         var sliderOffset = Width - blockWidth;
@@ -76,10 +70,16 @@ public class SliderBar : BaseButton
 
     public override void MouseLeftClicked(int x, int y)
     {
+        Console.WriteLine("MouseLeftClicked");
         Dragging = true;
     }
 
     public override void MouseLeftReleased(int x, int y)
+    {
+        Dragging = false;
+    }
+
+    public override void LostFocus(int x, int y)
     {
         Dragging = false;
     }

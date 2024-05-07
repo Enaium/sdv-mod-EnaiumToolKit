@@ -196,9 +196,16 @@ public class ScreenGui : GuiScreen
     public override void receiveLeftClick(int x, int y, bool playSound = true)
     {
         foreach (var variable in GetElements().Where(variable =>
-                     variable is { Visibled: true, Enabled: true, Hovered: true }))
+                     variable is { Visibled: true, Enabled: true }))
         {
-            variable.MouseLeftClicked(x, y);
+            if (variable is { Hovered: true })
+            {
+                variable.MouseLeftClicked(x, y);
+            }
+            else
+            {
+                variable.LostFocus(x, y);
+            }
         }
 
         base.receiveLeftClick(x, y, playSound);
@@ -207,9 +214,16 @@ public class ScreenGui : GuiScreen
     public override void releaseLeftClick(int x, int y)
     {
         foreach (var variable in GetElements().Where(variable =>
-                     variable is { Visibled: true, Enabled: true, Hovered: true }))
+                     variable is { Visibled: true, Enabled: true }))
         {
-            variable.MouseLeftReleased(x, y);
+            if (variable is { Hovered: true })
+            {
+                variable.MouseLeftReleased(x, y);
+            }
+            else
+            {
+                variable.LostFocus(x, y);
+            }
         }
 
         base.releaseLeftClick(x, y);
@@ -218,9 +232,16 @@ public class ScreenGui : GuiScreen
     public override void receiveRightClick(int x, int y, bool playSound = true)
     {
         foreach (var variable in GetElements().Where(variable =>
-                     variable is { Visibled: true, Enabled: true, Hovered: true }))
+                     variable is { Visibled: true, Enabled: true }))
         {
-            variable.MouseRightClicked(x, y);
+            if (variable is { Hovered: true })
+            {
+                variable.MouseRightClicked(x, y);
+            }
+            else
+            {
+                variable.LostFocus(x, y);
+            }
         }
 
         base.receiveRightClick(x, y, false);
@@ -247,7 +268,8 @@ public class ScreenGui : GuiScreen
         if (key == Keys.PageUp)
         {
             _up?.OnLeftClicked?.Invoke();
-        } else if (key == Keys.PageDown)
+        }
+        else if (key == Keys.PageDown)
         {
             _down?.OnLeftClicked?.Invoke();
         }

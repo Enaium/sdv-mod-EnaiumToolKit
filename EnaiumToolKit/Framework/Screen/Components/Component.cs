@@ -61,7 +61,7 @@ public abstract class Component
     {
     }
 
-    public virtual void LostFocus()
+    public virtual void LostFocus(int x, int y)
     {
     }
 }

@@ -68,7 +68,7 @@ public class GuiScreen : IClickableMenu
             }
             else
             {
-                component.LostFocus();
+                component.LostFocus(x, y);
             }
         }
 
@@ -78,9 +78,16 @@ public class GuiScreen : IClickableMenu
     public override void releaseLeftClick(int x, int y)
     {
         foreach (var component in _components.Where(component =>
-                     component is { Visibled: true, Enabled: true, Hovered: true }))
+                     component is { Visibled: true, Enabled: true }))
         {
-            component.MouseLeftReleased(x, y);
+            if (component is { Hovered: true })
+            {
+                component.MouseLeftReleased(x, y);
+            }
+            else
+            {
+                component.LostFocus(x, y);
+            }
         }
 
         base.releaseLeftClick(x, y);
@@ -89,9 +96,16 @@ public class GuiScreen : IClickableMenu
     public override void receiveRightClick(int x, int y, bool playSound = true)
     {
         foreach (var component in _components.Where(component =>
-                     component is { Visibled: true, Enabled: true, Hovered: true }))
+                     component is { Visibled: true, Enabled: true }))
         {
-            component.MouseRightClicked(x, y);
+            if (component is { Hovered: true })
+            {
+                component.MouseRightClicked(x, y);
+            }
+            else
+            {
+                component.LostFocus(x, y);
+            }
         }
 
         base.receiveRightClick(x, y, playSound);
@@ -107,7 +121,7 @@ public class GuiScreen : IClickableMenu
 
         base.receiveScrollWheelAction(direction);
     }
-    
+
     public override void receiveKeyPress(Keys key)
     {
         if (Game1.options.menuButton[0].key == key)

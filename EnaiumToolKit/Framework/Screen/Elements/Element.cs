@@ -50,4 +50,8 @@ public abstract class Element
     {
         OnRightClicked?.Invoke();
     }
+    
+    public virtual void LostFocus(int x, int y)
+    {
+    }
 }

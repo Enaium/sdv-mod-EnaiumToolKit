@@ -33,26 +33,19 @@ public class ScrollBar : BaseButton
 
         var blockHeight = 20;
 
-        if (Hovered)
+        if (_dragging)
         {
-            if (_dragging)
+            if (Max - Min != 0)
             {
-                if (Max - Min != 0)
+                Current = MathHelper.Clamp((Game1.getMouseY() - Y) * (Max - Min) / (Height - blockHeight) + Min,
+                    Min, Max);
+                OnValueChanged?.Invoke();
+                OnCurrentChanged?.Invoke(Current);
+                if (previous != Current)
                 {
-                    Current = MathHelper.Clamp((Game1.getMouseY() - Y) * (Max - Min) / (Height - blockHeight) + Min,
-                        Min, Max);
-                    OnValueChanged?.Invoke();
-                    OnCurrentChanged?.Invoke(Current);
-                    if (previous != Current)
-                    {
-                        Game1.playSound("shiny4");
-                    }
+                    Game1.playSound("shiny4");
                 }
             }
-        }
-        else
-        {
-            _dragging = false;
         }
 
         var sliderOffset = Height - blockHeight;
@@ -77,6 +70,11 @@ public class ScrollBar : BaseButton
     }
 
     public override void MouseLeftReleased(int x, int y)
+    {
+        _dragging = false;
+    }
+    
+    public override void LostFocus(int x, int y)
     {
         _dragging = false;
     }

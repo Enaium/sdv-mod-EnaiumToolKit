@@ -55,29 +55,75 @@ public class ColorPicker : Element
         _alpha.Height = Height / 2;
         _alpha.Render(b, x + Width / 2, y + Height / 2);
 
-        if (_red.Dragging || _green.Dragging || _blue.Dragging || _alpha.Dragging)
+        var change = (int i) =>
         {
             OnColorChanged?.Invoke();
             OnCurrentChanged?.Invoke(Current);
-        }
+        };
+
+        _red.OnCurrentChanged = change;
+        _green.OnCurrentChanged = change;
+        _blue.OnCurrentChanged = change;
+        _alpha.OnCurrentChanged = change;
+        
         base.Render(b, x, y);
     }
 
     public override void MouseLeftClicked(int x, int y)
     {
-        _red.MouseLeftClicked(x, y);
-        _green.MouseLeftClicked(x, y);
-        _blue.MouseLeftClicked(x, y);
-        _alpha.MouseLeftClicked(x, y);
+        if (_red.Hovered)
+        {
+            _red.MouseLeftClicked(x, y);
+        }
+        
+        if (_green.Hovered)
+        {
+            _green.MouseLeftClicked(x, y);
+        }
+
+        if (_blue.Hovered)
+        {
+            _blue.MouseLeftClicked(x, y);
+        }
+        
+        if (_alpha.Hovered)
+        {
+            _alpha.MouseLeftClicked(x, y);
+        }
         base.MouseLeftClicked(x, y);
     }
 
     public override void MouseLeftReleased(int x, int y)
     {
-        _red.MouseLeftReleased(x, y);
-        _green.MouseLeftReleased(x, y);
-        _blue.MouseLeftReleased(x, y);
-        _alpha.MouseLeftReleased(x, y);
+        if (_red.Hovered)
+        {
+            _red.MouseLeftReleased(x, y);
+        }
+        
+        if (_green.Hovered)
+        {
+            _green.MouseLeftReleased(x, y);
+        }
+        
+        if (_blue.Hovered)
+        {
+            _blue.MouseLeftReleased(x, y);
+        }
+        
+        if (_alpha.Hovered)
+        {
+            _alpha.MouseLeftReleased(x, y);
+        }
+        
         base.MouseLeftReleased(x, y);
+    }
+
+    public override void LostFocus(int x, int y)
+    {
+        _red.LostFocus(x, y);
+        _green.LostFocus(x, y);
+        _blue.LostFocus(x, y);
+        _alpha.LostFocus(x, y);
+        base.LostFocus(x, y);
     }
 }

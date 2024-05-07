@@ -42,9 +42,9 @@ public class TextField : Component
         base.MouseLeftClicked(x, y);
     }
 
-    public override void LostFocus()
+    public override void LostFocus(int x, int y)
     {
         _textBox.Selected = false;
-        base.LostFocus();
+        base.LostFocus(x, y);
     }
 }
