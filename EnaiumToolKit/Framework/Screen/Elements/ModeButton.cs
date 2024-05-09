@@ -1,4 +1,5 @@
-﻿using EnaiumToolKit.Framework.Utils;
+﻿using EnaiumToolKit.Framework.Extensions;
+using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -7,18 +8,27 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class ModeButton : BaseButton
 {
-    public List<string> modes;
+    [Obsolete] public List<string> modes = new();
+
+    public List<string> Modes
+    {
+        get => modes;
+        set => modes = value;
+    }
+
     public string Current;
 
-    public ModeButton(string title, string description) : base(title, description)
+    public Action<string>? OnCurrentChanged;
+
+    public ModeButton(string title, string? description) : base(title, description)
     {
     }
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        Render2DUtils.DrawButton(b, x, y, Width, Height, Hovered ? Color.Wheat : Color.White);
-        FontUtils.DrawHvCentered(b, $"{Title}:({GetCurrentIndex() + 1}/{modes.Count}){modes[GetCurrentIndex()]}", x, y,
-            Width, Height);
+        b.DrawButtonTexture(x, y, Width, Height, Hovered ? Color.Wheat : Color.White);
+        b.DrawStringCenter($"{Title}:({GetCurrentIndex() + 1}/{modes.Count}){modes[GetCurrentIndex()]}", x, y, Width,
+            Height);
         base.Render(b, x, y);
     }
 
@@ -33,7 +43,7 @@ public class ModeButton : BaseButton
             Current = modes.First();
         }
 
-        Game1.playSound("drumkit6");
+        OnCurrentChanged?.Invoke(Current);
         base.MouseLeftClicked(x, y);
     }
 
@@ -47,6 +57,8 @@ public class ModeButton : BaseButton
         {
             Current = modes.Last();
         }
+
+        OnCurrentChanged?.Invoke(Current);
 
         Game1.playSound("drumkit5");
         base.MouseRightClicked(x, y);

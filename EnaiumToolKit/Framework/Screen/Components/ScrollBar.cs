@@ -1,4 +1,5 @@
-﻿using EnaiumToolKit.Framework.Utils;
+﻿using EnaiumToolKit.Framework.Extensions;
+using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -16,7 +17,9 @@ public class ScrollBar : BaseButton
 
     public int Current { get; set; }
 
-    public Action OnValueChanged = () => { };
+    [Obsolete] public Action? OnValueChanged = null;
+
+    public Action<int>? OnCurrentChanged = null;
 
     public ScrollBar(int x, int y, int width, int height) : base(null, null, x, y, width, height)
     {
@@ -24,31 +27,25 @@ public class ScrollBar : BaseButton
 
     public override void Render(SpriteBatch b)
     {
-        IClickableMenu.drawTextureBox(b, Game1.mouseCursors, new Rectangle(403, 383, 6, 6), X, Y, Width, Height,
+        IClickableMenu.drawTextureBox(b, Game1.mouseCursors, OptionsSlider.sliderBGSource, X, Y, Width, Height,
             Color.White, 4f, false);
         var previous = Current;
 
         var blockHeight = 20;
 
-        if (Hovered)
+        if (_dragging)
         {
-            if (_dragging)
+            if (Max - Min != 0)
             {
-                if (Max - Min != 0)
+                Current = MathHelper.Clamp((Game1.getMouseY() - Y) * (Max - Min) / (Height - blockHeight) + Min,
+                    Min, Max);
+                OnValueChanged?.Invoke();
+                OnCurrentChanged?.Invoke(Current);
+                if (previous != Current)
                 {
-                    Current = MathHelper.Clamp((Game1.getMouseY() - Y) * (Max - Min) / (Height - blockHeight) + Min,
-                        Min, Max);
-                    OnValueChanged.Invoke();
-                    if (previous != Current)
-                    {
-                        Game1.playSound("shiny4");
-                    }
+                    Game1.playSound("shiny4");
                 }
             }
-        }
-        else
-        {
-            _dragging = false;
         }
 
         var sliderOffset = Height - blockHeight;
@@ -62,7 +59,7 @@ public class ScrollBar : BaseButton
             sliderOffset = 0;
         }
 
-        Render2DUtils.DrawButton(b, X, Y + sliderOffset, Width, blockHeight, Color.Wheat);
+        b.DrawButtonTexture(X, Y + sliderOffset, Width, blockHeight);
 
         base.Render(b);
     }
@@ -73,6 +70,11 @@ public class ScrollBar : BaseButton
     }
 
     public override void MouseLeftReleased(int x, int y)
+    {
+        _dragging = false;
+    }
+
+    public override void LostFocus(int x, int y)
     {
         _dragging = false;
     }

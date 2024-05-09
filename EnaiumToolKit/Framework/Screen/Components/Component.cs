@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace EnaiumToolKit.Framework.Screen.Components;
 
@@ -12,12 +13,19 @@ public abstract class Component
     public int Y;
     public int Width;
     public int Height;
+
+    public Rectangle Bounds
+    {
+        get => new(X, Y, Width, Height);
+        set => (X, Y, Width, Height) = (value.X, value.Y, value.Width, value.Height);
+    }
+
     public string? Title;
     public string? Description;
 
-    public Action OnLeftClicked = () => { };
-    public Action OnLeftReleased = () => { };
-    public Action OnRightClicked = () => { };
+    public Action? OnLeftClicked = null;
+    public Action? OnLeftReleased = null;
+    public Action? OnRightClicked = null;
 
     public Component(string? title, string? description, int x, int y, int width, int height)
     {
@@ -36,20 +44,24 @@ public abstract class Component
 
     public virtual void MouseLeftClicked(int x, int y)
     {
-        OnLeftClicked.Invoke();
+        OnLeftClicked?.Invoke();
     }
 
     public virtual void MouseLeftReleased(int x, int y)
     {
-        OnLeftReleased.Invoke();
+        OnLeftReleased?.Invoke();
     }
 
     public virtual void MouseRightClicked(int x, int y)
     {
-        OnRightClicked.Invoke();
+        OnRightClicked?.Invoke();
     }
 
     public virtual void MouseScrollWheelAction(int direction)
+    {
+    }
+
+    public virtual void LostFocus(int x, int y)
     {
     }
 }

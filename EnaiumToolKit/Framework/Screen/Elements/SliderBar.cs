@@ -1,4 +1,4 @@
-﻿using EnaiumToolKit.Framework.Utils;
+﻿using EnaiumToolKit.Framework.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -9,15 +9,23 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 public class SliderBar : BaseButton
 {
     public int Current { get; set; }
-    
+
     private readonly int _min;
     private readonly int _max;
 
-    public bool Dragging;
+    private bool _dragging;
 
-    public Action OnValueChanged = () => { };
+    [Obsolete]
+    public bool Dragging
+    {
+        get => _dragging;
+        set => _dragging = value;
+    }
 
-    public SliderBar(string title, string description, int min, int max) : base(title, description)
+    [Obsolete] public Action? OnValueChanged = null;
+    public Action<int>? OnCurrentChanged = null;
+
+    public SliderBar(string? title, string? description, int min, int max) : base(title, description)
     {
         _min = min;
         _max = max;
@@ -29,25 +37,19 @@ public class SliderBar : BaseButton
 
         var blockWidth = 20;
 
-        if (Hovered)
+        if (_dragging)
         {
-            if (Dragging)
+            if (_max - _min != 0)
             {
-                if (_max - _min != 0)
+                Current = MathHelper.Clamp((Game1.getMouseX() - x) * (_max - _min) / (Width - blockWidth) + _min,
+                    _min, _max);
+                if (previous != Current)
                 {
-                    Current = MathHelper.Clamp((Game1.getMouseX() - x) * (_max - _min) / (Width - blockWidth) + _min,
-                        _min, _max);
-                    OnValueChanged.Invoke();
-                    if (previous != Current)
-                    {
-                        Game1.playSound("shiny4");
-                    }
+                    OnValueChanged?.Invoke();
+                    OnCurrentChanged?.Invoke(Current);
+                    Game1.playSound("shiny4");
                 }
             }
-        }
-        else
-        {
-            Dragging = false;
         }
 
         var sliderOffset = Width - blockWidth;
@@ -61,19 +63,28 @@ public class SliderBar : BaseButton
             sliderOffset = 0;
         }
 
-        Render2DUtils.DrawButton(b, x + sliderOffset, y, blockWidth, Height, Color.Wheat);
+        b.DrawButtonTexture(x + sliderOffset, y, blockWidth, Height, Color.Wheat);
 
-        FontUtils.DrawHvCentered(b, $"{Title}:{Current}", x, y, Width, Height);
+        if (Title != null)
+        {
+            b.DrawStringCenter($"{Title}:{Current}", x, y, Width, Height);
+        }
+
         base.Render(b, x, y);
     }
 
     public override void MouseLeftClicked(int x, int y)
     {
-        Dragging = true;
+        _dragging = true;
     }
 
     public override void MouseLeftReleased(int x, int y)
     {
-        Dragging = false;
+        _dragging = false;
+    }
+
+    public override void LostFocus(int x, int y)
+    {
+        _dragging = false;
     }
 }

@@ -1,4 +1,4 @@
-﻿using EnaiumToolKit.Framework.Utils;
+﻿using EnaiumToolKit.Framework.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -11,14 +11,16 @@ public class ValueButton : BaseButton
     public int Min;
     public int Max;
 
-    public ValueButton(string title, string description) : base(title, description)
+    public Action<int>? OnCurrentChanged = null;
+
+    public ValueButton(string title, string? description = null) : base(title, description)
     {
     }
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        Render2DUtils.DrawButton(b, x, y, Width, Height, Hovered ? Color.White : Color.Wheat);
-        FontUtils.DrawHvCentered(b, $"{Title}:({Min}-{Max}){Current}", x, y, Width, Height);
+        b.DrawButtonTexture(x, y, Width, Height, Hovered ? Color.Wheat : Color.White);
+        b.DrawStringCenter($"{Title}:({Min}-{Max}){Current}", x, y, Width, Height);
         base.Render(b, x, y);
     }
 
@@ -32,6 +34,10 @@ public class ValueButton : BaseButton
         {
             Current = Min;
         }
+
+        OnCurrentChanged?.Invoke(Current);
+
+        Game1.playSound("drumkit6");
         base.MouseLeftClicked(x, y);
     }
 
@@ -45,6 +51,8 @@ public class ValueButton : BaseButton
         {
             Current = Max;
         }
+
+        OnCurrentChanged?.Invoke(Current);
 
         Game1.playSound("drumkit5");
         base.MouseRightClicked(x, y);
