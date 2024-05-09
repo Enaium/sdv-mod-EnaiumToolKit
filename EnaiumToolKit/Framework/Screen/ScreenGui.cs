@@ -1,7 +1,6 @@
 ﻿using EnaiumToolKit.Framework.Extensions;
 using EnaiumToolKit.Framework.Screen.Components;
 using EnaiumToolKit.Framework.Screen.Elements;
-using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -27,7 +26,6 @@ public class ScreenGui : GuiScreen
 
     protected override void Init()
     {
-        _index = 0;
         _maxElement = (int)(Game1.uiViewport.Height / 1.5) / (Element.DefaultHeight + 3);
         width = 800;
         height = _maxElement * (Element.DefaultHeight + 3);
@@ -135,13 +133,7 @@ public class ScreenGui : GuiScreen
     {
         b.DrawWindowTexture(xPositionOnScreen - 15, yPositionOnScreen - 15, width + 30, height + 25);
         var y = yPositionOnScreen;
-        _searchElements = new List<Element>();
-        _searchElements.AddRange(GetSearchElements());
-
-        if (_index >= _searchElements.Count)
-        {
-            _index = 0;
-        }
+        _searchElements = GetSearchElements();
 
         if (_scrollBar != null)
         {
@@ -288,29 +280,36 @@ public class ScreenGui : GuiScreen
         base.receiveKeyPress(key);
     }
 
-    private IEnumerable<Element> GetElements()
+    private List<Element> GetElements()
     {
         var elements = new List<Element>();
         for (int i = _index, j = 0;
              j < (_searchElements.Count >= _maxElement ? _maxElement : _searchElements.Count);
              i++, j++)
         {
-            elements.Add(_searchElements[i]);
+            try
+            {
+                elements.Add(_searchElements[i]);
+            }
+            catch (Exception e)
+            {
+                _index = 0;
+            }
         }
 
         return elements;
     }
 
-    private IEnumerable<Element> GetSearchElements()
+    private List<Element> GetSearchElements()
     {
-        IEnumerable<Element> elements = _elements;
+        var elements = _elements;
         if (_searchTextField != null && !_searchTextField.Text.Equals(""))
         {
             elements = elements.Where(element =>
                 element.Title?.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase) == true
                 || element.Description?.Contains(_searchTextField.Text, StringComparison.InvariantCultureIgnoreCase) ==
                 true
-            );
+            ).ToList();
         }
 
         return elements;
