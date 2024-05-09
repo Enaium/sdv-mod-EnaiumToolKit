@@ -40,13 +40,7 @@ public class GuiScreen : IClickableMenu
         {
             if (component is { Hovered: true, Description: not null } && !component.Description.Equals(""))
             {
-                var descriptionWidth = b.GetStringWidth(component.Description) + 50;
-                var descriptionHeight = b.GetStringHeight(component.Description) + 50;
-
-                var mouseX = Game1.getMouseX() + 40;
-                var mouseY = Game1.getMouseY() + 40;
-                b.DrawWindowTexture(mouseX, mouseY, descriptionWidth, descriptionHeight);
-                b.DrawStringCenter(component.Description, mouseX, mouseY, descriptionWidth, descriptionHeight);
+                DrawTooltip(b, component.Description);
             }
         }
 
@@ -55,6 +49,29 @@ public class GuiScreen : IClickableMenu
 
         drawMouse(b);
         base.draw(b);
+    }
+
+    protected void DrawTooltip(SpriteBatch b, string text)
+    {
+        var descriptionWidth = b.GetStringWidth(text) + 50;
+        var descriptionHeight = b.GetStringHeight(text) + 50;
+
+        var mouseX = Game1.getMouseX() + 40;
+        var mouseY = Game1.getMouseY() + 40;
+        var description = text!;
+        description = Game1.parseText(description, Game1.dialogueFont, width);
+        descriptionWidth = description.Split('\n').Max(s => b.GetStringWidth(s) + 50);
+        descriptionHeight += description.Count(c => c == '\n') * b.GetStringHeight(text);
+        var offScreen = mouseX + descriptionWidth > Game1.graphics.GraphicsDevice.Viewport.Width &&
+                        Game1.getMouseX() - descriptionWidth > 0;
+        if (offScreen)
+        {
+            mouseX = Game1.getMouseX() - descriptionWidth;
+        }
+
+        b.DrawWindowTexture(mouseX, mouseY, descriptionWidth, descriptionHeight);
+        b.DrawStringCenter(description, mouseX, mouseY, descriptionWidth,
+            descriptionHeight);
     }
 
     public override void receiveLeftClick(int x, int y, bool playSound = true)

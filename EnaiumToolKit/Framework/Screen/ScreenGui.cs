@@ -182,14 +182,7 @@ public class ScreenGui : GuiScreen
         {
             if (element is { Hovered: true, Description: not null } && !element.Description.Equals(""))
             {
-                var descriptionWidth = b.GetStringWidth(element.Description) + 50;
-                var descriptionHeight = b.GetStringHeight(element.Description) + 50;
-
-                var mouseX = Game1.getMouseX() + 40;
-                var mouseY = Game1.getMouseY() + 40;
-                b.DrawWindowTexture(mouseX, mouseY, descriptionWidth, descriptionHeight);
-                b.DrawStringCenter(element.Description, mouseX, mouseY, descriptionWidth,
-                    descriptionHeight);
+                DrawTooltip(b, element.Description);
             }
         }
 
