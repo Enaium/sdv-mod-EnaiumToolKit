@@ -51,7 +51,7 @@ public class GuiScreen : IClickableMenu
         }
 
         const string text = "EnaiumToolKit By Enaium";
-        b.DrawString(text, 0, Game1.viewport.Height - b.GetStringHeight(text));
+        b.DrawString(text, 0, Game1.graphics.GraphicsDevice.Viewport.Height - b.GetStringHeight(text));
 
         drawMouse(b);
         base.draw(b);

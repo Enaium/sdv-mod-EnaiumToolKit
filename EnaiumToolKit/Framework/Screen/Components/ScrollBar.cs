@@ -73,7 +73,7 @@ public class ScrollBar : BaseButton
     {
         _dragging = false;
     }
-    
+
     public override void LostFocus(int x, int y)
     {
         _dragging = false;

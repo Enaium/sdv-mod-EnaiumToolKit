@@ -9,6 +9,7 @@ public abstract class Element
     public bool Hovered;
     public bool Visibled;
     public bool Enabled;
+    public bool Focused;
     public int Width;
     public int Height;
     public string? Title;
@@ -50,7 +51,7 @@ public abstract class Element
     {
         OnRightClicked?.Invoke();
     }
-    
+
     public virtual void LostFocus(int x, int y)
     {
     }

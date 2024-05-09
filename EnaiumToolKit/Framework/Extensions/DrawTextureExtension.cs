@@ -5,7 +5,7 @@ using StardewValley.Menus;
 
 namespace EnaiumToolKit.Framework.Extensions;
 
-public static class TextureExtension
+public static class DrawTextureExtension
 {
     public static void DrawButtonTexture(this SpriteBatch b, int x, int y, int width, int height, Color? color = null)
     {
@@ -63,5 +63,17 @@ public static class TextureExtension
     {
         Utility.drawWithShadow(b, Game1.mouseCursors, new Vector2(x, y), OptionsInputListener.setButtonSource,
             Color.White, 0.0f, Vector2.Zero, 4f, false, 0.15f);
+    }
+
+    public static void DrawComboBoxBackgroundTexture(this SpriteBatch b, int x, int y, int width, int height,
+        Color? color = null)
+    {
+        IClickableMenu.drawTextureBox(b, Game1.mouseCursors, OptionsDropDown.dropDownBGSource, x, y,
+            width, height, color ?? Color.White, 4f, false);
+    }
+
+    public static void DrawComboBoxBackgroundTexture(this SpriteBatch b, Rectangle bounds, Color? color = null)
+    {
+        DrawComboBoxBackgroundTexture(b, bounds.X, bounds.Y, bounds.Width, bounds.Height, color);
     }
 }

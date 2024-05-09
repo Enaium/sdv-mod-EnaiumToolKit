@@ -7,9 +7,8 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class SetButton : Element
 {
-    
     private bool _hovered;
-    
+
     public SetButton(string? title, string? description) : base(title, description)
     {
     }

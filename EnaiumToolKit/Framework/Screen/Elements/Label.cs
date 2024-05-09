@@ -15,6 +15,5 @@ public class Label : Element
     public override void Render(SpriteBatch b, int x, int y)
     {
         b.DrawStringCenter(Title!, x, y, Width, Height);
-        base.Render(b, x, y);
     }
 }

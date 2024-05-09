@@ -39,21 +39,24 @@ public class ColorPicker : Element
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        Hovered = new Rectangle(x, y, Width, Height).Contains(Game1.getMouseX(), Game1.getMouseY());
         b.Draw(Game1.staminaRect, new Rectangle(x, y, Width, Height),
             Color = new Color(_red.Current, _green.Current, _blue.Current, _alpha.Current));
         _red.Width = Width / 2;
         _red.Height = Height / 2;
         _red.Render(b, x, y);
+        _red.Hovered = _red.Hovered && Hovered;
         _green.Width = Width / 2;
         _green.Height = Height / 2;
         _green.Render(b, x + Width / 2, y);
+        _green.Hovered = _green.Hovered && Hovered;
         _blue.Width = Width / 2;
         _blue.Height = Height / 2;
         _blue.Render(b, x, y + Height / 2);
+        _blue.Hovered = _blue.Hovered && Hovered;
         _alpha.Width = Width / 2;
         _alpha.Height = Height / 2;
         _alpha.Render(b, x + Width / 2, y + Height / 2);
+        _alpha.Hovered = _alpha.Hovered && Hovered;
 
         var change = (int i) =>
         {
@@ -65,7 +68,6 @@ public class ColorPicker : Element
         _green.OnCurrentChanged = change;
         _blue.OnCurrentChanged = change;
         _alpha.OnCurrentChanged = change;
-        
         base.Render(b, x, y);
     }
 
@@ -74,22 +76,35 @@ public class ColorPicker : Element
         if (_red.Hovered)
         {
             _red.MouseLeftClicked(x, y);
+            _green.LostFocus(x, y);
+            _blue.LostFocus(x, y);
+            _alpha.LostFocus(x, y);
         }
-        
+
         if (_green.Hovered)
         {
+            _red.LostFocus(x, y);
             _green.MouseLeftClicked(x, y);
+            _blue.LostFocus(x, y);
+            _alpha.LostFocus(x, y);
         }
 
         if (_blue.Hovered)
         {
+            _red.LostFocus(x, y);
+            _green.LostFocus(x, y);
             _blue.MouseLeftClicked(x, y);
+            _alpha.LostFocus(x, y);
         }
-        
+
         if (_alpha.Hovered)
         {
+            _red.LostFocus(x, y);
+            _green.LostFocus(x, y);
+            _blue.LostFocus(x, y);
             _alpha.MouseLeftClicked(x, y);
         }
+
         base.MouseLeftClicked(x, y);
     }
 
@@ -98,23 +113,35 @@ public class ColorPicker : Element
         if (_red.Hovered)
         {
             _red.MouseLeftReleased(x, y);
+            _green.LostFocus(x, y);
+            _blue.LostFocus(x, y);
+            _alpha.LostFocus(x, y);
         }
-        
+
         if (_green.Hovered)
         {
+            _red.LostFocus(x, y);
             _green.MouseLeftReleased(x, y);
+            _blue.LostFocus(x, y);
+            _alpha.LostFocus(x, y);
         }
-        
+
         if (_blue.Hovered)
         {
+            _red.LostFocus(x, y);
+            _green.LostFocus(x, y);
             _blue.MouseLeftReleased(x, y);
+            _alpha.LostFocus(x, y);
         }
-        
+
         if (_alpha.Hovered)
         {
+            _red.LostFocus(x, y);
+            _green.LostFocus(x, y);
+            _blue.LostFocus(x, y);
             _alpha.MouseLeftReleased(x, y);
         }
-        
+
         base.MouseLeftReleased(x, y);
     }
 

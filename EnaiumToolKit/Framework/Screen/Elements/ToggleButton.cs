@@ -39,6 +39,7 @@ public class ToggleButton : BaseButton
         {
             Game1.playSound("drumkit5");
         }
+
         base.MouseLeftClicked(x, y);
     }
 }

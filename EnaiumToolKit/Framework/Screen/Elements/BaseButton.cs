@@ -3,7 +3,6 @@ using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
-using StardewValley.Menus;
 
 namespace EnaiumToolKit.Framework.Screen.Elements;
 
@@ -19,6 +18,7 @@ public class BaseButton : Element
         {
             b.DrawBoundsTexture(x, y, Width, Height);
         }
+
         base.Render(b, x, y);
     }
 

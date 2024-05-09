@@ -155,23 +155,26 @@ public class ScreenGui : GuiScreen
             _back.Visibled = PreviousMenu != null;
         }
 
-
-        var i = 0;
-        foreach (var element in GetElements())
-        {
-            if (element.Visibled)
-            {
-                element.Render(b, xPositionOnScreen, y + i * (Element.DefaultHeight + 3));
-            }
-
-            i++;
-        }
-
         if (Title != null)
         {
-            SpriteText.drawStringWithScrollCenteredAt(b, Title, Game1.uiViewport.Width / 2,
-                Game1.uiViewport.Height - 100, Title);
+            SpriteText.drawStringWithScrollCenteredAt(b, Title, Game1.graphics.GraphicsDevice.Viewport.Width / 2,
+                Game1.graphics.GraphicsDevice.Viewport.Height - 100, Title);
         }
+
+        GetElements().Select((item, index) =>
+        {
+            var elementX = xPositionOnScreen;
+            var elementY = y + index * (Element.DefaultHeight + 3);
+            return new { position = new { x = elementX, y = elementY }, element = item };
+        }).OrderBy(it => it.element.Focused).ToList().ForEach(ordered =>
+        {
+            ordered.element.Render(b, ordered.position.x, ordered.position.y);
+            if (ordered.element.Hovered)
+            {
+                GetElements().Where(it => it != ordered.element).ToList().ForEach(it => it.Hovered = false);
+            }
+        });
+
 
         base.draw(b);
 
@@ -200,11 +203,13 @@ public class ScreenGui : GuiScreen
         {
             if (variable is { Hovered: true })
             {
+                variable.Focused = true;
                 variable.MouseLeftClicked(x, y);
             }
-            else
+            else if (variable.Focused)
             {
                 variable.LostFocus(x, y);
+                variable.Focused = false;
             }
         }
 
@@ -218,11 +223,13 @@ public class ScreenGui : GuiScreen
         {
             if (variable is { Hovered: true })
             {
+                variable.Focused = true;
                 variable.MouseLeftReleased(x, y);
             }
-            else
+            else if (variable.Focused)
             {
                 variable.LostFocus(x, y);
+                variable.Focused = false;
             }
         }
 
@@ -236,11 +243,13 @@ public class ScreenGui : GuiScreen
         {
             if (variable is { Hovered: true })
             {
+                variable.Focused = true;
                 variable.MouseRightClicked(x, y);
             }
-            else
+            else if (variable.Focused)
             {
                 variable.LostFocus(x, y);
+                variable.Focused = false;
             }
         }
 
@@ -258,6 +267,15 @@ public class ScreenGui : GuiScreen
                  _searchElements.Count)
         {
             _index++;
+        }
+
+        foreach (var element in GetElements())
+        {
+            if (element.Focused)
+            {
+                element.LostFocus(Game1.getMouseX(), Game1.getMouseY());
+                element.Focused = false;
+            }
         }
 
         base.receiveScrollWheelAction(direction);

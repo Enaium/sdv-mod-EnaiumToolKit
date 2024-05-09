@@ -4,7 +4,7 @@ using StardewValley;
 
 namespace EnaiumToolKit.Framework.Extensions;
 
-public static class FontExtension
+public static class DrawStringExtension
 {
     public static void DrawString(this SpriteBatch b, string text, Vector2 position, SpriteFont? font = null,
         Color? color = null)
@@ -45,6 +45,12 @@ public static class FontExtension
     {
         var v = (font ?? Game1.dialogueFont).MeasureString(text);
         DrawString(b, text, new Vector2(x, y + height / 2f - v.Y / 2f), font, color);
+    }
+
+    public static void DrawStringVCenter(this SpriteBatch b, string text, Vector2 position, int height,
+        SpriteFont? font = null, Color? color = null)
+    {
+        DrawStringVCenter(b, text, (int)position.X, (int)position.Y, height, font, color);
     }
 
     public static void DrawStringCenter(this SpriteBatch b, string text, Rectangle bounds, SpriteFont? font = null,

@@ -12,7 +12,7 @@ public class FontUtils
     {
         Utility.drawTextWithShadow(b, text, Game1.dialogueFont,
             new Vector2(x, y), Game1.textColor, 1f,
-            -1f,
+            0.98f,
             -1, -1, 0.0f);
     }
 
@@ -22,7 +22,7 @@ public class FontUtils
         var v = Game1.dialogueFont.MeasureString(text);
         Utility.drawTextWithShadow(b, text, Game1.dialogueFont,
             new Vector2(x - GetWidth(text) / 2f, y) + v, Game1.textColor, 1f,
-            -1f,
+            0.98f,
             -1, -1, 0.0f);
     }
 
@@ -31,7 +31,7 @@ public class FontUtils
         var v = Game1.dialogueFont.MeasureString(text);
         Utility.drawTextWithShadow(b, text, Game1.dialogueFont,
             new Vector2(x + width / 2f - v.X / 2f, y), Game1.textColor, 1f,
-            -1f,
+            0.98f,
             -1, -1, 0.0f);
     }
 
@@ -40,7 +40,7 @@ public class FontUtils
     {
         Utility.drawTextWithShadow(b, text, Game1.dialogueFont,
             new Vector2(x, y - GetHeight(text) / 2f), Game1.textColor, 1f,
-            -1f,
+            0.98f,
             -1, -1, 0.0f);
     }
 
@@ -49,7 +49,7 @@ public class FontUtils
         var v = Game1.dialogueFont.MeasureString(text);
         Utility.drawTextWithShadow(b, text, Game1.dialogueFont,
             new Vector2(x, y + height / 2f - v.Y / 2f), Game1.textColor, 1f,
-            -1f,
+            0.98f,
             -1, -1, 0.0f);
     }
 
@@ -59,7 +59,7 @@ public class FontUtils
         Utility.drawTextWithShadow(b, text, Game1.dialogueFont,
             new Vector2(x - GetWidth(text) / 2f, y - GetHeight(text) / 2f),
             Game1.textColor, 1f,
-            -1f,
+            0.98f,
             -1, -1, 0.0f);
     }
 
@@ -69,7 +69,7 @@ public class FontUtils
         Utility.drawTextWithShadow(b, text, Game1.dialogueFont,
             new Vector2(x + width / 2f, y + height / 2f) - v / 2f,
             Game1.textColor, 1f,
-            -1f,
+            0.98f,
             -1, -1, 0.0f);
     }
 

@@ -1,5 +1,4 @@
 ﻿using EnaiumToolKit.Framework.Extensions;
-using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -14,10 +13,16 @@ public class SliderBar : BaseButton
     private readonly int _min;
     private readonly int _max;
 
-    public bool Dragging;
+    private bool _dragging;
 
     [Obsolete]
-    public Action? OnValueChanged = null;
+    public bool Dragging
+    {
+        get => _dragging;
+        set => _dragging = value;
+    }
+
+    [Obsolete] public Action? OnValueChanged = null;
     public Action<int>? OnCurrentChanged = null;
 
     public SliderBar(string? title, string? description, int min, int max) : base(title, description)
@@ -32,7 +37,7 @@ public class SliderBar : BaseButton
 
         var blockWidth = 20;
 
-        if (Dragging)
+        if (_dragging)
         {
             if (_max - _min != 0)
             {
@@ -70,17 +75,16 @@ public class SliderBar : BaseButton
 
     public override void MouseLeftClicked(int x, int y)
     {
-        Console.WriteLine("MouseLeftClicked");
-        Dragging = true;
+        _dragging = true;
     }
 
     public override void MouseLeftReleased(int x, int y)
     {
-        Dragging = false;
+        _dragging = false;
     }
 
     public override void LostFocus(int x, int y)
     {
-        Dragging = false;
+        _dragging = false;
     }
 }
