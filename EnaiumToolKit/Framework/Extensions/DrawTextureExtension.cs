@@ -32,7 +32,7 @@ public static class DrawTextureExtension
     public static void DrawBoundsTexture(this SpriteBatch b, int x, int y, int width, int height, Color? color = null)
     {
         IClickableMenu.drawTextureBox(b, Game1.mouseCursors, new Rectangle(379, 357, 3, 3), x, y,
-            width, height, color ?? Color.White, 4f, false);
+            width, height, color ?? Color.White, 2f, false);
     }
 
     public static void DrawBoundsTexture(this SpriteBatch b, Rectangle bounds, Color? color = null)
