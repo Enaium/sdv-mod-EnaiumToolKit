@@ -1,5 +1,6 @@
 ﻿using EnaiumToolKit.Framework.Extensions;
 using EnaiumToolKit.Framework.Screen.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using StardewValley;
@@ -16,7 +17,25 @@ public class GuiScreen : IClickableMenu
     {
         _components.Clear();
         Initialization();
-        ModEntry.GetInstance().Helper.Events.Display.WindowResized += (_, _) => { Initialization(); };
+    }
+
+    public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
+    {
+        Initialization();
+        base.gameWindowSizeChanged(oldBounds, newBounds);
+    }
+
+    private bool _isFirstUpdate;
+
+    public override void update(GameTime time)
+    {
+        if (!_isFirstUpdate)
+        {
+            _isFirstUpdate = true;
+            Initialization();
+        }
+
+        base.update(time);
     }
 
     private void Initialization()
@@ -174,17 +193,17 @@ public class GuiScreen : IClickableMenu
 
     protected void OpenScreenGui(IClickableMenu clickableMenu)
     {
+        if (clickableMenu is GuiScreen { PreviousMenu: null } guiScreen)
+        {
+            guiScreen.PreviousMenu = this;
+        }
+
         if (Game1.activeClickableMenu is TitleMenu)
         {
             TitleMenu.subMenu = clickableMenu;
         }
         else
         {
-            if (clickableMenu is GuiScreen guiScreen)
-            {
-                guiScreen.PreviousMenu = this;
-            }
-
             Game1.activeClickableMenu = clickableMenu;
         }
     }

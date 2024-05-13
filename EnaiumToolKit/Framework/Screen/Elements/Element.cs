@@ -19,13 +19,14 @@ public abstract class Element
     public Action? OnLeftReleased = null;
     public Action? OnRightClicked = null;
 
+    public const int DefaultWidth = 800;
     public const int DefaultHeight = 75;
 
     protected Element(string? title, string? description)
     {
         Title = title;
         Description = description;
-        Width = 800;
+        Width = DefaultWidth;
         Height = DefaultHeight;
         Hovered = false;
         Visibled = true;
