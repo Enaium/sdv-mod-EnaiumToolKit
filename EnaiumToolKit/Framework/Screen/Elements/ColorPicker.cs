@@ -1,5 +1,4 @@
 ﻿using EnaiumToolKit.Framework.Extensions;
-using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -8,13 +7,7 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class ColorPicker : Element
 {
-    [Obsolete] public Color Color;
-
-    public Color Current
-    {
-        get => Color;
-        set => Color = value;
-    }
+    public Color Current { get; set; }
 
     private readonly SliderBar _red = new("Red", null, 0, byte.MaxValue);
 
@@ -23,14 +16,12 @@ public class ColorPicker : Element
     private readonly SliderBar _blue = new("Blue", null, 0, byte.MaxValue);
 
     private readonly SliderBar _alpha = new("Alpha", null, 0, byte.MaxValue);
-
-    [Obsolete] public Action? OnColorChanged = null;
-
+    
     public Action<Color>? OnCurrentChanged = null;
 
     public ColorPicker(string title, string? description, Color color) : base(title, description)
     {
-        Color = color;
+        Current = color;
         _red.Current = color.R;
         _green.Current = color.G;
         _blue.Current = color.B;
@@ -40,7 +31,7 @@ public class ColorPicker : Element
     public override void Render(SpriteBatch b, int x, int y)
     {
         b.Draw(Game1.staminaRect, new Rectangle(x, y, Width, Height),
-            Color = new Color(_red.Current, _green.Current, _blue.Current, _alpha.Current));
+            Current = new Color(_red.Current, _green.Current, _blue.Current, _alpha.Current));
         _red.Width = Width / 2;
         _red.Height = Height / 2;
         _red.Render(b, x, y);
@@ -60,7 +51,6 @@ public class ColorPicker : Element
 
         var change = (int i) =>
         {
-            OnColorChanged?.Invoke();
             OnCurrentChanged?.Invoke(Current);
         };
 

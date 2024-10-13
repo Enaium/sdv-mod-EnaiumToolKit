@@ -11,10 +11,10 @@ public class ComboBox<T> : Element
     private bool _hovered;
     public bool Expanded;
     public List<T> Options = new();
-    public T? Current;
+    public T? Current { get; set; }
     private T? _hoveredOption;
     public Action<T>? OnCurrentChanged;
-    
+
     private readonly string? _description;
 
     public ComboBox(string title, string? description = null) : base(title, description)

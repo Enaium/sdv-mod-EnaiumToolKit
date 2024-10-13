@@ -14,15 +14,7 @@ public class SliderBar : BaseButton
     private readonly int _max;
 
     private bool _dragging;
-
-    [Obsolete]
-    public bool Dragging
-    {
-        get => _dragging;
-        set => _dragging = value;
-    }
-
-    [Obsolete] public Action? OnValueChanged = null;
+    
     public Action<int>? OnCurrentChanged = null;
 
     public SliderBar(string? title, string? description, int min, int max) : base(title, description)
@@ -45,7 +37,6 @@ public class SliderBar : BaseButton
                     _min, _max);
                 if (previous != Current)
                 {
-                    OnValueChanged?.Invoke();
                     OnCurrentChanged?.Invoke(Current);
                     Game1.playSound("shiny4");
                 }

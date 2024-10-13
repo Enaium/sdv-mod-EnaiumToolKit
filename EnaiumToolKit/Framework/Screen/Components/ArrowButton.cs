@@ -8,8 +8,8 @@ namespace EnaiumToolKit.Framework.Screen.Components;
 public class ArrowButton : BaseButton
 {
     public DirectionType Direction = DirectionType.Up;
-    public static readonly int Width = 48;
-    public static readonly int Height = 48;
+    public new const int Width = 48;
+    public new const int Height = 48;
 
     public ArrowButton(int x, int y) : base(null, null, x, y, Width, Height)
     {

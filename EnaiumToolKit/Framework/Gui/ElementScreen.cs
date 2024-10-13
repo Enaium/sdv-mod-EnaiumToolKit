@@ -1,6 +1,5 @@
 ﻿using EnaiumToolKit.Framework.Screen;
 using EnaiumToolKit.Framework.Screen.Elements;
-using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 

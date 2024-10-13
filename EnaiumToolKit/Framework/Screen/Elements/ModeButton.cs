@@ -1,5 +1,4 @@
 ﻿using EnaiumToolKit.Framework.Extensions;
-using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -8,13 +7,7 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class ModeButton : BaseButton
 {
-    [Obsolete] public List<string> modes = new();
-
-    public List<string> Modes
-    {
-        get => modes;
-        set => modes = value;
-    }
+    public List<string> Modes { get; set; } = new();
 
     public string Current;
 
@@ -27,7 +20,7 @@ public class ModeButton : BaseButton
     public override void Render(SpriteBatch b, int x, int y)
     {
         b.DrawButtonTexture(x, y, Width, Height, Hovered ? Color.Wheat : Color.White);
-        b.DrawStringCenter($"{Title}:({GetCurrentIndex() + 1}/{modes.Count}){modes[GetCurrentIndex()]}", x, y, Width,
+        b.DrawStringCenter($"{Title}:({GetCurrentIndex() + 1}/{Modes.Count}){Modes[GetCurrentIndex()]}", x, y, Width,
             Height);
         base.Render(b, x, y);
     }
@@ -36,11 +29,11 @@ public class ModeButton : BaseButton
     {
         try
         {
-            Current = modes[GetCurrentIndex() + 1];
+            Current = Modes[GetCurrentIndex() + 1];
         }
         catch (Exception e)
         {
-            Current = modes.First();
+            Current = Modes.First();
         }
 
         OnCurrentChanged?.Invoke(Current);
@@ -51,11 +44,11 @@ public class ModeButton : BaseButton
     {
         try
         {
-            Current = modes[GetCurrentIndex() - 1];
+            Current = Modes[GetCurrentIndex() - 1];
         }
         catch (Exception e)
         {
-            Current = modes.Last();
+            Current = Modes.Last();
         }
 
         OnCurrentChanged?.Invoke(Current);
@@ -67,7 +60,7 @@ public class ModeButton : BaseButton
     private int GetCurrentIndex()
     {
         var index = 0;
-        foreach (var variable in modes)
+        foreach (var variable in Modes)
         {
             if (variable.Equals(Current))
             {
