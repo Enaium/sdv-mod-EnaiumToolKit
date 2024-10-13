@@ -16,29 +16,16 @@ public class GuiScreen : IClickableMenu
     protected GuiScreen()
     {
         _components.Clear();
-        Initialization();
+        Initializer();
     }
 
     public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds)
     {
-        Initialization();
+        Initializer();
         base.gameWindowSizeChanged(oldBounds, newBounds);
     }
-
-    private bool _isFirstUpdate;
-
-    public override void update(GameTime time)
-    {
-        if (!_isFirstUpdate)
-        {
-            _isFirstUpdate = true;
-            Initialization();
-        }
-
-        base.update(time);
-    }
-
-    private void Initialization()
+    
+    public void Initializer()
     {
         _components.Clear();
         Init();

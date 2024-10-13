@@ -1,5 +1,4 @@
 ﻿using EnaiumToolKit.Framework.Extensions;
-using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -16,8 +15,6 @@ public class ScrollBar : BaseButton
     public int Max { get; set; }
 
     public int Current { get; set; }
-
-    [Obsolete] public Action? OnValueChanged = null;
 
     public Action<int>? OnCurrentChanged = null;
 
@@ -37,9 +34,8 @@ public class ScrollBar : BaseButton
         {
             if (Max - Min != 0)
             {
-                Current = MathHelper.Clamp((Game1.getMouseY() - Y) * (Max - Min) / (Height - blockHeight) + Min,
-                    Min, Max);
-                OnValueChanged?.Invoke();
+                Current = MathHelper.Clamp((Game1.getMouseY() - Y) * (Max - Min) / (Height - blockHeight) + Min, Min,
+                    Max);
                 OnCurrentChanged?.Invoke(Current);
                 if (previous != Current)
                 {

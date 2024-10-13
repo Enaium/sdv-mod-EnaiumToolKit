@@ -1,5 +1,4 @@
 ﻿using EnaiumToolKit.Framework.Extensions;
-using EnaiumToolKit.Framework.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
@@ -9,13 +8,7 @@ namespace EnaiumToolKit.Framework.Screen.Elements;
 
 public class ToggleButton : BaseButton
 {
-    [Obsolete] public bool Toggled;
-
-    public bool Current
-    {
-        get => Toggled;
-        set => Toggled = value;
-    }
+    public bool Current { get; set; }
 
     public Action<bool>? OnCurrentChanged = null;
 
@@ -25,7 +18,7 @@ public class ToggleButton : BaseButton
 
     public override void Render(SpriteBatch b, int x, int y)
     {
-        var color = Toggled ? Color.Green : Color.Red;
+        var color = Current ? Color.Green : Color.Red;
         b.DrawButtonTexture(x, y, Width, Height, color);
         b.DrawStringCenter(Title!, x, y, Width, Height);
         base.Render(b, x, y);
@@ -33,9 +26,9 @@ public class ToggleButton : BaseButton
 
     public override void MouseLeftClicked(int x, int y)
     {
-        Toggled = !Toggled;
-        OnCurrentChanged?.Invoke(Toggled);
-        if (!Toggled)
+        Current = !Current;
+        OnCurrentChanged?.Invoke(Current);
+        if (!Current)
         {
             Game1.playSound("drumkit5");
         }
