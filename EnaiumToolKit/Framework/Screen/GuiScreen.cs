@@ -24,7 +24,7 @@ public class GuiScreen : IClickableMenu
         Initializer();
         base.gameWindowSizeChanged(oldBounds, newBounds);
     }
-    
+
     public void Initializer()
     {
         _components.Clear();
@@ -64,7 +64,7 @@ public class GuiScreen : IClickableMenu
 
         var mouseX = Game1.getMouseX() + 40;
         var mouseY = Game1.getMouseY() + 40;
-        var description = text!;
+        var description = text;
         description = Game1.parseText(description, Game1.dialogueFont, width);
         descriptionWidth = description.Split('\n').Max(s => b.GetStringWidth(s) + 50);
         descriptionHeight += description.Count(c => c == '\n') * b.GetStringHeight(text);
