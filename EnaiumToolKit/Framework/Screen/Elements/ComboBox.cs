@@ -38,7 +38,7 @@ public class ComboBox<T> : Element
         b.DrawComboBoxBackgroundTexture(textureX, textureY, textureWidth, textureHeight);
         b.Draw(Game1.mouseCursors,
             new Vector2(textureX + textureWidth - OptionsDropDown.dropDownButtonSource.Width * 4,
-                textureY + textureHeight / 2 - OptionsDropDown.dropDownButtonSource.Height * 4 / 2),
+                textureY + textureHeight / 2f - OptionsDropDown.dropDownButtonSource.Height * 4 / 2f),
             OptionsDropDown.dropDownButtonSource, Color.Wheat, 0.0f, Vector2.Zero, 4f, SpriteEffects.None, 0.981f);
         var render = Current?.ToString();
         if (!string.IsNullOrWhiteSpace(render))
@@ -62,9 +62,9 @@ public class ComboBox<T> : Element
         if (Expanded)
         {
             b.DrawComboBoxBackgroundTexture(optionsBounds);
-            foreach (var (option, index) in Options.Where(option => !option.Equals(Current)).WithIndex())
+            foreach (var (option, index) in Options.Where(option => !option!.Equals(Current)).WithIndex())
             {
-                var optionRender = option.ToString();
+                var optionRender = option!.ToString()!;
                 var optionY = textureY + textureHeight + textureHeight * index;
                 var optionBounds = new Rectangle(textureX, optionY, textureWidth, textureHeight);
                 if (optionBounds.Contains(Game1.getMouseX(), Game1.getMouseY()))
