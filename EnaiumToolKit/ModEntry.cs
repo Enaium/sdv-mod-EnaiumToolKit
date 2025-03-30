@@ -11,7 +11,6 @@ namespace EnaiumToolKit;
 
 public class ModEntry : Mod
 {
-    public Config Config;
     private static ModEntry _instance;
 
     public ModEntry()
@@ -21,8 +20,6 @@ public class ModEntry : Mod
 
     public override void Entry(IModHelper helper)
     {
-        Config = helper.ReadConfig<Config>();
-
         Game1Patches.Initialize(Monitor);
         Game1Patches.Initialize(Monitor);
         var harmony = new Harmony(ModManifest.UniqueID);
@@ -36,22 +33,6 @@ public class ModEntry : Mod
                 typeof(TitleMenu).GetProperty(nameof(TitleMenu.subMenu))!.GetSetMethod()!.Name),
             postfix: new HarmonyMethod(typeof(TitleMenuPatches), nameof(TitleMenuPatches.SetSubMenu))
         );
-
-        helper.Events.Input.ButtonsChanged += OnButtonChange;
-    }
-
-
-    private void OnButtonChange(object? sender, ButtonsChangedEventArgs e)
-    {
-        if (!Config.OpenScreen.JustPressed()) return;
-        if (Game1.activeClickableMenu is TitleMenu)
-        {
-            TitleMenu.subMenu = new EnaiumToolKitScreen();
-        }
-        else
-        {
-            Game1.activeClickableMenu = new EnaiumToolKitScreen();
-        }
     }
 
     public static ModEntry GetInstance()
